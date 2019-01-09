@@ -5,7 +5,7 @@ import SEO from '../components/seo'
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" keywords={[`pwa`, `carnaval`, `vilanova`]} />
+    <SEO title="Home" keywords={['pwa', 'carnaval', 'vilanova']} />
     <h1>Benvinguts a la PastanagApp</h1>
   </Layout>
 )

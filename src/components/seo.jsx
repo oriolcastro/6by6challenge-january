@@ -6,6 +6,7 @@ import { StaticQuery, graphql } from 'gatsby'
 function SEO({ description, lang, meta, keywords, title }) {
   return (
     <StaticQuery
+      // eslint-disable-next-line no-use-before-define
       query={detailsQuery}
       render={data => {
         const metaDescription =
@@ -74,8 +75,9 @@ SEO.defaultProps = {
 }
 
 SEO.propTypes = {
-  description: PropTypes.string,
+  description: PropTypes.string.isRequired,
   lang: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
   meta: PropTypes.array,
   keywords: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string.isRequired,

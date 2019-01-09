@@ -1,9 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { SheetsRegistry } from 'jss'
-import {
-  createMuiTheme,
-  createGenerateClassName,
-} from '@material-ui/core/styles'
+import { createMuiTheme, createGenerateClassName } from '@material-ui/core/styles'
 import deepPurple from '@material-ui/core/colors/deepPurple'
 import orange from '@material-ui/core/colors/orange'
 
