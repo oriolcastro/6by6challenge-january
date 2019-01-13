@@ -1,3 +1,4 @@
+const proxy = require('http-proxy-middleware')
 const config = require('./src/meta/siteConfig')
 
 module.exports = {
@@ -6,6 +7,19 @@ module.exports = {
     description: config.siteDescription,
     siteUrl: config.siteUrl,
     author: config.userTwitter,
+  },
+  // for avoiding CORS while developing Netlify Functions locally
+  // read more: https://www.gatsbyjs.org/docs/api-proxy/#advanced-proxying
+  developMiddleware: app => {
+    app.use(
+      '/.netlify/functions/',
+      proxy({
+        target: 'http://localhost:9000',
+        pathRewrite: {
+          '/.netlify/functions/': '',
+        },
+      })
+    )
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -26,8 +40,10 @@ module.exports = {
         start_url: config.siteUrl,
         background_color: config.backgroundColor,
         theme_color: config.themeColor,
-        display: 'minimal-ui',
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        gcm_sender_id: '103953800507',
+        display: 'standalone',
+        icon: `src/images/icon.png`,
+        legacy: true,
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

@@ -7,6 +7,6 @@ module.exports = {
   siteUrl: 'https://6by6challenge-january.netlify.com',
   shortTitle: 'Oriol Castro',
   userTwitter: '@oriolcastro_',
-  backgroundColor: '#673AB7', //update
-  themeColor: '#673AB7', //update
+  backgroundColor: '#ffffff',
+  themeColor: '#FF9800',
 }
