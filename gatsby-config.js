@@ -44,6 +44,8 @@ module.exports = {
         display: 'standalone',
         icon: `src/images/icon.png`,
         legacy: true,
+        lang: config.lang,
+        orientation: 'portrait',
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
