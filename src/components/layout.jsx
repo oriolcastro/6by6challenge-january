@@ -2,9 +2,11 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
+import Hidden from '@material-ui/core/Hidden'
 
 import Header from './header'
-import favicon from "../images/favicon.ico"
+import Footer from './footer'
+import favicon from '../images/favicon.ico'
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -15,17 +17,34 @@ const Layout = ({ children }) => (
             title
           }
         }
+        imageSharp(fixed: { originalName: { eq: "icon.png" } }) {
+          fixed(width: 80) {
+            ...GatsbyImageSharpFixed_withWebp
+          }
+        }
       }
     `}
     render={data => (
-      <fragment>
+      <div
+        style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
+      >
         <Helmet>
           <title>{data.site.siteMetadata.title}</title>
           <link rel="shortcut icon" href={favicon} />
         </Helmet>
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <div>{children}</div>
-      </fragment>
+        <Hidden smDown>
+          <Header
+            siteTitle={data.site.siteMetadata.title}
+            siteLogo={data.imageSharp.fixed}
+          />
+        </Hidden>
+        <div style={{ flex: '1', padding: '16px 24px', marginBottom: '32px' }}>
+          {children}
+        </div>
+        <Hidden smDown>
+          <Footer />
+        </Hidden>
+      </div>
     )}
   />
 )

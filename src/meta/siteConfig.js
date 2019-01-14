@@ -9,5 +9,5 @@ module.exports = {
   userTwitter: '@oriolcastro_',
   backgroundColor: '#ffffff',
   themeColor: '#FF9800',
-  lang: 'c-ES',
+  lang: 'ca-ES',
 }
