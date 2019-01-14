@@ -1,7 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 import { SheetsRegistry } from 'jss'
-import { createMuiTheme, createGenerateClassName } from '@material-ui/core/styles'
-import deepPurple from '@material-ui/core/colors/deepPurple'
+import {
+  createMuiTheme,
+  createGenerateClassName,
+} from '@material-ui/core/styles'
+import blue from '@material-ui/core/colors/blue'
 import orange from '@material-ui/core/colors/orange'
 
 // A theme with custom primary and secondary color.
@@ -9,14 +12,14 @@ import orange from '@material-ui/core/colors/orange'
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: deepPurple[300],
-      main: deepPurple[500],
-      dark: deepPurple[700],
-    },
-    secondary: {
       light: orange[300],
       main: orange[500],
       dark: orange[700],
+    },
+    secondary: {
+      light: blue[300],
+      main: blue[500],
+      dark: blue[700],
     },
   },
   typography: {

@@ -3,15 +3,23 @@
 const React = require('react')
 const { renderToString } = require('react-dom/server')
 const JssProvider = require('react-jss/lib/JssProvider').default
+const DateFnsUtils = require('@date-io/date-fns')
+const MuiPickersUtilsProvider = require('material-ui-pickers')
 const getPageContext = require('./src/getPageContext').default
 
 // Mayerial-ui code to replace jss classes
-function replaceRenderer({ bodyComponent, replaceBodyHTMLString, setHeadComponents }) {
+function replaceRenderer({
+  bodyComponent,
+  replaceBodyHTMLString,
+  setHeadComponents,
+}) {
   // Get the context of the page to collected side effects.
   const muiPageContext = getPageContext()
 
   const bodyHTML = renderToString(
-    <JssProvider registry={muiPageContext.sheetsRegistry}>{bodyComponent}</JssProvider>
+    <JssProvider registry={muiPageContext.sheetsRegistry}>
+      {bodyComponent}
+    </JssProvider>
   )
 
   replaceBodyHTMLString(bodyHTML)
@@ -28,3 +36,10 @@ function replaceRenderer({ bodyComponent, replaceBodyHTMLString, setHeadComponen
 }
 
 export default replaceRenderer
+
+// Add provider for the Date Picker
+export const wrapRootElement = ({ element }) => (
+  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    {element}
+  </MuiPickersUtilsProvider>
+)
