@@ -6,7 +6,7 @@ import SignUp from '../components/SignUp/index'
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" keywords={['pwa', 'carnaval', 'vilanova']} />
+    {/* <SEO title="Home" keywords={['pwa', 'carnaval', 'vilanova']} /> */}
     <SignUp />
   </Layout>
 )

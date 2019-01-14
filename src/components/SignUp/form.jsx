@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { InlineDatePicker } from 'material-ui-pickers'
-import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
 class FormikDatePicker extends Component {

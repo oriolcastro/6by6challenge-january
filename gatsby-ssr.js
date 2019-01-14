@@ -1,11 +1,11 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable react/jsx-filename-extension */
-const React = require('react')
-const { renderToString } = require('react-dom/server')
-const JssProvider = require('react-jss/lib/JssProvider').default
-const DateFnsUtils = require('@date-io/date-fns')
-const MuiPickersUtilsProvider = require('material-ui-pickers')
-const getPageContext = require('./src/getPageContext').default
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+import JssProvider from 'react-jss/lib/JssProvider'
+import DateFnsUtils from '@date-io/date-fns'
+import { MuiPickersUtilsProvider } from 'material-ui-pickers'
+import getPageContext from './src/getPageContext'
 
 // Mayerial-ui code to replace jss classes
 function replaceRenderer({
