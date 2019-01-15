@@ -5,7 +5,9 @@ import { renderToString } from 'react-dom/server'
 import JssProvider from 'react-jss/lib/JssProvider'
 import DateFnsUtils from '@date-io/date-fns'
 import { MuiPickersUtilsProvider } from 'material-ui-pickers'
+import { ApolloProvider } from 'react-apollo'
 import getPageContext from './src/getPageContext'
+import { client } from './src/apollo/client'
 
 // Mayerial-ui code to replace jss classes
 function replaceRenderer({
@@ -37,9 +39,12 @@ function replaceRenderer({
 
 export default replaceRenderer
 
+// Wrap the main component with the provedier from Apollo to query the graphql endpoint
 // Add provider for the Date Picker
 export const wrapRootElement = ({ element }) => (
-  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-    {element}
-  </MuiPickersUtilsProvider>
+  <ApolloProvider client={client}>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      {element}
+    </MuiPickersUtilsProvider>
+  </ApolloProvider>
 )
