@@ -1,51 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import { InlineDatePicker } from 'material-ui-pickers'
-import MenuItem from '@material-ui/core/MenuItem'
+import { Query } from 'react-apollo'
 
-class FormikDatePicker extends Component {
-  handleChange = value => {
-    this.props.onChange('birthday', value)
-  }
-  handleBlur = () => {
-    this.props.onBlur('birthday', true)
-  }
-  render() {
-    return (
-      <InlineDatePicker
-        id="birthday"
-        label="Data de naixement"
-        format="dd/MM/yyyy"
-        onChange={this.handleChange}
-        onBlur={this.handleBlur}
-        value={this.props.value}
-        keyboard
-        disableFuture
-        openToYearSelection
-        variant="outlined"
-        required
-        margin="normal"
-        fullWidth
-      />
-    )
-  }
-}
-// TODO: Passar el array d'entitats des del parent component un cop feta query a Hasura
-const entitats = [
-  {
-    value: 'La Unió',
-    label: 'La Unió',
-  },
-  {
-    value: 'Talaia',
-    label: 'Talaia',
-  },
-  {
-    value: 'Agrupa',
-    label: 'Agrupa',
-  },
-]
+import { GET_TEAMS } from '../../apollo/queries'
+import CustomSelect from './customSelect'
+import CustomDatePicker from './customDatePicker'
 
 const Form = props => {
   const {
@@ -157,32 +117,32 @@ const Form = props => {
           margin="normal"
           required
         />
-        <FormikDatePicker
+        <CustomDatePicker
           name="birthday"
           value={birthday}
           onChange={setFieldValue}
           onBlur={setFieldTouched}
         />
-        <TextField
-          id="team"
-          select
-          name="team"
-          value={team}
-          helperText={touched.team ? errors.team : ''}
-          error={touched.team && Boolean(errors.team)}
-          onChange={change.bind(null, 'team')}
-          label="Entitat"
-          fullWidth
-          variant="outlined"
-          margin="normal"
-          required
-        >
-          {entitats.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+
+        <Query query={GET_TEAMS}>
+          {({ loading, error, data }) => {
+            if (loading) return null
+            if (error) return `Error: ${error}`
+            const teams = data.teams.map(t => ({
+              value: t.name,
+              label: t.name,
+            }))
+            return (
+              <CustomSelect
+                options={teams}
+                name="team"
+                value={team}
+                onChange={setFieldValue}
+                onBlur={setFieldTouched}
+              />
+            )
+          }}
+        </Query>
         <TextField
           id="password"
           name="password"
