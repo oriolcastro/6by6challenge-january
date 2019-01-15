@@ -3,6 +3,7 @@ import React from 'react'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import SignUp from '../components/SignUp/index'
+import withRoot from '../withRoot'
 
 const IndexPage = () => (
   <Layout>
@@ -11,4 +12,4 @@ const IndexPage = () => (
   </Layout>
 )
 
-export default IndexPage
+export default withRoot(IndexPage)

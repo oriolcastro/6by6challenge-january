@@ -10,8 +10,8 @@ import Form from './form'
 const styles = theme => ({
   root: {
     marginTop: theme.spacing.unit * 8,
-    padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 5}px ${theme
-      .spacing.unit * 5}px`,
+    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px ${theme
+      .spacing.unit * 3}px`,
   },
 })
 
