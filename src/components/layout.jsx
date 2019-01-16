@@ -2,7 +2,6 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
-import Hidden from '@material-ui/core/Hidden'
 
 import Header from './header'
 import Footer from './footer'
@@ -32,18 +31,21 @@ const Layout = ({ children }) => (
           <title>{data.site.siteMetadata.title}</title>
           <link rel="shortcut icon" href={favicon} />
         </Helmet>
-        <Hidden smDown>
-          <Header
-            siteTitle={data.site.siteMetadata.title}
-            siteLogo={data.imageSharp.fixed}
-          />
-        </Hidden>
-        <div style={{ flex: '1', padding: '16px 24px', marginBottom: '32px' }}>
+        <Header
+          siteTitle={data.site.siteMetadata.title}
+          siteLogo={data.imageSharp.fixed}
+        />
+        <div
+          style={{
+            flex: '1',
+            padding: '16px 24px',
+            marginBottom: '32px',
+            paddingTop: '72px',
+          }}
+        >
           {children}
         </div>
-        <Hidden smDown>
-          <Footer />
-        </Hidden>
+        <Footer />
       </div>
     )}
   />
