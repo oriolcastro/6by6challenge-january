@@ -71,3 +71,6 @@ yarn-error.log
 
 # VS Code files
 .vscode
+
+#Netlify Functions local
+/lambda
