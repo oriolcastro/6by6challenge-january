@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import Paper from '@material-ui/core/Paper'
-import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
@@ -128,6 +127,7 @@ function ValueContainer(props) {
     </div>
   )
 }
+
 function Menu(props) {
   return (
     <Paper
@@ -158,8 +158,7 @@ class CustomSelect extends Component {
     this.props.onBlur('team', true)
   }
   render() {
-    const { classes, theme, options } = this.props
-
+    const { classes, theme, options, value } = this.props
     const selectStyles = {
       input: base => ({
         ...base,
@@ -176,13 +175,11 @@ class CustomSelect extends Component {
         options={options}
         components={components}
         id="team"
-        label="Entitat"
+        placeholder="Entitat"
         name="team"
-        value={this.props.value.value}
+        value={value.value}
         onChange={this.handleChange}
         onBlur={this.handleBlur}
-        placeholder="Entitat"
-        isSearchable
       />
     )
   }

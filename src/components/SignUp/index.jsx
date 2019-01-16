@@ -43,77 +43,57 @@ class SignUp extends Component {
     super(props)
     this.state = {
       playerSignedUp: false,
-      values: {
-        name: '',
-        firstSurname: '',
-        secondSurname: '',
-        mobile: '',
-        email: '',
-        birthday: new Date(),
-        team: '',
-        password: '',
-        confirmPassword: '',
-      },
     }
   }
-
-  submitForm = ({
-    name,
-    firstSurname,
-    secondSurname,
-    mobile,
-    email,
-    birthday,
-    team,
-    password,
-  }) => {
+  submitForm = (values, { resetForm }) => {
     const payload = {
-      name: name,
-      firstSurname: firstSurname,
-      secondSurname: secondSurname,
-      mobile: mobile,
-      email: email,
-      birthday: birthday,
-      team: team,
-      password: password,
+      name: values.name,
+      firstSurname: values.firstSurname,
+      secondSurname: values.secondSurname,
+      mobile: values.mobile,
+      email: values.email,
+      birthday: values.birthday,
+      team: values.team,
+      password: values.password,
     }
     console.log(payload)
+
     axios
       .post('.netlify/functions/signupplayer', {
         payload,
       })
-      .then(function(response) {
+      .then(response => {
         console.log(response.data)
+        resetForm()
+        this.setState({
+          playerSignedUp: true,
+        })
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log(error)
       })
-    this.setState({
-      values: {
-        name: '',
-        firstSurname: '',
-        secondSurname: '',
-        mobile: '',
-        email: '',
-        birthday: new Date(),
-        team: '',
-        password: '',
-        confirmPassword: '',
-      },
-      playerSignedUp: true,
-    })
     console.log('Form submited')
   }
 
   render() {
     const { classes } = this.props
-    const { values, playerSignedUp } = this.state
-
+    const { playerSignedUp } = this.state
+    const values = {
+      name: '',
+      firstSurname: '',
+      secondSurname: '',
+      mobile: '',
+      email: '',
+      birthday: new Date(),
+      team: '',
+      password: '',
+      confirmPassword: '',
+    }
     return (
       <>
-        <div style={{ maxWidth: '600px', margin: 'auto' }}>
+        <div style={{ maxWidth: '600px', margin: 'auto' }} id="SignupForm">
           <Paper classes={{ root: classes.root }}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h5" gutterBottom>
               Formulari d'inscripció
             </Typography>
             <Formik

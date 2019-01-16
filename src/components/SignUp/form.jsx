@@ -160,9 +160,9 @@ const Form = props => {
         />
         <Button
           type="submit"
-          fullWidth
           variant="contained"
           color="primary"
+          fullWidth
           disabled={!isValid}
         >
           Envia

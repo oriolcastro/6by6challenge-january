@@ -2,11 +2,13 @@
 require('dotenv').config()
 const axios = require('axios')
 
+//Env variables
 const accessKey = process.env.GATSBY_HASURA_GRAPHQL_ACCESS_KEY
 const hgeEndpoint = process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT
 const auth0Domain = process.env.AUTH0_DOMAIN
 const auth0ClientId = process.env.AUTH0_CLIENT_ID
 
+//Query for the mutation that adds the new player to its team.
 const ASSIGN_TEAM = `
   mutation update_teams($name: String!) {
     update_teams(where: { name: { _eq: $name } }, _inc: { num_players: 1 }) {
@@ -16,6 +18,7 @@ const ASSIGN_TEAM = `
     }
   }
 `
+//Query for the mutation that adds the new player.
 const CREATE_PLAYER = `
 mutation insert_players($name: String!, $firstSurname: String!, $secondSurname: String!, $mobile: String!, $email: String!, $birthday: date!, $team_id: Int!) {
   insert_players(objects: [{name: $name, firstSurname: $firstSurname, secondSurname: $secondSurname, mobile: $mobile, email: $email, birthday: $birthday, team_id: $team_id}]) {
@@ -25,7 +28,7 @@ mutation insert_players($name: String!, $firstSurname: String!, $secondSurname: 
   }
 }
 `
-
+//Main lambda function
 exports.handler = async event => {
   // -- We only care to do anything if this is our POST request.
   if (event.httpMethod !== 'POST' || !event.body) {
@@ -101,10 +104,13 @@ exports.handler = async event => {
       },
     })
 
-    console.log('This is the response from Auth0:' + JSON.stringify(resAuth0))
+    console.log('User created in Auth0')
   } catch (err) {
-    console.log(err)
-    return err
+    console.log(err.data.description)
+    return {
+      statusCode: 500,
+      body: JSON.stringify(err.data.description),
+    }
   }
   const responseBody = {
     status: 'User created',
