@@ -4,8 +4,10 @@ import Paper from '@material-ui/core/Paper'
 import { withStyles } from '@material-ui/core/styles'
 import { string, object, ref } from 'yup'
 import Typography from '@material-ui/core/Typography'
+import axios from 'axios'
 
 import Form from './form'
+import SignupNotification from './notification'
 
 const styles = theme => ({
   root: {
@@ -39,6 +41,20 @@ const validationSchema = object({
 class SignUp extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      playerSignedUp: false,
+      values: {
+        name: '',
+        firstSurname: '',
+        secondSurname: '',
+        mobile: '',
+        email: '',
+        birthday: new Date(),
+        team: '',
+        password: '',
+        confirmPassword: '',
+      },
+    }
   }
 
   submitForm = ({
@@ -47,28 +63,52 @@ class SignUp extends Component {
     secondSurname,
     mobile,
     email,
-    city,
     birthday,
     team,
     password,
   }) => {
+    const payload = {
+      name: name,
+      firstSurname: firstSurname,
+      secondSurname: secondSurname,
+      mobile: mobile,
+      email: email,
+      birthday: birthday,
+      team: team,
+      password: password,
+    }
+    console.log(payload)
+    axios
+      .post('.netlify/functions/signupplayer', {
+        payload,
+      })
+      .then(function(response) {
+        console.log(response.data)
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+    this.setState({
+      values: {
+        name: '',
+        firstSurname: '',
+        secondSurname: '',
+        mobile: '',
+        email: '',
+        birthday: new Date(),
+        team: '',
+        password: '',
+        confirmPassword: '',
+      },
+      playerSignedUp: true,
+    })
     console.log('Form submited')
   }
 
   render() {
     const { classes } = this.props
-    const values = {
-      name: '',
-      firstSurname: '',
-      secondSurname: '',
-      mobile: '',
-      email: '',
-      city: '',
-      birthday: new Date(),
-      team: '',
-      password: '',
-      confirmPassword: '',
-    }
+    const { values, playerSignedUp } = this.state
+
     return (
       <>
         <div style={{ maxWidth: '600px', margin: 'auto' }}>
@@ -83,6 +123,7 @@ class SignUp extends Component {
               onSubmit={this.submitForm}
             />
           </Paper>
+          <SignupNotification open={playerSignedUp} />
         </div>
       </>
     )

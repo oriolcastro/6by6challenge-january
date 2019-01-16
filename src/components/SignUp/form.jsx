@@ -15,7 +15,6 @@ const Form = props => {
       secondSurname,
       mobile,
       email,
-      city,
       birthday,
       team,
       password,
@@ -104,19 +103,7 @@ const Form = props => {
           margin="normal"
           required
         />
-        <TextField
-          id="city"
-          name="city"
-          helperText={touched.city ? errors.city : ''}
-          error={touched.city && Boolean(errors.city)}
-          value={city}
-          onChange={change.bind(null, 'city')}
-          label="Població"
-          fullWidth
-          variant="outlined"
-          margin="normal"
-          required
-        />
+
         <CustomDatePicker
           name="birthday"
           value={birthday}
