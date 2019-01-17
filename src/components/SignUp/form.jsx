@@ -2,7 +2,9 @@ import React from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { Query } from 'react-apollo'
-
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import Typography from '@material-ui/core/Typography'
 import { GET_TEAMS } from '../../apollo/queries'
 import CustomSelect from './customSelect'
 import CustomDatePicker from './customDatePicker'
@@ -19,6 +21,7 @@ const Form = props => {
       team,
       password,
       confirmPassword,
+      privacyCheckbox,
     },
     errors,
     touched,
@@ -103,14 +106,12 @@ const Form = props => {
           margin="normal"
           required
         />
-
         <CustomDatePicker
           name="birthday"
           value={birthday}
           onChange={setFieldValue}
           onBlur={setFieldTouched}
         />
-
         <Query query={GET_TEAMS}>
           {({ loading, error, data }) => {
             if (loading) return null
@@ -158,6 +159,26 @@ const Form = props => {
           margin="normal"
           required
         />
+        <FormControlLabel
+          id="privacyCheckbox"
+          name="privacyCheckbox"
+          control={
+            <Checkbox
+              id="privacyCheckbox"
+              name="privacyCheckbox"
+              type="checkbox"
+              error={touched.privacyCheckbox && Boolean(errors.privacyCheckbox)}
+              onChange={change.bind(null, 'privacyCheckbox')}
+              helperText={touched.privacyCheckbox ? errors.privacyCheckbox : ''}
+              value={privacyCheckbox}
+              color="primary"
+              required
+            />
+          }
+          label="Acccepto la política de privacitat"
+          required
+        />
+
         <Button
           type="submit"
           variant="contained"

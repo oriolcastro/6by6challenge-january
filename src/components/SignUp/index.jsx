@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Formik } from 'formik'
 import Paper from '@material-ui/core/Paper'
 import { withStyles } from '@material-ui/core/styles'
-import { string, object, ref } from 'yup'
+import { string, object, ref, boolean, date } from 'yup'
 import Typography from '@material-ui/core/Typography'
 import axios from 'axios'
 
@@ -14,6 +14,11 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 8,
     padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px ${theme
       .spacing.unit * 3}px`,
+    marginBottom: theme.spacing.unit * 5,
+  },
+  privacyPolicy: {
+    fontSize: '0.8rem',
+    whiteSpace: 'pre-wrap',
   },
 })
 
@@ -30,12 +35,17 @@ const validationSchema = object({
   email: string('Introdueix el teu correu electrònic')
     .email('Introdueix un correu electrònic vàlid')
     .required('El correu electrònic és necessari'),
+  birthday: date().min(
+    '2003-03-25',
+    'Per participar al joc has de tenir 16 anys'
+  ),
   password: string('')
     .min(8, 'La contrasenya ha de tenir com a mínim 8 caràcters')
     .required('Introdueix una contrasenya'),
   confirmPassword: string('Introdueix la contrasenya')
     .required('Confirma la teva contrasenya')
     .oneOf([ref('password')], 'Les dues contrasenyes no coincideixen'),
+  privacyCheckbox: boolean().oneOf([true], 'Must Accept Terms and Conditions'),
 })
 
 class SignUp extends Component {
@@ -84,10 +94,11 @@ class SignUp extends Component {
       secondSurname: '',
       mobile: '',
       email: '',
-      birthday: new Date(),
+      birthday: new Date('2003-02-25'),
       team: '',
       password: '',
       confirmPassword: '',
+      privacyCheckbox: false,
     }
     return (
       <>
@@ -103,6 +114,23 @@ class SignUp extends Component {
               onSubmit={this.submitForm}
             />
           </Paper>
+          <Typography variant="subtitle1">Política de privacitat</Typography>
+          <Typography
+            variant="body2"
+            align="justify"
+            classes={{ body2: classes.privacyPolicy }}
+          >
+            <b>Responsable:</b> La Unió Vilanovina és la responsable del
+            tractament d'aquestes dades.{'\n'}
+            <b>Finalitat:</b> Les dades seran utilitzades només per allò relatiu
+            al joc de La Pastanaga del Rei.{'\n'}
+            <b>Destinataris:</b> Les dades no seran cedides a tercers en cap
+            cas.{'\n'}
+            <b>Legitimació:</b> L'usuari expressa el seu consentiment en marcar
+            les caselles del formulari.{'\n'}
+            <b>Drets:</b> Podeu exercir els vostres drets d'accés, rectificació,
+            limitació o supressió de les dades a lapastanagadelrei@gmail.com.
+          </Typography>
           <SignupNotification open={playerSignedUp} />
         </div>
       </>

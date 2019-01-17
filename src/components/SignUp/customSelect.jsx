@@ -67,6 +67,7 @@ function Control(props) {
       fullWidth
       variant="outlined"
       margin="normal"
+      helperText="Busca la teva entitat"
       InputProps={{
         inputComponent,
         inputProps: {

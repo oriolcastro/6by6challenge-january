@@ -9,17 +9,17 @@ class CustomDatePicker extends Component {
     this.props.onBlur('birthday', true)
   }
   render() {
-    // TODO: incloure data minim per a que tinguin 16 anys al 2019
     return (
       <InlineDatePicker
         id="birthday"
         label="Data de naixement"
         format="dd/MM/yyyy"
+        maxDate="2003-02-25"
+        helperText="Per participar al joc has de tenir mínim 16 anys."
         onChange={this.handleChange}
         onBlur={this.handleBlur}
         value={this.props.value}
         keyboard
-        disableFuture
         openToYearSelection
         variant="outlined"
         required
