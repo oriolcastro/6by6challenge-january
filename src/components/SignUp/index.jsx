@@ -35,7 +35,7 @@ const validationSchema = object({
   email: string('Introdueix el teu correu electrònic')
     .email('Introdueix un correu electrònic vàlid')
     .required('El correu electrònic és necessari'),
-  birthday: date().min(
+  birthday: date().max(
     '2003-03-25',
     'Per participar al joc has de tenir 16 anys'
   ),

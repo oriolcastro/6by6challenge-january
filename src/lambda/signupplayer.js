@@ -100,6 +100,7 @@ exports.handler = async event => {
         client_id: auth0ClientId,
         email: email,
         password: password,
+        user_metadata: { name: name },
         connection: 'Username-Password-Authentication',
       },
     })

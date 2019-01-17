@@ -162,21 +162,20 @@ const Form = props => {
         <FormControlLabel
           id="privacyCheckbox"
           name="privacyCheckbox"
+          // error={touched.privacyCheckbox && Boolean(errors.privacyCheckbox)}
           control={
             <Checkbox
               id="privacyCheckbox"
               name="privacyCheckbox"
               type="checkbox"
-              error={touched.privacyCheckbox && Boolean(errors.privacyCheckbox)}
+              checked={privacyCheckbox}
               onChange={change.bind(null, 'privacyCheckbox')}
-              helperText={touched.privacyCheckbox ? errors.privacyCheckbox : ''}
-              value={privacyCheckbox}
+              value="privacyCheckbox"
               color="primary"
               required
             />
           }
           label="Acccepto la política de privacitat"
-          required
         />
 
         <Button
