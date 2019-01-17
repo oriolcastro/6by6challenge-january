@@ -6,11 +6,11 @@ const Footer = () => (
   <div
     style={{
       textAlign: 'center',
-      backgroundColor: '#EEEEEE',
+      backgroundColor: '#212121',
       padding: '8px',
     }}
   >
-    <Typography>
+    <Typography style={{ color: '#ffffff' }}>
       Fet amb <Favorite fontSize="inherit" color="error" /> a Vilanova i la
       Geltrú per{' '}
       <a

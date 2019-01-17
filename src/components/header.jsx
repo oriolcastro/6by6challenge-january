@@ -26,16 +26,17 @@ const Header = ({ siteTitle, siteLogo, classes }) => (
     {/* Desktop header */}
     <Hidden smDown>
       <div style={{ margin: '16px' }}>
-        <Grid container justify="space-between" alignItems="center">
+        <Grid container justify="center">
           <Grid item>
-            <Img fixed={siteLogo} />{' '}
+            <Link to="/" />
+            {siteLogo ? (
+              <Img fixed={siteLogo} />
+            ) : (
+              <Typography color="primary" variant="h2">
+                {siteTitle}
+              </Typography>
+            )}
           </Grid>
-          <Grid item>
-            <Typography color="primary" variant="h2">
-              <Link to="/">{siteTitle}</Link>
-            </Typography>
-          </Grid>
-          <Grid item />
         </Grid>
       </div>
     </Hidden>

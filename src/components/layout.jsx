@@ -17,8 +17,8 @@ const Layout = ({ children }) => (
           }
         }
         imageSharp(fixed: { originalName: { eq: "icon.png" } }) {
-          fixed(width: 80) {
-            ...GatsbyImageSharpFixed_withWebp
+          fixed(width: 128) {
+            ...GatsbyImageSharpFixed_withWebp_tracedSVG
           }
         }
       }

@@ -64,7 +64,7 @@ const LandingHero = () => (
             query HeroQuery {
               imageSharp(fixed: { originalName: { eq: "hero.jpg" } }) {
                 fluid(maxWidth: 600) {
-                  ...GatsbyImageSharpFluid_withWebp
+                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
                 }
               }
             }
