@@ -16,45 +16,47 @@ const LandingHero = () => (
         </Typography>
         <Typography variant="body2" align="justify" paragraph>
           L'any passat ja vàrem fer les inscripcions de forma telemàtica però
-          aquest any anem més enllà. Estem preparant una sorpresa que farà el
-          joc molt més interactiu i interessant. De moment podeu fer la
-          inscripció i donar-vos d'alta com usuaris de la web a través del
-          formulari. Per tal que tot funcioni heu de ser conscients que si us
-          inscriviu, haureu de venir a buscar el material els dies indicats, de
-          no ser així quedareu automàticament eliminats del joc.
+          aquest any anem un pas més enllà. Estem preparant una sorpresa que
+          farà el joc molt més interactiu. De moment podeu fer la inscripció i
+          donar-vos d'alta com usuaris de la web a través del formulari. Per tal
+          que tot funcioni heu de ser conscients que si us inscriviu, haureu de
+          venir a buscar el material els dies indicats, de no ser així quedareu
+          automàticament eliminats del joc.
         </Typography>
         <List>
           <ListItem divider>
             <ListItemText
               primaryTypographyProps={{ variant: 'body2', align: 'justify' }}
             >
-              RECOLLIDA DEL MATERIAL: X i X de febrer de 19 a 21h al local de la
-              Unió Vilanovina (Plaça del Pou, 4, de Vilanova i la Geltrú) S'ha
-              de presentar el DNI o una autorització en cas de recollir el
-              material d'una altra persona.
+              <strong>RECOLLIDA DEL MATERIAL:</strong> dies 20, 21 i 22 de
+              febrer de 19 a 21h al local de la Unió Vilanovina (Plaça del Pou,
+              4, de Vilanova i la Geltrú) S'ha de presentar el DNI o una
+              autorització en cas de recollir el material d'una altra persona.
             </ListItemText>
           </ListItem>
           <ListItem divider>
             <ListItemText primaryTypographyProps={{ variant: 'body2' }}>
-              PREU: 2€ (a pagar al recollir del material)
+              <strong>PREU:</strong> 2€ (a pagar en el moment de recollir el
+              material)
             </ListItemText>
           </ListItem>
           <ListItem divider>
             <ListItemText primaryTypographyProps={{ variant: 'body2' }}>
-              INICI del joc: X de febrer.
+              <strong>INICI del joc:</strong> dijous 28 de febrer a les 00.01 h.
             </ListItemText>
           </ListItem>
           <ListItem>
             <ListItemText primaryTypographyProps={{ variant: 'body2' }}>
-              CLOENDA del joc: XX de març al local de la Unió Vilanovina.
+              <strong>CLOENDA del joc:</strong> 6 de març al local de la Unió
+              Vilanovina.
             </ListItemText>
           </ListItem>
         </List>
         <Typography variant="body2" align="justify">
           Per qualsevol dubte us podeu posar en contacte amb l'organització del
           joc a travès del correu{' '}
-          <a href="mailto:lapastanagadelrei@gmail.com">
-            lapastanagadelrei@gmail.com
+          <a href="mailto:contacte@lapastanagadelrei.cat">
+            contacte@lapastanagadelrei.cat
           </a>
         </Typography>
       </Grid>

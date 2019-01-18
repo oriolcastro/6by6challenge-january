@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField'
 import { Query } from 'react-apollo'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import Typography from '@material-ui/core/Typography'
+
 import { GET_TEAMS } from '../../apollo/queries'
 import CustomSelect from './customSelect'
 import CustomDatePicker from './customDatePicker'
