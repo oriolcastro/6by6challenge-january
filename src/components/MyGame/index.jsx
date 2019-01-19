@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { isAuthenticated } from '../../utils/auth'
 
-import { LoginComponent } from './login'
+import LoginComponent from './login'
 
-export class MyGame extends Component {
+class MyGame extends Component {
   constructor(props) {
     super(props)
     this.state = { authenticated: false }
@@ -24,3 +24,5 @@ export class MyGame extends Component {
     )
   }
 }
+
+export default MyGame

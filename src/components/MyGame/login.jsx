@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { Login } from '../../utils/auth'
 
-export const LoginComponent = () => (
+const LoginComponent = () => (
   <>
     <Typography variant="h5" paragraph>
       Pàgina només visibles per a jugadors registrats.
@@ -17,3 +17,5 @@ export const LoginComponent = () => (
     </Button>
   </>
 )
+
+export default LoginComponent

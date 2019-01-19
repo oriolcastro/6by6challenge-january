@@ -8,6 +8,7 @@ module.exports = {
     description: config.siteDescription,
     siteUrl: config.siteUrl,
     author: config.userTwitter,
+    lang: config.lang,
   },
   // for avoiding CORS while developing Netlify Functions locally
   // read more: https://www.gatsbyjs.org/docs/api-proxy/#advanced-proxying
