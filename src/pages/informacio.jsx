@@ -7,7 +7,7 @@ import Layout from '../components/layout'
 const InfoPage = () => (
   <Layout>
     <Typography variant="h5">
-      Pàgina amb informació sobre el joc i l'aplicació
+      Pàgina amb informació sobre el joc i l'aplicació.
     </Typography>
   </Layout>
 )
