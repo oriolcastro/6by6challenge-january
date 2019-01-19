@@ -2,35 +2,32 @@ import React, { Component } from 'react'
 import { navigate } from 'gatsby'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { handleAuthentication } from '../utils/auth'
+import withRoot from '../withRoot'
 
 class Callback extends Component {
   componentDidMount() {
     handleAuthentication()
     setTimeout(() => {
-      navigate('/')
-    }, 1500)
+      navigate('/elmeujoc')
+    }, 1000)
   }
 
   render() {
     return (
       <div
         style={{
-          position: 'absolute',
           display: 'flex',
           justifyContent: 'center',
-          height: '98vh',
-          width: '98vw',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
+          alignItems: 'center',
+          height: '100vh',
+          width: '100vw',
           backgroundColor: 'white',
         }}
       >
-        <CircularProgress />
+        <CircularProgress color="primary" />
       </div>
     )
   }
 }
 
-export default Callback
+export default withRoot(Callback)

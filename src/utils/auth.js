@@ -60,7 +60,6 @@ export const handleAuthentication = callback => {
   auth0.parseHash((err, authResult) => {
     if (authResult && authResult.accessToken && authResult.idToken) {
       setSession(authResult)
-      callback()
     } else if (err) {
       console.error(err)
     }
