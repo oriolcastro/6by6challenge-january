@@ -8,9 +8,9 @@ import LandingHero from '../components/landingHero'
 
 const IndexPage = () => (
   <Layout>
-    {/* <SEO title="Home" keywords={['pwa', 'carnaval', 'vilanova']} /> */}
-    <LandingHero />
-    <SignUp />
+      {/* <SEO title="Home" keywords={['pwa', 'carnaval', 'vilanova']} /> */}
+      <LandingHero />
+      <SignUp />
   </Layout>
 )
 
