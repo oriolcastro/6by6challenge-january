@@ -9,8 +9,10 @@ import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Hidden from '@material-ui/core/Hidden'
-
 import AnchorLink from 'react-anchor-link-smooth-scroll'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import IconButton from '@material-ui/core/IconButton'
+import { isAuthenticated, Login } from '../utils/auth'
 
 const styles = {
   root: {
@@ -21,42 +23,51 @@ const styles = {
   },
 }
 
-const Header = ({ siteTitle, siteLogo, classes }) => (
-  <>
-    {/* Desktop header */}
-    <Hidden smDown>
-      <div style={{ margin: '16px' }}>
-        <Grid container justify="center">
-          <Grid item>
-            <Link to="/" />
-            {siteLogo ? (
-              <Img fixed={siteLogo} />
-            ) : (
-              <Typography color="primary" variant="h2">
+const Header = ({ siteTitle, siteLogo, classes }) => {
+  const authenticated = isAuthenticated()
+
+  return (
+    <>
+      {/* Desktop header */}
+      <Hidden smDown>
+        <div style={{ margin: '16px' }}>
+          <Grid container justify="center">
+            <Grid item>
+              <Link to="/" />
+              {siteLogo ? (
+                <Img fixed={siteLogo} />
+              ) : (
+                <Typography color="primary" variant="h2">
+                  {siteTitle}
+                </Typography>
+              )}
+            </Grid>
+          </Grid>
+        </div>
+      </Hidden>
+      {/* Mobile header */}
+      <Hidden mdUp>
+        <div>
+          <AppBar>
+            <Toolbar>
+              <Typography variant="h6" color="inherit" className={classes.grow}>
                 {siteTitle}
               </Typography>
-            )}
-          </Grid>
-        </Grid>
-      </div>
-    </Hidden>
-    {/* Mobile header */}
-    <Hidden mdUp>
-      <div className={classes.root}>
-        <AppBar>
-          <Toolbar>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
-              {siteTitle}
-            </Typography>
-            <AnchorLink href="#SignupForm" offset="120px">
-              <Button>Inscriu-te</Button>
-            </AnchorLink>
-          </Toolbar>
-        </AppBar>
-      </div>
-    </Hidden>
-  </>
-)
+              {!authenticated && (
+                <Button onClick={() => Login()}>Inicia la sessió</Button>
+              )}
+              {authenticated && (
+                <IconButton>
+                  <AccountCircle />
+                </IconButton>
+              )}
+            </Toolbar>
+          </AppBar>
+        </div>
+      </Hidden>
+    </>
+  )
+}
 
 Header.propTypes = {
   siteTitle: PropTypes.string.isRequired,
