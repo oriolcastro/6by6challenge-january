@@ -1,5 +1,5 @@
 const proxy = require('http-proxy-middleware')
-const config = require('./src/meta/siteConfig')
+const config = require('./src/utils/siteConfig')
 require('dotenv').config()
 
 module.exports = {

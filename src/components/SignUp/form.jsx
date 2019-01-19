@@ -5,7 +5,7 @@ import { Query } from 'react-apollo'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import Typography from '@material-ui/core/Typography'
-import { GET_TEAMS } from '../../apollo/queries'
+import { GET_TEAMS } from '../../utils/queries'
 import CustomSelect from './customSelect'
 import CustomDatePicker from './customDatePicker'
 
