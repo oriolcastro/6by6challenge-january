@@ -9,6 +9,29 @@ import { ApolloProvider } from 'react-apollo'
 import getPageContext from './src/getPageContext'
 import { client } from './src/utils/apolloClient'
 
+import Layout from './src/components/Layout'
+import withRoot from './src/withRoot'
+
+const WithRoot = withRoot(props => props.children)
+
+// Wrap with the WithRoot component from Material-ui
+// Wrap the main component with the provedier from Apollo to query the graphql endpoint
+// Add provider for the Date Picker
+export const wrapRootElement = ({ element }) => (
+  <WithRoot>
+    <ApolloProvider client={client}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        {element}
+      </MuiPickersUtilsProvider>
+    </ApolloProvider>
+  </WithRoot>
+)
+
+// Wrap page element with the Layout component to use page transitions
+export const wrapPageElement = ({ element, props }) => (
+  <Layout {...props}>{element}</Layout>
+)
+
 // Mayerial-ui code to replace jss classes
 function replaceRenderer({
   bodyComponent,
@@ -38,13 +61,3 @@ function replaceRenderer({
 }
 
 export default replaceRenderer
-
-// Wrap the main component with the provedier from Apollo to query the graphql endpoint
-// Add provider for the Date Picker
-export const wrapRootElement = ({ element }) => (
-  <ApolloProvider client={client}>
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      {element}
-    </MuiPickersUtilsProvider>
-  </ApolloProvider>
-)

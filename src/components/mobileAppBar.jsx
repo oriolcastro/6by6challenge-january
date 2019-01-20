@@ -44,7 +44,7 @@ class MobileAppBar extends Component {
     const open = Boolean(anchorEl)
 
     return (
-      <AppBar>
+      <AppBar color="primary">
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {siteTitle}
@@ -52,6 +52,9 @@ class MobileAppBar extends Component {
           {!authenticated && (
             <Button onClick={() => Login()}>Inicia la sessió</Button>
           )}
+
+          {/* Because we added the Layout over the pages to implement transitions now the Appbar does not re-render and  so the display of auth not-auth does not work */}
+          {/* Check how pass props betwean Layout and page component */}
           {authenticated && (
             <>
               <IconButton

@@ -3,13 +3,27 @@ import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
 import Hidden from '@material-ui/core/Hidden'
+import posed, { PoseGroup } from 'react-pose'
 
-import Header from './header'
-import Footer from './footer'
+import Header from './Header'
+import Footer from './Footer'
 import favicon from '../images/favicon.ico'
-import Navigation from './navigation'
+import Navigation from './Navigation'
 
-const Layout = ({ children }) => (
+const transitionDuration = 200
+const transitionDelay = 250
+
+const Transition = posed.div({
+  enter: {
+    opacity: 1,
+    transition: { duration: transitionDuration },
+    delay: transitionDelay,
+    beforeChildren: true,
+  },
+  exit: { opacity: 0, transition: { duration: transitionDuration } },
+})
+
+const Layout = ({ children, ...props }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -33,10 +47,14 @@ const Layout = ({ children }) => (
           <title>{data.site.siteMetadata.title}</title>
           <link rel="shortcut icon" href={favicon} />
         </Helmet>
+
+        {/* Header section */}
         <Header
           siteTitle={data.site.siteMetadata.title}
           siteLogo={data.imageSharp.fixed}
         />
+
+        {/* Main page content */}
         <div
           style={{
             flex: '1',
@@ -45,12 +63,16 @@ const Layout = ({ children }) => (
             paddingTop: '72px',
           }}
         >
-          {children}
+          <PoseGroup>
+            <Transition key={props.location.pathname}>{children}</Transition>
+          </PoseGroup>
         </div>
-        <Hidden smDown>
+
+        {/* Footer section */}
+        <Hidden smDown implementation="css">
           <Footer />
         </Hidden>
-        <Hidden mdUp>
+        <Hidden mdUp implementation="css">
           <Navigation />
         </Hidden>
       </div>

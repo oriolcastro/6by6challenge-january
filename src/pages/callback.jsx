@@ -30,4 +30,4 @@ class Callback extends Component {
   }
 }
 
-export default withRoot(Callback)
+export default Callback
