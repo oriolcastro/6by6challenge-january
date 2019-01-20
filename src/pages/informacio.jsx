@@ -1,6 +1,5 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import withRoot from '../withRoot'
 
 import SEO from '../components/Seo'
 

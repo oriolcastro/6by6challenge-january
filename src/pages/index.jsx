@@ -1,5 +1,4 @@
 import React from 'react'
-import withRoot from '../withRoot'
 
 import SignUp from '../components/SignUp/index'
 import LandingHero from '../components/LandingHero'

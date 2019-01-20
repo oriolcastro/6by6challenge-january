@@ -1,5 +1,4 @@
 import React from 'react'
-import withRoot from '../withRoot'
 
 import MyGame from '../components/MyGame/index'
 import SEO from '../components/Seo'
