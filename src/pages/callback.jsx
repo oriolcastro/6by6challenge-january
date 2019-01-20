@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { navigate } from 'gatsby'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { handleAuthentication } from '../utils/auth'
-import withRoot from '../withRoot'
 
 class Callback extends Component {
   componentDidMount() {
