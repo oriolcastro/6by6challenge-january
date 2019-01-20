@@ -4,7 +4,7 @@ module.exports = {
   plublisher: 'Oriol Castro',
   siteDescription:
     "Aplicació web per a jugar al joc de l'assasí de la pastanaga",
-  siteUrl: 'https://pastanagapp-6by6january.netlify.com/',
+  siteUrl: 'https://www.lapastanagadelrei.cat',
   shortTitle: 'Oriol Castro',
   userTwitter: '@oriolcastro_',
   backgroundColor: '#ffffff',
