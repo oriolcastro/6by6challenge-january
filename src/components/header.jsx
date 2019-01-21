@@ -6,8 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Hidden from '@material-ui/core/Hidden'
 
-import MobileAppBar from './MobileAppBar'
-import SEO from './Seo'
+import MobileAppBar from './mobileAppBar'
 
 const Header = ({ siteTitle, siteLogo }) => (
   <>

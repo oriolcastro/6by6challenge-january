@@ -1,7 +1,7 @@
 import React from 'react'
 
 import MyGame from '../components/MyGame/index'
-import SEO from '../components/Seo'
+import SEO from '../components/seo'
 
 const MyGamePage = () => (
   <>

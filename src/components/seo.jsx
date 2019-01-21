@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 
-function SEO({ description, meta, keywords, title }) {
-  return (
+const SEO = ({ description, meta, keywords, title }) => (
     <StaticQuery
       // eslint-disable-next-line no-use-before-define
       query={detailsQuery}
@@ -67,7 +66,6 @@ function SEO({ description, meta, keywords, title }) {
       }}
     />
   )
-}
 
 SEO.defaultProps = {
   lang: `en`,

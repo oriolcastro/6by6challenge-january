@@ -1,8 +1,8 @@
 import React from 'react'
 
 import SignUp from '../components/SignUp/index'
-import LandingHero from '../components/LandingHero'
-import SEO from '../components/Seo'
+import LandingHero from '../components/landingHero'
+import SEO from '../components/seo'
 
 const IndexPage = () => (
   <>

@@ -1,7 +1,7 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 
-import SEO from '../components/Seo'
+import SEO from '../components/seo'
 
 const InfoPage = () => (
   <>

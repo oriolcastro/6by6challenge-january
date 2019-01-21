@@ -5,10 +5,10 @@ import { StaticQuery, graphql } from 'gatsby'
 import Hidden from '@material-ui/core/Hidden'
 import posed, { PoseGroup } from 'react-pose'
 
-import Header from './Header'
-import Footer from './Footer'
+import Header from './header'
+import Footer from './footer'
+import Navigation from './navigation'
 import favicon from '../images/favicon.ico'
-import Navigation from './Navigation'
 
 const transitionDuration = 200
 const transitionDelay = 250

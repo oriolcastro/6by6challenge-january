@@ -9,7 +9,7 @@ import { ApolloProvider } from 'react-apollo'
 import getPageContext from './src/getPageContext'
 import { client } from './src/utils/apolloClient'
 
-import Layout from './src/components/Layout'
+import Layout from './src/components/layout'
 import withRoot from './src/withRoot'
 
 const WithRoot = withRoot(props => props.children)
