@@ -35,6 +35,10 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/elmeujoc/*`] },
+    },
+    {
       resolve: `gatsby-plugin-gtag-outbound`,
       options: {
         // your google analytics tracking id

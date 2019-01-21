@@ -1,25 +1,16 @@
 import React, { Component } from 'react'
-import { isAuthenticated } from '../../utils/auth'
-
-import LoginComponent from './login'
+import Typography from '@material-ui/core/Typography'
 
 class MyGame extends Component {
   constructor(props) {
     super(props)
-    this.state = { authenticated: false }
-  }
-
-  componentDidMount() {
-    this.setState({ authenticated: isAuthenticated() })
+    this.state = { authenticated: false, userEmail: '' }
   }
 
   render() {
-    const { authenticated } = this.state
     return (
       <>
-        {authenticated && <p>You are loggedin</p>}
-
-        {!authenticated && <LoginComponent />}
+        <Typography variant="h5">Benvingut/da de nou</Typography>
       </>
     )
   }
