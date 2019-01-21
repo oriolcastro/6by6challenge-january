@@ -107,10 +107,10 @@ exports.handler = async event => {
 
     console.log('User created in Auth0')
   } catch (err) {
-    console.log(err.data.description)
+    console.log(err)
     return {
       statusCode: 500,
-      body: JSON.stringify(err.data.description),
+      body: JSON.stringify(err),
     }
   }
   const responseBody = {
