@@ -77,6 +77,10 @@ class SignUp extends Component {
         this.setState({
           playerSignedUp: true,
         })
+        gtag('event', 'inscripcio', {
+          event_category: 'jugadors',
+          event_label: 'Formulari inscripció',
+        })
       })
       .catch(error => {
         console.log(error)
