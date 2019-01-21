@@ -16,12 +16,12 @@ const LandingHero = () => (
         </Typography>
         <Typography variant="body2" align="justify" paragraph>
           L'any passat ja vàrem fer les inscripcions de forma telemàtica però
-          aquest any anem més enllà. Estem preparant una sorpresa que farà el
-          joc molt més interactiu i interessant. De moment podeu fer la
-          inscripció i donar-vos d'alta com usuaris de la web a través del
-          formulari. Per tal que tot funcioni heu de ser conscients que si us
-          inscriviu, haureu de venir a buscar el material els dies indicats, de
-          no ser així quedareu automàticament eliminats del joc.
+          aquest any anem un pas més enllà. Estem preparant una sorpresa que
+          farà el joc molt més interactiu. De moment podeu fer la inscripció i
+          donar-vos d'alta com usuaris de la web a través del formulari. Per tal
+          que tot funcioni heu de ser conscients que si us inscriviu, haureu de
+          venir a buscar el material els dies indicats, de no ser així quedareu
+          automàticament eliminats del joc..
         </Typography>
         <List>
           <ListItem divider>

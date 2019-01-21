@@ -23,22 +23,21 @@ const styles = theme => ({
 })
 
 const validationSchema = object({
-  name: string('Introdueix el teu nom').required('El nom és necessari'),
+  name: string().required('El nom és necessari'),
   firstsurname: string('Introdueix el teu primer cognom'),
   secondsurname: string('Introdueix el teu segon cognom'),
   mobile: string('Introdueix el teu número de mòbil')
     .matches(
       /^[6|7|9][\s|\-|\.]?([0-9][\s|\-|\.]?){8}$/,
-      'El mòbil introduit no és vàlid'
+      'Introdueix un número de mòbil valid.'
     )
-    .required('El mòbil és necessari'),
-  email: string('Introdueix el teu correu electrònic')
-    .email('Introdueix un correu electrònic vàlid')
-    .required('El correu electrònic és necessari'),
-  birthday: date().max(
-    '2003-03-25',
-    'Per participar al joc has de tenir 16 anys'
-  ),
+    .required('El mòbil és necessari.'),
+  email: string('Introdueix el teu correu electrònic.')
+    .email('Introdueix un correu electrònic vàlid.')
+    .required('El correu electrònic és necessari.'),
+  birthday: date()
+    .max('2003-03-25', 'Per participar al joc has de tenir 16 anys')
+    .required("Has d'indicar la teva data de naixement."),
   password: string('')
     .min(8, 'La contrasenya ha de tenir com a mínim 8 caràcters')
     .required('Introdueix una contrasenya'),
@@ -77,6 +76,10 @@ class SignUp extends Component {
         resetForm()
         this.setState({
           playerSignedUp: true,
+        })
+        gtag('event', 'form submit', {
+          event_category: 'interacció',
+          event_label: 'Formulari inscripció',
         })
       })
       .catch(error => {
@@ -129,13 +132,13 @@ class SignUp extends Component {
             <b>Legitimació:</b> L'usuari expressa el seu consentiment en marcar
             les caselles del formulari.{'\n'}
             <b>Drets:</b> Podeu exercir els vostres drets d'accés, rectificació,
-            limitació o supressió de les dades a lapastanagadelrei@gmail.com.
+            limitació o supressió de les dades a contacte@lapastanagadelrei.cat.
           </Typography>
           <SignupNotification open={playerSignedUp} />
         </div>
       </>
     )
   }
-}
+
 
 export default withStyles(styles)(SignUp)

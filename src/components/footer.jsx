@@ -1,6 +1,7 @@
 import React from 'react'
 import Favorite from '@material-ui/icons/Favorite'
 import Typography from '@material-ui/core/Typography'
+import { OutboundLink } from 'gatsby-plugin-gtag-outbound'
 
 const Footer = () => (
   <div
@@ -13,14 +14,14 @@ const Footer = () => (
     <Typography style={{ color: '#ffffff' }}>
       Fet amb <Favorite fontSize="inherit" color="error" /> a Vilanova i la
       Geltrú per{' '}
-      <a
+      <OutboundLink
         href="https://okstudio.tech"
         rel="nofollow noopener noreferrer"
         target="_blank"
       >
         {' '}
         Ok! Studio
-      </a>
+      </OutboundLink>
     </Typography>
   </div>
 )
