@@ -109,8 +109,8 @@ exports.handler = async event => {
   } catch (err) {
     console.log(err)
     return {
-      statusCode: 500,
-      body: JSON.stringify(err),
+      statusCode: 200,
+      body: JSON.stringify({ status: 'error', error_details: err }),
     }
   }
   const responseBody = {
