@@ -7,11 +7,9 @@ import Typography from '@material-ui/core/Typography'
 import Hidden from '@material-ui/core/Hidden'
 
 import MobileAppBar from './mobileAppBar'
-import SEO from './seo'
 
 const Header = ({ siteTitle, siteLogo }) => (
   <>
-    <SEO />
     {/* Desktop header */}
     <Hidden smDown>
       <div style={{ margin: '16px' }}>
