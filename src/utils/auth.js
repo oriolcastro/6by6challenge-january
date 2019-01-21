@@ -29,6 +29,7 @@ export const Logout = () => {
     localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
     localStorage.removeItem('user')
+    localStorage.removeItem('avatar_src')
   }
 
   // Remove the locally cached profile to avoid confusing errors.
@@ -60,6 +61,7 @@ export const handleAuthentication = callback => {
   auth0.parseHash((err, authResult) => {
     if (authResult && authResult.accessToken && authResult.idToken) {
       setSession(authResult)
+      getUserInfo().then(res => localStorage.setItem('avatar_src', res.picture))
     } else if (err) {
       console.error(err)
     }
@@ -104,7 +106,6 @@ export const getUserInfo = () =>
         return
       }
 
-      profile = userProfile
-      resolve(profile.email)
+      resolve(userProfile)
     })
   })

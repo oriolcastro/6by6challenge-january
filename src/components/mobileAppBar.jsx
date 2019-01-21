@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
+import Avatar from '@material-ui/core/Avatar'
+
 import { withStyles } from '@material-ui/core/styles'
 
-import { isAuthenticated, Login, Logout } from '../utils/auth'
+import { isAuthenticated, Login, Logout, getUserInfo } from '../utils/auth'
 
 const styles = {
   root: {
@@ -23,11 +23,14 @@ const styles = {
 class MobileAppBar extends Component {
   constructor(props) {
     super(props)
-    this.state = { authenticated: true, anchorEl: null }
+    this.state = { authenticated: false, anchorEl: null, avatarSrc: '' }
   }
 
   componentDidMount() {
-    this.setState({ authenticated: isAuthenticated() })
+    this.setState({
+      avatarSrc: localStorage.getItem('avatar_src'),
+      authenticated: isAuthenticated(),
+    })
   }
 
   handleMenu = event => {
@@ -40,7 +43,7 @@ class MobileAppBar extends Component {
 
   render() {
     const { classes, siteTitle } = this.props
-    const { authenticated, anchorEl } = this.state
+    const { authenticated, anchorEl, avatarSrc } = this.state
     const open = Boolean(anchorEl)
 
     return (
@@ -54,13 +57,12 @@ class MobileAppBar extends Component {
           )}
           {authenticated && (
             <>
-              <IconButton
+              <Avatar
                 aria-owns={open ? 'menu-appbar' : undefined}
                 aria-haspopup="true"
                 onClick={this.handleMenu}
-              >
-                <AccountCircle />
-              </IconButton>
+                src={avatarSrc}
+              />
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}

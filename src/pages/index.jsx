@@ -8,7 +8,11 @@ import SEO from '../components/seo'
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Resultats" description='Consulta els resultats en viu del joc.' keywords={['pwa', 'carnaval', 'vilanova']} />
+    <SEO
+      title="Resultats"
+      description="Consulta els resultats en viu del joc."
+      keywords={['pwa', 'carnaval', 'vilanova']}
+    />
     <LandingHero />
     <SignUp />
   </Layout>

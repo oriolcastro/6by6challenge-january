@@ -7,7 +7,10 @@ import SEO from '../components/seo'
 
 const InfoPage = () => (
   <Layout>
-    <SEO title="Informació" description="Tota la informació sobre el joc i l'aplicació que necessites" />
+    <SEO
+      title="Informació"
+      description="Tota la informació sobre el joc i l'aplicació que necessites"
+    />
     <Typography variant="h5">
       Pàgina amb informació sobre el joc i l'aplicació.
     </Typography>
