@@ -19,9 +19,9 @@ class CustomDatePicker extends Component {
         onChange={this.handleChange}
         onBlur={this.handleBlur}
         value={this.props.value}
-        keyboard
         openToYearSelection
         variant="outlined"
+        invalidLabel="Data incorrecte"
         required
         margin="normal"
         fullWidth
