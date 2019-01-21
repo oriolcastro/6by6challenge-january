@@ -5,8 +5,8 @@ const axios = require('axios')
 //Env variables
 const accessKey = process.env.GATSBY_HASURA_GRAPHQL_ACCESS_KEY
 const hgeEndpoint = process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT
-const auth0Domain = process.env.AUTH0_DOMAIN
-const auth0ClientId = process.env.AUTH0_CLIENT_ID
+const auth0Domain = process.env.GATSBY_AUTH0_DOMAIN
+const auth0ClientId = process.env.GATSBY_AUTH0_CLIENT_ID
 
 //Query for the mutation that adds the new player to its team.
 const ASSIGN_TEAM = `
