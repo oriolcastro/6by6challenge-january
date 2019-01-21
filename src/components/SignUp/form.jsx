@@ -83,6 +83,7 @@ const Form = props => {
         <TextField
           id="mobile"
           name="mobile"
+          type="tel"
           helperText={touched.mobile ? errors.mobile : ''}
           error={touched.mobile && Boolean(errors.mobile)}
           value={mobile}
@@ -96,6 +97,7 @@ const Form = props => {
         <TextField
           id="email"
           name="email"
+          type="email"
           helperText={touched.email ? errors.email : ''}
           error={touched.email && Boolean(errors.email)}
           value={email}
