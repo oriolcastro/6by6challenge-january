@@ -10,13 +10,14 @@ import Avatar from '@material-ui/core/Avatar'
 import { withStyles } from '@material-ui/core/styles'
 
 import { isAuthenticated, Login, Logout, getUserInfo } from '../utils/auth'
+import NetworkIndicator from './networkIndicator'
 
 const styles = {
   root: {
     flexGrow: 1,
   },
   grow: {
-    flexGrow: 1,
+    marginRight: 'auto',
   },
 }
 
@@ -55,8 +56,10 @@ class MobileAppBar extends Component {
           {!authenticated && (
             <Button onClick={() => Login()}>Inicia la sessió</Button>
           )}
+
           {authenticated && (
             <>
+              <NetworkIndicator />
               <Avatar
                 aria-owns={open ? 'menu-appbar' : undefined}
                 aria-haspopup="true"
@@ -77,9 +80,9 @@ class MobileAppBar extends Component {
                 open={open}
                 onClose={this.handleClose}
               >
-                <MenuItem onClick={this.handleClose}>Perfil</MenuItem>
+                <MenuItem onClick={this.handleClose}>El meu perfil</MenuItem>
                 <MenuItem id="logout" onClick={() => Logout()}>
-                  Surt
+                  Tanca la sessió
                 </MenuItem>
               </Menu>
             </>
