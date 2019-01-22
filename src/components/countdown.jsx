@@ -94,7 +94,7 @@ class Countdown extends Component {
               xs
             >
               <Grid item>
-                <Typography variant="h2">
+                <Typography variant="h2" align="center">
                   {this.addLeadingZeros(countDown.days)}
                 </Typography>
               </Grid>
@@ -114,7 +114,7 @@ class Countdown extends Component {
               xs
             >
               <Grid item>
-                <Typography variant="h2">
+                <Typography variant="h2" align="center">
                   {this.addLeadingZeros(countDown.hours)}
                 </Typography>
               </Grid>
@@ -134,7 +134,7 @@ class Countdown extends Component {
               xs
             >
               <Grid item>
-                <Typography variant="h2">
+                <Typography variant="h2" align="center">
                   {this.addLeadingZeros(countDown.min)}
                 </Typography>
               </Grid>
@@ -154,7 +154,7 @@ class Countdown extends Component {
               xs
             >
               <Grid item>
-                <Typography variant="h2">
+                <Typography variant="h2" align="center">
                   {this.addLeadingZeros(countDown.sec)}
                 </Typography>
               </Grid>

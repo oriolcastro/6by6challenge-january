@@ -7,7 +7,7 @@ import ReviewPlayers from './reviewPlayers'
 const AdminOptions = () => (
   <>
     <Typography variant="h5" paragraph>
-      Benvingut de nou Oriol
+      Opcions per administradors
     </Typography>
     <AssignPlayers />
     <ReviewPlayers />

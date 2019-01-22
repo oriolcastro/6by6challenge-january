@@ -12,7 +12,9 @@ class MyGame extends Component {
   }
 
   componentDidMount() {
-    getUserInfo().then(res => this.setState({ userEmail: res.email }))
+    if (navigator.onLine) {
+      getUserInfo().then(res => this.setState({ userEmail: res.email }))
+    }
   }
 
   render() {
