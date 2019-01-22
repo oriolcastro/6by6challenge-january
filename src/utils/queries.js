@@ -9,3 +9,15 @@ export const GET_TEAMS = gql`
     }
   }
 `
+// TODO: Before merging with Master branch change from 'playersDev' to 'players'
+export const GET_PLAYERS = gql`
+  query get_players {
+    playersDev {
+      player_id
+      name
+      firstSurname
+      secondSurname
+      email
+    }
+  }
+`
