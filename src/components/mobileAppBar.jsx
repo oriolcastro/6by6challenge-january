@@ -11,6 +11,7 @@ import { withStyles } from '@material-ui/core/styles'
 
 import { isAuthenticated, Login, Logout, getUserInfo } from '../utils/auth'
 import NetworkIndicator from './networkIndicator'
+import InstallIndicator from './installIndicator'
 
 const styles = {
   root: {
@@ -59,6 +60,7 @@ class MobileAppBar extends Component {
 
           {authenticated && (
             <>
+              <InstallIndicator />
               <NetworkIndicator />
               <Avatar
                 aria-owns={open ? 'menu-appbar' : undefined}
