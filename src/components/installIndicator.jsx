@@ -28,8 +28,16 @@ class InstallIndicator extends Component {
     deferredPrompt.userChoice.then(choiceResult => {
       if (choiceResult.outcome === 'accepted') {
         console.log('User accepted the A2HS prompt')
+        gtag('event', 'A2HS', {
+          event_category: 'interacció',
+          event_label: 'Install accepted',
+        })
       } else {
         console.log('User dismissed the A2HS prompt')
+        gtag('event', 'A2HS', {
+          event_category: 'interacció',
+          event_label: 'Install dismissed',
+        })
       }
       deferredPrompt = null
     })
