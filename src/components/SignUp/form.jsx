@@ -185,7 +185,7 @@ const Form = props => {
           variant="contained"
           color="primary"
           fullWidth
-          disabled={!isValid}
+          disabled={!isValid || !team}
         >
           Envia
         </Button>
