@@ -13,6 +13,7 @@ mutation insert_killsDev($assasin_id: uuid! ,$victim_id: uuid!) {
     insert_killsDev(objects: [{assasin_id: $assasin_id, victim_id: $victim_id}]){
         returning{
             kill_id
+            assasin_id
         }
     }
 }
@@ -26,9 +27,10 @@ mutation update_playersDev($player_id: uuid!, $kill_id: Int!) {
     update_playersDev(where: {player_id: {_eq: $player_id}}, _set: {kill_id: $kill_id}) {
       returning {
         player_id
+        name
       }
     }
-  
+  }
 `
 
 // Query to get the array of players before or after the set date
@@ -56,7 +58,7 @@ exports.handler = async event => {
   // -- Parse the body contents into an object.
   const data = JSON.parse(event.body)
   console.log(`This is the data send to lambda function: ${event.body}`)
-
+  const { breaking_date } = data.payload
   try {
     // Get players
     const resGetPlayers = await axios({
@@ -65,7 +67,7 @@ exports.handler = async event => {
       data: {
         query: GET_PLAYERS,
         variables: {
-          breaking_date: data.breaking_date,
+          breaking_date,
         },
       },
       headers: { 'x-hasura-access-key': accessKey },
@@ -73,25 +75,64 @@ exports.handler = async event => {
 
     const playersArray = resGetPlayers.data.data.playersDev
     console.log(playersArray)
-    // Loop through the players array
-    playersArray.forEach((player, index) => {
-      console.log(index)
-      if (index + 1 < playersArray.length) {
-        const resGenKill = axios({
-          method: 'post',
-          url: hgeEndpoint,
-          data: {
-            query: GENERATE_KILLS,
-            variables: {
-              assasin_id: player.player_id,
-              victim_id: playersArray[index + 1].player_id,
-            },
-          },
-          headers: { 'x-hasura-access-key': accessKey },
-        })
-        const kill_id = resGenKill.data.data.insert_killsDev.returning.kill_id
-        console.log(kill_id)
+
+    // Create a wrapper function to execute the mutations before moving into the next item in the array
+    async function asyncForEach(array, callback) {
+      for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array)
       }
+    }
+
+    // Loop through the players array creating the kills for each one
+    asyncForEach(playersArray, async (player, index, array) => {
+      const assasinId = player.player_id
+
+      let victimId = ''
+      if (index + 1 === array.length) {
+        victimId = array[0].player_id
+      } else {
+        victimId = array[index + 1].player_id
+      }
+
+      // Insert kill mutation
+      const resInsertKill = await axios({
+        method: 'post',
+        url: hgeEndpoint,
+        data: {
+          query: GENERATE_KILLS,
+          variables: {
+            assasin_id: assasinId,
+            victim_id: victimId,
+          },
+        },
+        headers: { 'x-hasura-access-key': accessKey },
+      })
+      const createdKillId =
+        resInsertKill.data.data.insert_killsDev.returning[0].kill_id
+      console.log(`Kill generated correctly with the id: ${createdKillId}`)
+      //   console.log(
+      //     `Will be assigned to player: ${
+      //       resInsertKill.data.data.insert_killsDev.returning[0].assasin_id
+      //     }`
+      //   )
+
+      const resAssignKill = await axios({
+        method: 'post',
+        url: hgeEndpoint,
+        data: {
+          query: ASSIGN_KILL,
+          variables: {
+            player_id: array[index].player_id,
+            kill_id: createdKillId,
+          },
+        },
+        headers: { 'x-hasura-access-key': accessKey },
+      })
+      console.log(
+        `Kill number ${createdKillId} has been assigned to ${
+          resAssignKill.data.data.update_playersDev.returning[0].name
+        }`
+      )
     })
   } catch (err) {
     console.log(err)
