@@ -22,7 +22,8 @@ class InstallIndicator extends Component {
   }
   handleClick = () => {
     // hide our user interface that shows our A2HS button
-    this.toogleInstallButton() // Show the prompt
+    this.toogleInstallButton()
+    // Show the prompt
     deferredPrompt.prompt()
     // Wait for the user to respond to the prompt
     deferredPrompt.userChoice.then(choiceResult => {
