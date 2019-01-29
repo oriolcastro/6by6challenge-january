@@ -9,7 +9,9 @@ class AssignPlayers extends Component {
   }
 
   handleClick = () => {
-    const payload = '2003-02-25'
+    const payload = {
+      breaking_date: '2003-02-25',
+    }
     axios
       .post('.netlify/functions/generateAndAssignKills', {
         payload,
