@@ -1,3 +1,4 @@
+/* eslint-disable */
 require('dotenv').config()
 const axios = require('axios')
 
@@ -45,7 +46,7 @@ query playersDev($breaking_date: date!) {
 `
 
 // Main lambda function
-exports.handler = async event => {
+exports.handler = async function(event) {
   // -- We only care to do anything if this is our POST request.
   if (event.httpMethod !== 'POST' || !event.body) {
     return {
@@ -59,6 +60,14 @@ exports.handler = async event => {
   const data = JSON.parse(event.body)
   console.log(`This is the data send to lambda function: ${event.body}`)
   const { breaking_date } = data.payload
+
+  // Create a wrapper function to execute the mutations before moving into the next item in the array
+  async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array)
+    }
+  }
+
   try {
     // Get players
     const resGetPlayers = await axios({
@@ -75,13 +84,6 @@ exports.handler = async event => {
 
     const playersArray = resGetPlayers.data.data.playersDev
     console.log(playersArray)
-
-    // Create a wrapper function to execute the mutations before moving into the next item in the array
-    async function asyncForEach(array, callback) {
-      for (let index = 0; index < array.length; index++) {
-        await callback(array[index], index, array)
-      }
-    }
 
     // Loop through the players array creating the kills for each one
     asyncForEach(playersArray, async (player, index, array) => {
@@ -137,7 +139,7 @@ exports.handler = async event => {
   } catch (err) {
     console.log(err)
     return {
-      statusCode: 200,
+      statusCode: 500,
       body: JSON.stringify({ status: 'error', error_details: err }),
     }
   }
