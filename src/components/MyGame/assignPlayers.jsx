@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import axios from 'axios'
 
 class AssignPlayers extends Component {
   constructor(props) {
@@ -8,6 +9,17 @@ class AssignPlayers extends Component {
   }
 
   handleClick = () => {
+    const payload = '2003-02-25'
+    axios
+      .post('.netlify/functions/generateAndAssignKills', {
+        payload,
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
     console.log('Players assigned')
   }
 
