@@ -56,7 +56,6 @@ exports.handler = async event => {
   // -- Parse the body contents into an object.
   const data = JSON.parse(event.body)
   console.log(`This is the data send to lambda function: ${event.body}`)
-  const { breaking_date } = data
 
   try {
     // Get players
@@ -66,13 +65,12 @@ exports.handler = async event => {
       data: {
         query: GET_PLAYERS,
         variables: {
-          breaking_date,
+          breaking_date: data.breaking_date,
         },
       },
       headers: { 'x-hasura-access-key': accessKey },
     })
-    console.log(resGetPlayers)
-    const playersArray = resGetPlayers.data.playersDev
+    const playersArray = resGetPlayers.data.data.playersDev
     console.log(playersArray)
 
     // Loop through the array
