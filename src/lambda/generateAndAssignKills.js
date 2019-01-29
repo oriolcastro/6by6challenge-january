@@ -73,27 +73,26 @@ exports.handler = async event => {
 
     const playersArray = resGetPlayers.data.data.playersDev
     console.log(playersArray)
-
+    // Loop through the players array
     playersArray.forEach((player, index) => {
-        console.log(index)
-        if (index+1 < playersArray.length){
-            const resGenKill = await axios({
-                method: 'post',
-                url: hgeEndpoint,
-                data: {
-                    query: GENERATE_KILLS,
-                 variables: {
-                       assasin_id: player.player_id,
-                      victim_id: playersArray[index+1].player_id,
-                 },
-              },
-             headers: { 'x-hasura-access-key': accessKey },
-            })
-            const kill_id = resGenKill.data.data.insert_killsDev.returning.kill_id
-            console.log(kill_id)
-        }
+      console.log(index)
+      if (index + 1 < playersArray.length) {
+        const resGenKill = axios({
+          method: 'post',
+          url: hgeEndpoint,
+          data: {
+            query: GENERATE_KILLS,
+            variables: {
+              assasin_id: player.player_id,
+              victim_id: playersArray[index + 1].player_id,
+            },
+          },
+          headers: { 'x-hasura-access-key': accessKey },
+        })
+        const kill_id = resGenKill.data.data.insert_killsDev.returning.kill_id
+        console.log(kill_id)
+      }
     })
-
   } catch (err) {
     console.log(err)
     return {
