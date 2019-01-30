@@ -37,9 +37,16 @@ mutation update_playersDev($player_id: uuid!, $kill_id: Int!) {
 // Query to get the array of players before or after the set date
 // TODO: Change playersDev for players in production
 
-const GET_PLAYERS = `
-query playersDev($breaking_date: date!) {
-    playersDev(where: {birthday: {_gte: $breaking_date}}, order_by: {player_id: asc}) {
+const GET_YOUNG_PLAYERS = `
+query playersDev($separationDate: date!) {
+    playersDev(where: {birthday: {_gte: $separationDate}}, order_by: {player_id: asc}) {
+      player_id
+    }
+  }
+`
+const GET_OLD_PLAYERS = `
+query playersDev($separationDate: date!) {
+    playersDev(where: {birthday: {_lt: $separationDate}}, order_by: {player_id: asc}) {
       player_id
     }
   }
@@ -59,7 +66,7 @@ exports.handler = async function(event) {
   // -- Parse the body contents into an object.
   const data = JSON.parse(event.body)
   console.log(`This is the data send to lambda function: ${event.body}`)
-  const { breaking_date } = data.payload
+  const { separationDate, listSelector } = data.payload
 
   // Create a wrapper function to execute the mutations before moving into the next item in the array
   async function asyncForEach(array, callback) {
@@ -70,13 +77,19 @@ exports.handler = async function(event) {
 
   try {
     // Get players
+    let selectedQuery
+    if (listSelector === 'young') {
+      selectedQuery = GET_YOUNG_PLAYERS
+    } else {
+      selectedQuery = GET_OLD_PLAYERS
+    }
     const resGetPlayers = await axios({
       method: 'post',
       url: hgeEndpoint,
       data: {
-        query: GET_PLAYERS,
+        query: selectedQuery,
         variables: {
-          breaking_date,
+          separationDate,
         },
       },
       headers: { 'x-hasura-access-key': accessKey },
@@ -137,10 +150,10 @@ exports.handler = async function(event) {
       )
     })
   } catch (err) {
-    console.log(err)
+    console.log(err.response.data)
     return {
       statusCode: 500,
-      body: JSON.stringify({ status: 'error', error_details: err }),
+      error: JSON.stringify(err.response.data),
     }
   }
 

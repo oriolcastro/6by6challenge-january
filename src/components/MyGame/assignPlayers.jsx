@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormLabel from '@material-ui/core/FormLabel'
 import axios from 'axios'
 import { Formik } from 'formik'
 
@@ -8,7 +12,7 @@ import CustomDatePicker from '../SignUp/customDatePicker'
 
 const Form = props => {
   const {
-    values: { separationDate },
+    values: { birthday, listselector },
     handleSubmit,
     handleChange,
     setFieldTouched,
@@ -23,13 +27,35 @@ const Form = props => {
     <>
       <form onSubmit={handleSubmit}>
         <CustomDatePicker
-          name="separationDate"
-          value={separationDate}
+          name="birthday"
+          value={birthday}
           onChange={setFieldValue}
           onBlur={setFieldTouched}
         />
+        <div style={{ margin: '16px' }}>
+          <FormLabel component="legend">
+            Seleccions la llista a generar:
+          </FormLabel>
+          <RadioGroup
+            aria-label="List"
+            name="listselector"
+            value={listselector}
+            onChange={change.bind(null, 'listselector')}
+          >
+            <FormControlLabel
+              value="young"
+              control={<Radio color="primary" />}
+              label="Llista jove"
+            />
+            <FormControlLabel
+              value="old"
+              control={<Radio color="primary" />}
+              label="Llista gran"
+            />
+          </RadioGroup>
+        </div>
         <Button type="submit" variant="contained" color="primary" fullWidth>
-          Assigna
+          Genera
         </Button>
       </form>
     </>
@@ -39,7 +65,6 @@ const Form = props => {
 class AssignPlayers extends Component {
   constructor(props) {
     super(props)
-    this.state = { separationDate: '' }
   }
 
   handleChange = name => event => {
@@ -50,7 +75,8 @@ class AssignPlayers extends Component {
 
   submitForm = values => {
     const payload = {
-      separationDate: values.separationDate,
+      separationDate: values.birthday,
+      listSelector: values.listselector,
     }
     axios
       .post('.netlify/functions/generateAndAssignKills', {
@@ -67,7 +93,8 @@ class AssignPlayers extends Component {
 
   render() {
     const values = {
-      separationDate: new Date('2003-02-25'),
+      birthday: new Date('2003-02-25'),
+      listselector: 'young',
     }
     return (
       <div style={{ marginBottom: '40px' }}>
@@ -79,21 +106,6 @@ class AssignPlayers extends Component {
           initialValues={values}
           onSubmit={this.submitForm}
         />
-
-        {/* <TextField
-          id="separationDate"
-          name="separationDate"
-          helperText="Introdueix la data amb el format 1987-10-05"
-          value={this.state.separationDate}
-          onChange={this.handleChange('separationDate')}
-          label="Data de naixement per a fer la separació"
-          fullWidth
-          variant="outlined"
-          margin="normal"
-        />
-        <Button variant="contained" color="primary" onClick={this.handleClick}>
-          Assigna
-        </Button> */}
       </div>
     )
   }
