@@ -26,7 +26,10 @@ exports.handler = async function(event) {
       text: `Ens sap greu però has estat eliminat del joc de La Pastanaga del Rei.`,
       html: `<p>Eliminat!</p>`,
     }
-    sgMail.send(msg)
+    sgMail
+      .send(msg)
+      .then(() => console.log('Email sended'))
+      .catch(err => console.log(error.toString()))
   } catch (err) {
     console.log(err.response.data)
     return {
