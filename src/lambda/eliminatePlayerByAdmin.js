@@ -6,6 +6,7 @@ const axios = require('axios')
 // Env variables
 const accessKey = process.env.GATSBY_HASURA_GRAPHQL_ACCESS_KEY
 const hgeEndpoint = process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT
+
 //TODO: Eliminate the DEV
 const GET_MY_ASSASIN = `
 query searchWhoKillsMe($me: uuid!) {
