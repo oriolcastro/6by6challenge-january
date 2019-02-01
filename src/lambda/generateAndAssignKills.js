@@ -100,7 +100,7 @@ exports.handler = async function(event) {
     console.log(playersArray)
 
     // Loop through the players array creating the kills for each one
-    asyncForEach(playersArray, async (player, index, array) => {
+    await asyncForEach(playersArray, async (player, index, array) => {
       const assasinId = player.player_id
 
       let victimId = ''
