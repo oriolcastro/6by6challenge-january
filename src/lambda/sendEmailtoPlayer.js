@@ -22,8 +22,7 @@ exports.handler = async function(event) {
       to: email,
       from: 'contacte@lapastanagadelrei.cat',
       subject: 'Has estat eliminat del joc',
-      text:
-        `Ens sap greu ${name} però has estat eliminat del joc de La Pastanaga del Rei.`
+      text: `Ens sap greu ${name} però has estat eliminat del joc de La Pastanaga del Rei.`,
       html: `<html>
       <head>
         <style type="text/css">
