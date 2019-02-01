@@ -54,10 +54,14 @@ class ReviewPlayers extends Component {
     const payload = {
       player_id: rowData.player_id,
     }
+    //TODO: In production change to relative url
     await axios
-      .post('.netlify/functions/eliminatePlayerbyAdmin', {
-        payload,
-      })
+      .post(
+        'https://dev--pastanagapp-6by6january.netlify.com/.netlify/functions/eliminatePlayerByAdmin',
+        {
+          payload,
+        }
+      )
       .then(response => {
         console.log(response)
       })

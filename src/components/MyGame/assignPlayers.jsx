@@ -78,10 +78,14 @@ class AssignPlayers extends Component {
       separationDate: values.birthday,
       listSelector: values.listselector,
     }
+    //TODO: In production change to relative url
     axios
-      .post('.netlify/functions/generateAndAssignKills', {
-        payload,
-      })
+      .post(
+        'https://dev--pastanagapp-6by6january.netlify.com/.netlify/functions/generateAndAssignKills',
+        {
+          payload,
+        }
+      )
       .then(response => {
         console.log(response)
       })
