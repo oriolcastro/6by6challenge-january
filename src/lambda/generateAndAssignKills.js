@@ -77,6 +77,7 @@ exports.handler = async function(event) {
 
   try {
     // Get players
+    //TODO: See if there is need to generate more than 2 lists.
     let selectedQuery
     if (listSelector === 'young') {
       selectedQuery = GET_YOUNG_PLAYERS

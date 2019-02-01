@@ -12,7 +12,7 @@ export const GET_TEAMS = gql`
 // TODO: Before merging with Master branch change from 'playersDev' to 'players'
 export const GET_PLAYERS = gql`
   query get_players {
-    playersDev {
+    playersDev(where: { isDead: { _eq: false } }) {
       player_id
       name
       firstSurname

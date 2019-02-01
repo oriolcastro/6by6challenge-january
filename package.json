@@ -44,7 +44,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "develop": "gatsby develop -H 0.0.0.0",
+    "develop": "gatsby develop",
     "start": "concurrently 'yarn start:app' 'yarn start:lambda'",
     "start:app": "yarn run develop",
     "start:lambda": "netlify-lambda serve src/lambda",

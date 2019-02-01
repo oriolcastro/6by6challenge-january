@@ -9,6 +9,7 @@ import Search from '@material-ui/icons/Search'
 import Filter from '@material-ui/icons/FilterList'
 import Delete from '@material-ui/icons/Delete'
 import { Query } from 'react-apollo'
+import axios from 'axios'
 
 import { GET_PLAYERS } from '../../utils/queries'
 
@@ -47,10 +48,24 @@ class ReviewPlayers extends Component {
     super(props)
   }
 
-  eliminatePlayer = (e, rowData) => {
+  eliminatePlayer = async (e, rowData) => {
     e.preventDefault()
     console.log(`You clicked the row from user: ${rowData.player_id}`)
-    //TODO: Add logic to eliminate player and cal the lambda function to perform the actions required
+    const payload = {
+      player_id: rowData.player_id,
+    }
+    await axios
+      .post('.netlify/functions/eliminatePlayerbyAdmin', {
+        payload,
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
+    console.log('Players assigned')
   }
 
   render() {
@@ -60,7 +75,7 @@ class ReviewPlayers extends Component {
           Revisa les dades i elimina aquells que no han recollit el clauer
         </Typography>
         <Query query={GET_PLAYERS}>
-          {({ loading, error, data }) => {
+          {({ loading, error, data, refetch }) => {
             if (loading) return null
             if (error) return `Error: ${error}`
             return (
@@ -82,7 +97,10 @@ class ReviewPlayers extends Component {
                   {
                     icon: () => <Delete />,
                     tooltip: 'Eliminar aquest jugador',
-                    onClick: this.eliminatePlayer,
+                    onClick: async (event, rowData) => {
+                      await this.eliminatePlayer(event, rowData)
+                      await refetch()
+                    },
                   },
                 ]}
               />
