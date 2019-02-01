@@ -19,7 +19,7 @@ exports.handler = async function(event) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
   try {
     const msg = {
-      to: email,
+      to: `${name} ${email}`,
       from: 'contacte@lapastanagadelrei.cat',
       subject: 'Has estat eliminat del joc',
       text: `Ens sap greu ${name} però has estat eliminat del joc de La Pastanaga del Rei.`,
