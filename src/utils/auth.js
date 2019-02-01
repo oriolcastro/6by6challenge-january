@@ -6,11 +6,12 @@ const isBrowser = typeof window !== 'undefined'
 let profile = false
 
 // Only instantiate Auth0 if we’re in the browser.
+// TODO: remove DEV from callback variable in production
 const auth0 = isBrowser
   ? new auth0js.WebAuth({
       domain: process.env.GATSBY_AUTH0_DOMAIN,
       clientID: process.env.GATSBY_AUTH0_CLIENT_ID,
-      redirectUri: process.env.GATSBY_AUTH0_CALLBACK,
+      redirectUri: process.env.GATSBY_AUTH0_CALLBACK_DEV,
       responseType: 'token id_token',
       scope: 'openid profile email',
     })
