@@ -18,31 +18,31 @@ exports.handler = async function(event) {
   const { email, name } = request.event.data.old
   console.log(email, name)
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-  try {
-    const msg = {
-      to: `uri875@gmail.com`,
-      from: 'contacte@lapastanagadelrei.cat',
-      subject: 'Has estat eliminat del joc',
-      text: `Ens sap greu però has estat eliminat del joc de La Pastanaga del Rei.`,
-      html: `<p>Eliminat!</p>`,
-    }
-    sgMail
-      .send(msg)
-      .then(() => console.log('Email sended'))
-      .catch(err => console.log(error.toString()))
-  } catch (err) {
-    console.log(err.response.data)
-    return {
-      statusCode: 500,
-      error: JSON.stringify(err),
-    }
-  }
-  const responseBody = {
-    status: 'Email send correctly to player',
-  }
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(responseBody),
+  const msg = {
+    to: `uri875@gmail.com`,
+    from: 'contacte@lapastanagadelrei.cat',
+    subject: 'Has estat eliminat del joc',
+    text: `Ens sap greu però has estat eliminat del joc de La Pastanaga del Rei.`,
+    html: `<p>Eliminat!</p>`,
   }
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email send correctly')
+      const responseBody = {
+        status: 'Email send correctly to player',
+      }
+      return {
+        statusCode: 200,
+        body: JSON.stringify(responseBody),
+      }
+    })
+    .catch(err => {
+      console.log(error.toString())
+      return {
+        statusCode: 500,
+        error: JSON.stringify(err),
+      }
+    })
 }
