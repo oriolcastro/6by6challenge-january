@@ -16,6 +16,7 @@ exports.handler = async function(event) {
   const request = JSON.parse(event.body)
   console.log(`This is the data send to lambda function: ${event.body}`)
   const { email, name } = request.event.data.old
+  console.log(email, name)
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
   try {
     const msg = {
