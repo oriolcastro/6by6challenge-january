@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { navigate } from 'gatsby'
+
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { handleAuthentication } from '../utils/auth'
 import withRoot from '../withRoot'
@@ -8,8 +8,15 @@ class Callback extends Component {
   componentDidMount() {
     handleAuthentication()
     setTimeout(() => {
-      navigate('/elmeujoc')
-    }, 1000)
+      if (process.env.NODE_ENV === 'development') {
+        window.location.replace('http://localhost:8000/elmeujoc')
+      } else {
+        // TODO: Change url in production
+        window.location.replace(
+          'https://dev--pastanagapp-6by6january.netlify.com/elmeujoc'
+        )
+      }
+    }, 2000)
   }
 
   render() {

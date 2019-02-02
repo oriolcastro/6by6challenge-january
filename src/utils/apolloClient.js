@@ -1,11 +1,17 @@
 import ApolloClient from 'apollo-boost'
 import fetch from 'isomorphic-fetch'
 
+const isBrowser = typeof window !== 'undefined'
+let token = ''
+if (isBrowser) {
+  token = localStorage.getItem('id_token')
+  console.log(token)
+}
+
 export const client = new ApolloClient({
   uri: process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT,
   fetch,
   headers: {
-    'X-Hasura-Role': 'admin',
-    'X-Hasura-Access-Key': process.env.GATSBY_HASURA_GRAPHQL_ACCESS_KEY,
+    Authorization: token ? `Bearer ${token}` : '',
   },
 })
