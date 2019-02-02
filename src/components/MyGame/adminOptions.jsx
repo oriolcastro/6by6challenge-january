@@ -9,6 +9,7 @@ const AdminOptions = () => (
     <Typography variant="h5" paragraph>
       Opcions per administradors
     </Typography>
+
     <AssignPlayers />
     <ReviewPlayers />
   </>

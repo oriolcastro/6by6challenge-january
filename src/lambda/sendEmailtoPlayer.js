@@ -39,7 +39,7 @@ exports.handler = async function(event) {
                 <p style="text-align: center;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%; margin-bottom: 30px;">
                   <img src="https://res.cloudinary.com/okstudio/image/upload/v1547740222/icon.png" width="150" alt="Logo de la Pastanaga del Rei" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;">
                 </p>
-                <h1>${name} estas mort/a!</h1>
+                <h1>${name} estàs mort/a!</h1>
                 <p>Ens sap greu comunicar-te que has estat eliminat del joc de La Pastanaga del Rei.</p>
                 <br>
                 <br>
@@ -61,7 +61,6 @@ exports.handler = async function(event) {
     </html>`,
     }
     const resSgMail = await sgMail.send(msg)
-    console.log(resSgMail)
   } catch (err) {
     console.log(err.toString())
     return {
