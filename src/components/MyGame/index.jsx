@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import { getUserInfo } from '../../utils/auth'
 import AdminOptions from './adminOptions'
 import Countdown from '../countdown'
+import NextVictim from './nextVictim'
 
 class MyGame extends Component {
   constructor(props) {
@@ -22,9 +23,13 @@ class MyGame extends Component {
     return (
       <>
         <Typography variant="h5" paragraph>
-          Temps per l'inici del joc
+          Temps de joc restant
         </Typography>
-        <Countdown date="2019-02-24T00:00:00" />
+        <Countdown date="2019-03-06T20:00:00" />
+        <Typography variant="h5" paragraph>
+          La teva víctima
+        </Typography>
+        <NextVictim />
         {userEmail === process.env.GATSBY_ADMIN_EMAIL && <AdminOptions />}
       </>
     )

@@ -18,6 +18,33 @@ export const GET_PLAYERS = gql`
       firstSurname
       secondSurname
       email
+      mobile
+      kill_id
+      team {
+        name
+      }
+    }
+  }
+`
+// TODO: Before merging with Master branch change from 'killsDev' to 'kills'
+export const GET_VICTIM_ID = gql`
+  query get_victim_id {
+    killsDev(where: { status: { _eq: "live" } }) {
+      victim_id
+    }
+  }
+`
+
+// TODO: Before merging with Master branch change from 'playersDev' to 'players'
+export const GET_VICTIM_DATA = gql`
+  query get_victim_data($VictimId: uuid!) {
+    playersDev(where: { player_id: { _eq: $VictimId } }) {
+      name
+      firstSurname
+      secondSurname
+      team {
+        name
+      }
     }
   }
 `

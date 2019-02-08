@@ -8,6 +8,7 @@ import PreviousPage from '@material-ui/icons/ChevronLeft'
 import Search from '@material-ui/icons/Search'
 import Filter from '@material-ui/icons/FilterList'
 import Delete from '@material-ui/icons/Delete'
+import SaveAlt from '@material-ui/icons/SaveAlt'
 import { Query } from 'react-apollo'
 import axios from 'axios'
 
@@ -18,6 +19,9 @@ const columns = [
   { title: 'Primer cognom', field: 'firstSurname' },
   { title: 'Segon cognom', field: 'secondSurname' },
   { title: 'Correu electrònic', field: 'email' },
+  { title: 'Mobil', field: 'mobile' },
+  { title: 'Entitat', field: 'team.name' },
+  { title: 'Num Clauer', field: 'kill_id' },
 ]
 
 const icons = {
@@ -27,6 +31,7 @@ const icons = {
   PreviousPage: () => <PreviousPage />,
   Search: () => <Search />,
   Filter: () => <Filter />,
+  Export: () => <SaveAlt />,
 }
 
 const localization = {
@@ -87,12 +92,14 @@ class ReviewPlayers extends Component {
                 icons={icons}
                 localization={localization}
                 options={{
-                  actionsColumnIndex: 5,
+                  actionsColumnIndex: 8,
                   doubleHorizontalScroll: true,
                   filtering: false,
                   pageSize: 20,
                   pageSizeOptions: [20, 50, 100],
                   doubleHorizontalScroll: true,
+                  emptyRowsWhenPaging: false,
+                  exportButton: true,
                 }}
                 actions={[
                   {

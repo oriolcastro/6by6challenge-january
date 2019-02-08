@@ -35,7 +35,13 @@ export const Logout = () => {
 
   // Remove the locally cached profile to avoid confusing errors.
   profile = false
-  navigate('/')
+  // Navigate to homepage on logout forcing to render the page.
+  if (process.env.NODE_ENV === 'development') {
+    window.location.replace('http://localhost:8000/')
+  } else {
+    // TODO: Change url in productions
+    window.location.replace('https://dev--pastanagapp-6by6january.netlify.com/')
+  }
 }
 
 const setSession = authResult => {
