@@ -48,3 +48,16 @@ export const GET_VICTIM_DATA = gql`
     }
   }
 `
+// TODO: Before merging with Master branch change from 'killsDev' to 'kills'
+export const VALIDATE_MY_KILL = gql`
+  mutation validate_my_kill {
+    update_killsDev(
+      where: { status: { _eq: "live" } }
+      _set: { hasAssasinValidated: true }
+    ) {
+      returning {
+        kill_id
+      }
+    }
+  }
+`

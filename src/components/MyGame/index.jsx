@@ -29,7 +29,7 @@ class MyGame extends Component {
         <Typography variant="h5" paragraph>
           La teva víctima
         </Typography>
-        <NextVictim />
+        <NextVictim VictimId="b19fd4b2-6252-4831-bb32-f302329f2560" />
         {userEmail === process.env.GATSBY_ADMIN_EMAIL && <AdminOptions />}
       </>
     )
