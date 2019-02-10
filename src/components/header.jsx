@@ -48,9 +48,6 @@ const Header = ({ siteTitle, siteLogo, classes }) => (
             <Typography variant="h6" color="inherit" className={classes.grow}>
               {siteTitle}
             </Typography>
-            <AnchorLink href="#SignupForm" offset="120px">
-              <Button>Inscriu-te</Button>
-            </AnchorLink>
           </Toolbar>
         </AppBar>
       </div>

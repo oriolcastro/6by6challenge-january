@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
 const LandingHero = () => (
-  <div>
+  <div style={{ marginBottom: '24px' }}>
     <Grid container justify="space-between" spacing={24}>
       <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
         <Typography variant="h4" gutterBottom>
