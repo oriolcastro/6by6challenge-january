@@ -15,7 +15,7 @@ const IndexPage = () => (
       </Typography>
       <Countdown date="2019-02-24T00:01:00" />
       <Typography variant="h4" align="center" paragraph>
-        per començar el joc.
+        per començar el joc
       </Typography>
     </div>
     <LandingHero />
