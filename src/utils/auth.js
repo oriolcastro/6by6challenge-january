@@ -1,5 +1,6 @@
 import auth0js from 'auth0-js'
 import { navigate } from 'gatsby'
+import axios from 'axios'
 
 const isBrowser = typeof window !== 'undefined'
 
@@ -31,6 +32,7 @@ export const Logout = () => {
     localStorage.removeItem('expires_at')
     localStorage.removeItem('user')
     localStorage.removeItem('avatar_src')
+    localStorage.removeItem('player_id')
   }
 
   // Remove the locally cached profile to avoid confusing errors.
@@ -56,6 +58,31 @@ const setSession = authResult => {
   localStorage.setItem('access_token', authResult.accessToken)
   localStorage.setItem('id_token', authResult.idToken)
   localStorage.setItem('expires_at', expiresAt)
+  axios({
+    method: 'post',
+    url: process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT,
+    data: {
+      query: `query get_my_id {
+        playersDev {
+          player_id
+        }
+      }`,
+    },
+    headers: {
+      Authorization: authResult.idToken ? `Bearer ${authResult.idToken}` : '',
+    },
+  })
+    .then(res => {
+      console.log(
+        `Player logged ID saved locally with the uuid: ${
+          res.data.data.playersDev[0].player_id
+        }`
+      )
+      localStorage.setItem('player_id', res.data.data.playersDev[0].player_id)
+    })
+    .catch(err => {
+      console.log(err)
+    })
 
   return true
 }
