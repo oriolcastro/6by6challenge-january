@@ -12,11 +12,6 @@ export const initializeFirebase = () => {
   console.log('Firebase initialized')
 }
 
-export const setServiceWorker = mySW => {
-  firebase.messaging().useServiceWorker(mySW)
-  console.log('Firebase SW added to the main ServiceWorker')
-}
-
 export const askPermissionToReceiveNotifications = async () => {
   try {
     const messaging = firebase.messaging()

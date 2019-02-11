@@ -16,11 +16,6 @@ export const wrapRootElement = ({ element }) => (
     </MuiPickersUtilsProvider>
   </ApolloProvider>
 )
-export const registerServiceWorker = () => true
-
-export const onServiceWorkerInstalled = ({ serviceWorker }) => {
-  setServiceWorker(serviceWorker)
-}
 
 export const onInitialClientRender = () => {
   initializeFirebase()
