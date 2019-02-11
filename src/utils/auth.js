@@ -1,5 +1,4 @@
 import auth0js from 'auth0-js'
-import { navigate } from 'gatsby'
 import axios from 'axios'
 
 const isBrowser = typeof window !== 'undefined'

@@ -7,7 +7,6 @@ import AdminOptions from './adminOptions'
 import Countdown from '../countdown'
 import NextVictim from './nextVictim'
 import MyVictims from './myVictims'
-import Firebase from '../../utils/firebase'
 
 class MyGame extends Component {
   constructor(props) {
@@ -19,7 +18,6 @@ class MyGame extends Component {
     if (navigator.onLine) {
       getUserInfo().then(res => this.setState({ userEmail: res.email }))
     }
-    this.firebase = new Firebase()
   }
 
   render() {

@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { isAuthenticated, Login, Logout, getUserInfo } from '../utils/auth'
 import NetworkIndicator from './networkIndicator'
 import InstallIndicator from './installIndicator'
-import Firebase from '../utils/firebase'
+import { askPermissionToReceiveNotifications } from '../utils/firebase'
 
 const styles = {
   root: {
@@ -44,6 +44,12 @@ class MobileAppBar extends Component {
     this.setState({ anchorEl: null })
   }
 
+  handleNotificationRequest = () => {
+    askPermissionToReceiveNotifications()
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  }
+
   render() {
     const { classes, siteTitle } = this.props
     const { authenticated, anchorEl, avatarSrc } = this.state
@@ -63,7 +69,7 @@ class MobileAppBar extends Component {
             <>
               <InstallIndicator />
               <NetworkIndicator />
-              <Button onClick={Firebase.askPermissionToReceiveNotifications}>
+              <Button onClick={this.handleNotificationRequest}>
                 Notifications
               </Button>
               <Avatar
