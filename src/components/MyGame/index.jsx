@@ -26,10 +26,20 @@ class MyGame extends Component {
           Temps de joc restant
         </Typography>
         <Countdown date="2019-03-06T20:00:00" />
-        <Typography variant="h5" paragraph>
-          La teva víctima
-        </Typography>
-        <NextVictim VictimId="b19fd4b2-6252-4831-bb32-f302329f2560" />
+        //TODO: Afegir component per mostrar que el teu assesí t'ha matat i
+        espera la validació.
+        <div style={{ marginBottom: '36px' }}>
+          <Typography variant="h4">Estas mort/a!</Typography>
+          <Typography variant="body2" paragraph>
+            NOM ha aconseguit iminar-te del joc. Confirma la mort i entrega-li
+            el clauer.
+          </Typography>
+          <Button variant="contained" color="primary">
+            Confirmar
+          </Button>
+        </div>
+        <NextVictim />
+        <MyVictims />
         {userEmail === process.env.GATSBY_ADMIN_EMAIL && <AdminOptions />}
       </>
     )
