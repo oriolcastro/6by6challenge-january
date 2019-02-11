@@ -26,24 +26,27 @@ export const GET_PLAYERS = gql`
     }
   }
 `
-// TODO: Before merging with Master branch change from 'killsDev' to 'kills'
-export const GET_VICTIM_ID = gql`
-  query get_victim_id {
-    killsDev(where: { status: { _eq: "live" } }) {
-      victim_id
-    }
-  }
-`
 
-// TODO: Before merging with Master branch change from 'playersDev' to 'players'
-export const GET_VICTIM_DATA = gql`
-  query get_victim_data($VictimId: uuid!) {
-    playersDev(where: { player_id: { _eq: $VictimId } }) {
-      name
-      firstSurname
-      secondSurname
-      team {
+// TODO: Before merging with Master branch change from 'killsDev' to 'kills'
+export const GET_MY_CURRENT_VICTIM = gql`
+  query get_my_current_victim($player_id: uuid!) {
+    killsDev(
+      where: {
+        _and: [
+          { status: { _eq: "live" } }
+          { assasin: { player_id: { _eq: $player_id } } }
+        ]
+      }
+    ) {
+      hasAssasinValidated
+      victim {
+        player_id
         name
+        firstSurname
+        secondSurname
+        team {
+          name
+        }
       }
     }
   }
@@ -57,6 +60,51 @@ export const VALIDATE_MY_KILL = gql`
     ) {
       returning {
         kill_id
+      }
+    }
+  }
+`
+
+// TODO: Before merging with Master branch change from 'killsDev' to 'kills'
+export const GET_MY_KILLED_VICTIMS = gql`
+  query get_my_victims($player_id: uuid!) {
+    killsDev(
+      where: {
+        _and: [
+          { status: { _eq: "fulfilled" } }
+          { assasin: { player_id: { _eq: $player_id } } }
+        ]
+      }
+      order_by: { edited: desc }
+    ) {
+      victim {
+        player_id
+        name
+        firstSurname
+        secondSurname
+        team {
+          name
+        }
+      }
+    }
+  }
+`
+
+export const GET_LAST_VICTIMS = gql`
+  query get_last_victims {
+    killsDev(
+      where: { status: { _eq: "fulfilled" } }
+      order_by: { edited: desc }
+      limit: 10
+    ) {
+      victim {
+        player_id
+        name
+        firstSurname
+        secondSurname
+        team {
+          name
+        }
       }
     }
   }
