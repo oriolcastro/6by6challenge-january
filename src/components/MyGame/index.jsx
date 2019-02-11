@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
+import { Button } from '@material-ui/core'
 
 import { getUserInfo } from '../../utils/auth'
 import AdminOptions from './adminOptions'
 import Countdown from '../countdown'
 import NextVictim from './nextVictim'
+import MyVictims from './myVictims'
+import Firebase from '../../utils/firebase'
 
 class MyGame extends Component {
   constructor(props) {
@@ -16,6 +19,7 @@ class MyGame extends Component {
     if (navigator.onLine) {
       getUserInfo().then(res => this.setState({ userEmail: res.email }))
     }
+    this.firebase = new Firebase()
   }
 
   render() {

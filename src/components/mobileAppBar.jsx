@@ -12,6 +12,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { isAuthenticated, Login, Logout, getUserInfo } from '../utils/auth'
 import NetworkIndicator from './networkIndicator'
 import InstallIndicator from './installIndicator'
+import Firebase from '../utils/firebase'
 
 const styles = {
   root: {
@@ -62,6 +63,9 @@ class MobileAppBar extends Component {
             <>
               <InstallIndicator />
               <NetworkIndicator />
+              <Button onClick={Firebase.askPermissionToReceiveNotifications}>
+                Notifications
+              </Button>
               <Avatar
                 aria-owns={open ? 'menu-appbar' : undefined}
                 aria-haspopup="true"
