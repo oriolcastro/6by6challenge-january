@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 
-class SignupNotification extends Component {
+class Notification extends Component {
   state = {
     open: false,
   }
@@ -20,6 +20,7 @@ class SignupNotification extends Component {
   }
 
   render() {
+    const { message } = this.props
     return (
       <Snackbar
         anchorOrigin={{
@@ -32,15 +33,10 @@ class SignupNotification extends Component {
         ContentProps={{
           'aria-describedby': 'message-id',
         }}
-        message={
-          <span id="message-id">
-            Inscripció efectuada correctament. Rebràs un coreu electrònic de
-            confirmació a la direcció que has introduït.
-          </span>
-        }
+        message={<span id="message-id">{message}</span>}
       />
     )
   }
 }
 
-export default SignupNotification
+export default Notification
