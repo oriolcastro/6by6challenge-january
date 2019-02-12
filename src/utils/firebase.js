@@ -2,14 +2,19 @@ import firebase from 'firebase/app'
 import 'firebase/messaging'
 
 const config = {
-  apiKey: 'AIzaSyCTV2pQ6qkfNh90IYWodvxeokuAYNkcdPY',
+  apiKey: process.env.GATSBY_FIREBASE_API_KEY,
   messagingSenderId: process.env.GATSBY_FIREBASE_MESSAGING_SENDER_ID,
-  projectId: 'lapastanagadelrei-b19d0',
+  projectId: process.env.GATSBY_FIREBASE_PROJECT_ID,
 }
 
 export const initializeFirebase = () => {
   firebase.initializeApp(config)
   console.log('Firebase initialized')
+  firebase
+    .messaging()
+    .usePublicVapidKey(
+      'BIOWKJDbssiAKXTSrAhdeIA7aTGPKVDUSfFeqSnSgKS2VybWVi7ZUvYZM09o3UW7YY-uc-x2dWH_El-s8fh6Mzo'
+    )
 }
 
 export const askPermissionToReceiveNotifications = async () => {
@@ -30,4 +35,11 @@ export const monitorTokenRefresh = () => {
     return refreshedToken
   })
   console.log('The token has not refreshed.')
+}
+
+export const manageOnMessage = () => {
+  const messaging = firebase.messaging()
+  messaging.onMessage(payload => {
+    console.log('onMessage: ', payload)
+  })
 }

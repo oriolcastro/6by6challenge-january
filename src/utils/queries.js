@@ -110,9 +110,11 @@ export const GET_LAST_VICTIMS = gql`
   }
 `
 export const ADD_DEVICE_TOKEN = `
-  mutation add_device_token($device_token: String!) {
-    update_playersDev(_set: {device_token: $device_token}){
-      affected_rows
+  mutation add_device_token($device_token: String!, $player_id: uuid!) {
+    update_playersDev(where: {player_id: {_eq: $player_id}}, _set: {device_token: $device_token}){
+      returning{
+        device_token
+      }
     }
   }
 `

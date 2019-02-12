@@ -6,6 +6,7 @@ import axios from 'axios'
 import {
   askPermissionToReceiveNotifications,
   monitorTokenRefresh,
+  manageOnMessage,
 } from '../utils/firebase'
 import { ADD_DEVICE_TOKEN } from '../utils/queries'
 
@@ -21,35 +22,39 @@ class NotificationIndicator extends Component {
       console.log('This browser support notifications')
       this.setState({ showNotificationIcon: true })
     }
-    monitorTokenRefresh()
-      .then(refreshedToken => {
-        let token = ''
-        if (typeof window !== 'undefined') {
-          token = localStorage.getItem('id_token')
-        }
-        axios({
-          method: 'post',
-          url: process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT,
-          data: {
-            query: ADD_DEVICE_TOKEN,
-            variables: {
-              device_token: refreshedToken,
-            },
+    manageOnMessage()
+    const refreshedToken = monitorTokenRefresh()
+    if (refreshedToken) {
+      let token = ''
+      if (typeof window !== 'undefined') {
+        token = localStorage.getItem('id_token')
+        player_id
+      }
+      axios({
+        method: 'post',
+        url: process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT,
+        data: {
+          query: ADD_DEVICE_TOKEN,
+          variables: {
+            device_token: refreshedToken,
+            player_id: player_id,
           },
-          headers: { Authorization: token ? `Bearer ${token}` : '' },
-        })
-          .then(res => console.log(res))
-          .catch(err => console.log(err))
+        },
+        headers: { Authorization: token ? `Bearer ${token}` : '' },
       })
-      .catch(err => console.log('Unable to retrieve refreshed token ', err))
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
   }
 
   handleNotificationRequest = () => {
     askPermissionToReceiveNotifications()
       .then(deviceToken => {
         let token = ''
+        let player_id = ''
         if (typeof window !== 'undefined') {
           token = localStorage.getItem('id_token')
+          player_id = localStorage.getItem('player_id')
         }
         axios({
           method: 'post',
@@ -58,11 +63,16 @@ class NotificationIndicator extends Component {
             query: ADD_DEVICE_TOKEN,
             variables: {
               device_token: deviceToken,
+              player_id: player_id,
             },
           },
           headers: { Authorization: token ? `Bearer ${token}` : '' },
         })
-          .then(res => console.log(res))
+          .then(res => {
+            console.log(res)
+            localStorage.setItem('deviceToken', deviceToken)
+            this.setState({ showNotificationIcon: false })
+          })
           .catch(err => console.log(err))
       })
       .catch(err => console.log(err))
