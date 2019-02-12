@@ -17,9 +17,17 @@ export const askPermissionToReceiveNotifications = async () => {
     const messaging = firebase.messaging()
     await messaging.requestPermission()
     const deviceToken = messaging.getToken()
-    console.log(`This is the firebase token: ${deviceToken}`)
     return deviceToken
   } catch (error) {
     return error
   }
+}
+
+export const monitorTokenRefresh = () => {
+  const messaging = firebase.messaging()
+  messaging.onTokenRefresh(() => {
+    const refreshedToken = messaging.getToken()
+    return refreshedToken
+  })
+  console.log('The token has not refreshed.')
 }
