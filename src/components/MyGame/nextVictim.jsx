@@ -56,13 +56,13 @@ class NextVictim extends Component {
                     {data.killsDev[0].victim.team.name}
                   </Typography>
                 </CardContent>
-                <CardActions>
+                <CardActions style={{ textAlign: 'right' }}>
                   <Mutation mutation={VALIDATE_MY_KILL}>
                     {(update_killsDev, { called }) => (
                       <>
                         {!data.killsDev[0].hasAssasinValidated ? (
                           <>
-                            <Button onClick={this.openDialog}>
+                            <Button onClick={this.openDialog} color="primary">
                               Validar mort
                             </Button>
                             <ConfirmDialog
