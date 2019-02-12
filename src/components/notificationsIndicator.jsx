@@ -12,7 +12,7 @@ import { ADD_DEVICE_TOKEN } from '../utils/queries'
 class NotificationIndicator extends Component {
   constructor(props) {
     super(props)
-    this.state({ showNotificationIcon: false })
+    this.state = { showNotificationIcon: false }
   }
 
   componentDidMount() {
