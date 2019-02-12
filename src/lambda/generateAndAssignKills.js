@@ -7,11 +7,9 @@ const accessKey = process.env.GATSBY_HASURA_GRAPHQL_ACCESS_KEY
 const hgeEndpoint = process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT
 
 // Mutation to generate the Kills
-// TODO: Change insert_killdDev for insert_kill for production
-
 const GENERATE_KILLS = `
-mutation insert_killsDev($assasin_id: uuid! ,$victim_id: uuid!) {
-    insert_killsDev(objects: [{assasin_id: $assasin_id, victim_id: $victim_id}]){
+mutation insert_kills($assasin_id: uuid! ,$victim_id: uuid!) {
+    insert_kills(objects: [{assasin_id: $assasin_id, victim_id: $victim_id}]){
         returning{
             kill_id
             assasin_id
@@ -21,11 +19,9 @@ mutation insert_killsDev($assasin_id: uuid! ,$victim_id: uuid!) {
 `
 
 // Mutation to assign the kill to each player
-// TODO: Change update_playersDev for update_players in production
-
 const ASSIGN_KILL = `
-mutation update_playersDev($player_id: uuid!, $kill_id: Int!) {
-    update_playersDev(where: {player_id: {_eq: $player_id}}, _set: {kill_id: $kill_id}) {
+mutation update_players($player_id: uuid!, $kill_id: Int!) {
+    update_players(where: {player_id: {_eq: $player_id}}, _set: {kill_id: $kill_id}) {
       returning {
         player_id
         name
@@ -35,18 +31,16 @@ mutation update_playersDev($player_id: uuid!, $kill_id: Int!) {
 `
 
 // Query to get the array of players before or after the set date
-// TODO: Change playersDev for players in production
-
 const GET_YOUNG_PLAYERS = `
-query playersDev($separationDate: date!) {
-    playersDev(where: {birthday: {_gte: $separationDate}}, order_by: {player_id: asc}) {
+query players($separationDate: date!) {
+    players(where: {birthday: {_gte: $separationDate}}, order_by: {player_id: asc}) {
       player_id
     }
   }
 `
 const GET_OLD_PLAYERS = `
-query playersDev($separationDate: date!) {
-    playersDev(where: {birthday: {_lt: $separationDate}}, order_by: {player_id: asc}) {
+query players($separationDate: date!) {
+    players(where: {birthday: {_lt: $separationDate}}, order_by: {player_id: asc}) {
       player_id
     }
   }
@@ -77,7 +71,6 @@ exports.handler = async function(event) {
 
   try {
     // Get players
-    //TODO: See if there is need to generate more than 2 lists.
     let selectedQuery
     if (listSelector === 'young') {
       selectedQuery = GET_YOUNG_PLAYERS
@@ -96,7 +89,7 @@ exports.handler = async function(event) {
       headers: { 'x-hasura-access-key': accessKey },
     })
 
-    const playersArray = resGetPlayers.data.data.playersDev
+    const playersArray = resGetPlayers.data.data.players
     console.log(playersArray)
 
     // Loop through the players array creating the kills for each one
@@ -124,7 +117,7 @@ exports.handler = async function(event) {
         headers: { 'x-hasura-access-key': accessKey },
       })
       const createdKillId =
-        resInsertKill.data.data.insert_killsDev.returning[0].kill_id
+        resInsertKill.data.data.insert_kills.returning[0].kill_id
       console.log(`Kill generated correctly with the id: ${createdKillId}`)
       //   console.log(
       //     `Will be assigned to player: ${
@@ -146,7 +139,7 @@ exports.handler = async function(event) {
       })
       console.log(
         `Kill number ${createdKillId} has been assigned to ${
-          resAssignKill.data.data.update_playersDev.returning[0].name
+          resAssignKill.data.data.update_players.returning[0].name
         }`
       )
     })
