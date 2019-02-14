@@ -9,10 +9,10 @@ export const GET_TEAMS = gql`
     }
   }
 `
-// TODO: Before merging with Master branch change from 'playersDev' to 'players'
+
 export const GET_PLAYERS = gql`
   query get_players {
-    playersDev(where: { isDead: { _eq: false } }) {
+    players(where: { isDead: { _eq: false } }) {
       player_id
       name
       firstSurname
@@ -38,6 +38,7 @@ export const GET_MY_CURRENT_VICTIM = gql`
         ]
       }
     ) {
+      kill_id
       hasAssasinValidated
       victim {
         player_id
@@ -53,10 +54,21 @@ export const GET_MY_CURRENT_VICTIM = gql`
 `
 // TODO: Before merging with Master branch change from 'killsDev' to 'kills'
 export const VALIDATE_MY_KILL = gql`
-  mutation validate_my_kill {
+  mutation validate_my_kill($kill_id: Int!) {
     update_killsDev(
-      where: { status: { _eq: "live" } }
+      where: { kill_id: { _eq: $kill_id } }
       _set: { hasAssasinValidated: true }
+    ) {
+      affected_rows
+    }
+  }
+`
+// TODO: Before merging with Master branch change from 'killsDev' to 'kills'
+export const VALIDATE_MY_DEATH = gql`
+  mutation validatemykill($kill_id: Int!) {
+    update_killsDev(
+      where: { kill_id: { _eq: $kill_id } }
+      _set: { hasVictimValidated: true }
     ) {
       returning {
         kill_id

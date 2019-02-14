@@ -57,7 +57,10 @@ class NextVictim extends Component {
                   </Typography>
                 </CardContent>
                 <CardActions style={{ textAlign: 'right' }}>
-                  <Mutation mutation={VALIDATE_MY_KILL}>
+                  <Mutation
+                    mutation={VALIDATE_MY_KILL}
+                    variables={{ kill_id: data.killsDev[0].kill_id }}
+                  >
                     {(update_killsDev, { called }) => (
                       <>
                         {!data.killsDev[0].hasAssasinValidated ? (

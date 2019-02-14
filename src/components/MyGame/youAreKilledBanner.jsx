@@ -3,6 +3,11 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import { withStyles } from '@material-ui/core/styles'
+import { Mutation } from 'react-apollo'
+
+import { withFirebase } from '../../utils/firebase'
+import ConfirmDialog from './confirmDialog'
+import { VALIDATE_MY_DEATH } from '../../utils/queries'
 
 const styles = theme => ({
   root: {
@@ -16,30 +21,101 @@ const styles = theme => ({
 class YouAreKilledBanner extends Component {
   constructor(props) {
     super(props)
-    this.state = { showBanner: true }
+    this.state = {
+      isDead: false,
+      killerName: '',
+      isDialogOpen: false,
+      killId: null,
+    }
   }
 
-  validateMyKill = () => {
-    console.log('I validet my elimination from the game')
-    this.setState({ showBanner: false })
+  componentDidMount() {
+    this.setState({
+      killerName: localStorage.getItem('killerName'),
+      isDead: localStorage.getItem('isDead'),
+      killId: localStorage.getItem('killId'),
+    })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.firebase !== prevProps.firebase) {
+      const messaging = this.props.firebase.messaging()
+      messaging.onMessage(payload => {
+        console.log('onMessage: ', payload)
+        const { haveBeenKilled, killerName, killId } = payload.data
+        if (haveBeenKilled) {
+          console.log('You are killed, show banner.')
+          this.setState({
+            isDead: true,
+            killerName: killerName,
+            killId: killId,
+          })
+          localStorage.setItem('isDead', true)
+          localStorage.setItem('killerName', killerName)
+          localStorage.setItem('killId', killId)
+        }
+      })
+    }
+  }
+
+  openDialog = () => {
+    this.setState({ isDialogOpen: true })
+  }
+
+  closeDialog = () => {
+    this.setState({ isDialogOpen: false })
+  }
+
+  resetBanner = () => {
+    console.log('Reset information after mutation completed')
+    localStorage.removeItem('killerName')
+    localStorage.removeItem('killId')
+    this.setState({
+      isDead: false,
+      killerName: '',
+      isDialogOpen: false,
+      killId: null,
+    })
   }
 
   render() {
     const { classes } = this.props
-    const { showBanner } = this.state
+    const { isDead, killerName, isDialogOpen, killId } = this.state
+
     return (
-      // TODO: Afegir component per mostrar que el teu assesí t'ha matat i espera la validació.
       <>
-        {showBanner && (
+        {isDead && (
           <Paper className={classes.root}>
-            <Typography variant="h4">Estas mort/a!</Typography>
-            <Typography variant="body2" paragraph>
-              NOM ha aconseguit iminar-te del joc. Confirma la mort i entrega-li
-              el clauer.
+            <Typography variant="h4" gutterBottom>
+              Estas mort/a!
             </Typography>
-            <Button color="primary" onClick={this.validateMyKill}>
-              Confirmar
-            </Button>
+            <Typography variant="body2" paragraph>
+              {killerName} ha aconseguit eliminar-te del joc. Confirma la mort i
+              entrega-li el clauer.
+            </Typography>
+            <Mutation
+              mutation={VALIDATE_MY_DEATH}
+              variables={{ kill_id: killId }}
+              onCompleted={this.resetBanner}
+            >
+              {update_killsDev => (
+                <>
+                  <Button color="primary" onClick={this.openDialog}>
+                    Confirmar
+                  </Button>
+                  <ConfirmDialog
+                    open={isDialogOpen}
+                    closeDialog={this.closeDialog}
+                    acceptDialog={() => {
+                      update_killsDev()
+                      this.closeDialog()
+                    }}
+                    title="Estas mort/a?"
+                    message="Si el teu assesi/na ha aconseguit eliminar-te es moment d'acceptar-ho i entregar-li el clauer."
+                  />
+                </>
+              )}
+            </Mutation>
           </Paper>
         )}
       </>
@@ -47,4 +123,4 @@ class YouAreKilledBanner extends Component {
   }
 }
 
-export default withStyles(styles)(YouAreKilledBanner)
+export default withFirebase(withStyles(styles)(YouAreKilledBanner))
