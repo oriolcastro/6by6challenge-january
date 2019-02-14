@@ -92,8 +92,7 @@ exports.handler = async function(req) {
         title: 'Estàs mort/a!',
         icon:
           'https://res.cloudinary.com/okstudio/image/upload/v1547740222/icon.png',
-        click_action:
-          'https://dev--pastanagapp-6by6january.netlify.com/elmeujoc',
+        click_action: 'https://dev--pastanagapp-6by6january.netlify.com',
       },
     }
 
