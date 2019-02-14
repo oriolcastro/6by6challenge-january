@@ -17,7 +17,7 @@ class NotificationIndicator extends Component {
     if (Notification.permission === 'granted') {
       this.setState({ isNotificationsOn: true })
     } else {
-      this.setStat({ isNotificationsOn: false })
+      this.setState({ isNotificationsOn: false })
     }
   }
 
