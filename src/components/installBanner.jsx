@@ -54,7 +54,7 @@ class InstallBanner extends Component {
   }
 
   handleCancel = () => {
-    this.setState({ showInstallBanner: false })
+    this.toogleInstallBanner()
   }
 
   toogleInstallBanner = () => {

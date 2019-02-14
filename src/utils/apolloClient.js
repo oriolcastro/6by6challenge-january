@@ -5,7 +5,6 @@ const isBrowser = typeof window !== 'undefined'
 let token = ''
 if (isBrowser) {
   token = localStorage.getItem('id_token')
-  console.log(token)
 }
 
 export const client = new ApolloClient({

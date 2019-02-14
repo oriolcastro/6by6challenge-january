@@ -33,6 +33,7 @@ class MyGame extends Component {
         </Typography>
         <Countdown date="2019-03-06T20:00:00" />
         <NextVictim />
+
         <MyVictims />
         {userEmail === process.env.GATSBY_ADMIN_EMAIL && <AdminOptions />}
       </>

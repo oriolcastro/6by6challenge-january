@@ -87,7 +87,7 @@ class ReviewPlayers extends Component {
             return (
               <MaterialTable
                 columns={columns}
-                data={data.playersDev} //TODO: before merging with Master branch change playersDev to players
+                data={data.players}
                 title="Jugadors inscrits"
                 icons={icons}
                 localization={localization}

@@ -53,7 +53,7 @@ class NetworkIndicator extends Component {
   render() {
     const { online, showSnackbar } = this.state
     return (
-      <div style={{ margin: '8px 16px' }}>
+      <div style={{ margin: '12px' }}>
         {!online && (
           <>
             <Offline />
