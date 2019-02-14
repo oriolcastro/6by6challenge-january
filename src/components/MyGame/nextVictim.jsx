@@ -72,6 +72,9 @@ class NextVictim extends Component {
                                 update_killsDev()
                                 this.closeDialog()
                               }}
+                              title="Validar mort?"
+                              message="La teva víctima també haurà de validar a través de l'aplicació que ha estat eliminada. Un cop validat per les dues parts t'apareixerà la
+                              informació de la següent víctima."
                             />
                           </>
                         ) : (

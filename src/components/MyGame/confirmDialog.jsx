@@ -13,12 +13,10 @@ const ConfirmDialog = props => (
     aria-labelledby="alert-dialog-title"
     aria-describedby="alert-dialog-description"
   >
-    <DialogTitle id="alert-dialog-title">Validar mort?</DialogTitle>
+    <DialogTitle id="alert-dialog-title">{props.title}</DialogTitle>
     <DialogContent>
       <DialogContentText id="alert-dialog-description">
-        La teva víctima també haurà de validar a través de l'aplicació que ha
-        estat eliminada. Un cop validat per les dues parts t'apareixerà la
-        informació de la següent víctima.
+        {props.message}
       </DialogContentText>
     </DialogContent>
     <DialogActions>
