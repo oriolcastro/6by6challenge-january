@@ -1,5 +1,4 @@
-import firebase from 'firebase/app'
-import 'firebase/messaging'
+import React from 'react'
 
 const config = {
   apiKey: process.env.GATSBY_FIREBASE_API_KEY,
@@ -7,39 +6,52 @@ const config = {
   projectId: process.env.GATSBY_FIREBASE_PROJECT_ID,
 }
 
-export const initializeFirebase = () => {
+let firebaseInstance
+
+const getFirebase = firebase => {
+  if (firebaseInstance) {
+    return firebaseInstance
+  }
+
   firebase.initializeApp(config)
-  console.log('Firebase initialized')
-  firebase
-    .messaging()
-    .usePublicVapidKey(
-      'BIOWKJDbssiAKXTSrAhdeIA7aTGPKVDUSfFeqSnSgKS2VybWVi7ZUvYZM09o3UW7YY-uc-x2dWH_El-s8fh6Mzo'
-    )
+  firebaseInstance = firebase
+
+  return firebase
 }
 
-export const askPermissionToReceiveNotifications = async () => {
-  try {
-    const messaging = firebase.messaging()
-    await messaging.requestPermission()
-    const deviceToken = messaging.getToken()
-    return deviceToken
-  } catch (error) {
-    return error
+// Context provider to pass the firebase object to the components that need to use it
+const FirebaseContext = React.createContext(null)
+
+class FirebaseProvider extends React.Component {
+  state = {
+    firebase: null,
+  }
+
+  componentDidMount() {
+    const app = import('firebase/app')
+    const messaging = import('firebase/messaging')
+    Promise.all([app, messaging]).then(values => {
+      const firebase = getFirebase(values[0])
+      console.log('Firebase initialized')
+      this.setState({ firebase: firebase })
+    })
+  }
+
+  render() {
+    const { children } = this.props
+    const { firebase } = this.state
+    return (
+      <FirebaseContext.Provider value={firebase}>
+        {children}
+      </FirebaseContext.Provider>
+    )
   }
 }
 
-export const monitorTokenRefresh = () => {
-  const messaging = firebase.messaging()
-  messaging.onTokenRefresh(() => {
-    const refreshedToken = messaging.getToken()
-    return refreshedToken
-  })
-  console.log('The token has not refreshed.')
-}
+const withFirebase = Component => props => (
+  <FirebaseContext.Consumer>
+    {firebase => <Component {...props} firebase={firebase} />}
+  </FirebaseContext.Consumer>
+)
 
-export const manageOnMessage = () => {
-  const messaging = firebase.messaging()
-  messaging.onMessage(payload => {
-    console.log('onMessage: ', payload)
-  })
-}
+export { FirebaseProvider, withFirebase }

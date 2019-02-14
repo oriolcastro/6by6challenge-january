@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // Give the service worker access to Firebase Messaging.
 // Note that you can only use Firebase Messaging here, other Firebase libraries
 // are not available in the service worker.
@@ -19,11 +21,15 @@ messaging.setBackgroundMessageHandler(function(payload) {
     '[firebase-messaging-sw.js] Received background message ',
     payload
   )
+
+  const notification = payload.data.notification
+  const { title, body, click_action } = JSON.parse(notification)
   // Customize notification here
-  const notificationTitle = 'Notification Title'
+  const notificationTitle = title
   const notificationOptions = {
-    body: 'Notification body.',
+    body: body,
     icon: '/icon.png',
+    click_action: click_action,
   }
 
   return self.registration.showNotification(
