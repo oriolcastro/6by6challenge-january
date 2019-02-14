@@ -13,6 +13,14 @@ class NotificationIndicator extends Component {
     this.state = { isNotificationsOn: false }
   }
 
+  componentDidMount() {
+    if (Notification.permission === 'granted') {
+      this.setState({ isNotificationsOn: true })
+    } else {
+      this.setStat({ isNotificationsOn: false })
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.firebase !== prevProps.firebase) {
       const messaging = this.props.firebase.messaging()
