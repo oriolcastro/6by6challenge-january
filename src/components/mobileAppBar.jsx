@@ -25,10 +25,20 @@ const styles = {
 class MobileAppBar extends Component {
   constructor(props) {
     super(props)
-    this.state = { authenticated: false, anchorEl: null, avatarSrc: '' }
+    this.state = {
+      authenticated: false,
+      anchorEl: null,
+      avatarSrc: '',
+      hasNotificationAPI: false,
+    }
   }
 
   componentDidMount() {
+    // Let's check if the browser supports notifications and there isn't any token saved
+    if ('Notification' in window) {
+      console.log('This browser support notifications')
+      this.setState({ hasNotificationAPI: true })
+    }
     this.setState({
       avatarSrc: localStorage.getItem('avatar_src'),
       authenticated: isAuthenticated(),
@@ -45,7 +55,12 @@ class MobileAppBar extends Component {
 
   render() {
     const { classes, siteTitle } = this.props
-    const { authenticated, anchorEl, avatarSrc } = this.state
+    const {
+      authenticated,
+      anchorEl,
+      avatarSrc,
+      hasNotificationAPI,
+    } = this.state
     const open = Boolean(anchorEl)
 
     return (
@@ -61,7 +76,7 @@ class MobileAppBar extends Component {
           {authenticated && (
             <>
               <NetworkIndicator />
-              <NotificationIndicator />
+              {hasNotificationAPI && <NotificationIndicator />}
               <Avatar
                 aria-owns={open ? 'menu-appbar' : undefined}
                 aria-haspopup="true"
