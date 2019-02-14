@@ -42,7 +42,6 @@ exports.handler = async function(req) {
   const {
     event: { data },
   } = request
-  console.log('This is the data send to lambda function:', JSON.stringify(data})
 
   try {
     //Extract relevant data and obtain the deviceToken
