@@ -20,19 +20,19 @@ class MyGame extends Component {
     if (navigator.onLine) {
       getUserInfo().then(res => this.setState({ userEmail: res.email }))
     }
-    this.setState({ isInstalled: localStorage.getItem('AppInstalled') })
+    //this.setState({ isInstalled: localStorage.getItem('AppInstalled') })
   }
 
   hiddeInstallBanner = () => {
     localStorage.setItem('AppaInstalled', true)
-    this.setState({isInstalled: true})
+    this.setState({ isInstalled: true })
   }
 
   render() {
     const { userEmail, isInstalled } = this.state
     return (
       <>
-        {!isInstalled && <InstallBanner hiddeInstallBanner={this.hiddeInstallBanner/>}
+        {!isInstalled && <InstallBanner />}
         <YouAreKilledBanner />
         <Typography variant="h5" paragraph>
           Temps de joc restant
