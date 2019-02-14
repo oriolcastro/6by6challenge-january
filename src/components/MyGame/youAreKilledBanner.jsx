@@ -110,8 +110,8 @@ class YouAreKilledBanner extends Component {
                       update_killsDev()
                       this.closeDialog()
                     }}
-                    title="Estas mort/a?"
-                    message="Si el teu assesi/na ha aconseguit eliminar-te es moment d'acceptar-ho i entregar-li el clauer."
+                    title="Estàs mort/a?"
+                    message="Si el teu assassí/na ha aconseguit eliminar-te, és moment d'acceptar-ho i entregar-li el clauer."
                   />
                 </>
               )}

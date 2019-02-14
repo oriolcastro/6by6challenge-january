@@ -13,20 +13,26 @@ import YouAreKilledBanner from './youAreKilledBanner'
 class MyGame extends Component {
   constructor(props) {
     super(props)
-    this.state = { authenticated: false, userEmail: '' }
+    this.state = { authenticated: false, userEmail: '', isInstalled: false }
   }
 
   componentDidMount() {
     if (navigator.onLine) {
       getUserInfo().then(res => this.setState({ userEmail: res.email }))
     }
+    this.setState({ isInstalled: localStorage.getItem('AppInstalled') })
+  }
+
+  hiddeInstallBanner = () => {
+    localStorage.setItem('AppaInstalled', true)
+    this.setState({isInstalled: true})
   }
 
   render() {
-    const { userEmail } = this.state
+    const { userEmail, isInstalled } = this.state
     return (
       <>
-        <InstallBanner />
+        {!isInstalled && <InstallBanner hiddeInstallBanner={this.hiddeInstallBanner/>}
         <YouAreKilledBanner />
         <Typography variant="h5" paragraph>
           Temps de joc restant

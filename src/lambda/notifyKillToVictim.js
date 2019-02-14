@@ -38,13 +38,11 @@ exports.handler = async function(req) {
   }
 
   // -- Parse the body contents into an object.
-  console.log(req)
   const request = JSON.parse(req.body)
-  console.log(request)
   const {
-    event: { op, data },
+    event: { data },
   } = request
-  console.log(`This is the data send to lambda function: ${data}`)
+  console.log('This is the data send to lambda function:', {data.new})
 
   try {
     //Extract relevant data and obtain the deviceToken

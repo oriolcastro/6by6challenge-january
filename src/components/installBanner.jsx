@@ -42,12 +42,14 @@ class InstallBanner extends Component {
           event_category: 'interacció',
           event_label: 'Install accepted',
         })
+        this.props.hiddeInstallBanner
       } else {
         console.log('User dismissed the A2HS prompt')
         gtag('event', 'A2HS', {
           event_category: 'interacció',
           event_label: 'Install dismissed',
         })
+        this.props.hiddeInstallBanner
       }
       deferredPrompt = null
     })
