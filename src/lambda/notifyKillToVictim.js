@@ -38,10 +38,12 @@ exports.handler = async function(req) {
   }
 
   // -- Parse the body contents into an object.
+  console.log(req)
   const request = JSON.parse(req.body)
+  console.log(request)
   const {
     event: { op, data },
-  } = req.body
+  } = request
   console.log(`This is the data send to lambda function: ${data}`)
 
   try {
