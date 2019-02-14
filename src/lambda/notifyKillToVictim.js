@@ -29,7 +29,7 @@ const GET_ASSASIN_NAME = `
 
 exports.handler = async function(req) {
   // -- We only care to do anything if this is our POST request.
-  if (event.httpMethod !== 'POST' || !event.body) {
+  if (req.httpMethod !== 'POST' || !req.body) {
     return {
       statusCode: 405,
       headers,
