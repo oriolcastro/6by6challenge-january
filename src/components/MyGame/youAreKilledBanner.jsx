@@ -22,7 +22,7 @@ class YouAreKilledBanner extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isDead: false,
+      haveBeenKilled: false,
       killerName: '',
       isDialogOpen: false,
       killId: null,
@@ -30,32 +30,37 @@ class YouAreKilledBanner extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      killerName: localStorage.getItem('killerName'),
-      isDead: localStorage.getItem('isDead'),
-      killId: localStorage.getItem('killId'),
-    })
+    const haveBeenKilled = localStorage.getItem('haveBeenKilled')
+    if (haveBeenKilled !== null) {
+      this.setState({
+        killerName: localStorage.getItem('killerName'),
+        haveBeenKilled: localStorage.getItem('haveBeenKilled'),
+        killId: localStorage.getItem('killId'),
+      })
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.firebase !== prevProps.firebase) {
       const messaging = this.props.firebase.messaging()
       messaging.onMessage(payload => {
-        console.log('onMessage: ', payload)
-        const { haveBeenKilled, killerName, killId } = payload.data
-        if (haveBeenKilled) {
-          console.log('You are killed, show banner.')
-          this.setState({
-            isDead: true,
-            killerName: killerName,
-            killId: killId,
-          })
-          localStorage.setItem('isDead', true)
-          localStorage.setItem('killerName', killerName)
-          localStorage.setItem('killId', killId)
-        }
+        const { data } = payload
+        this.handlePayloadData(data)
       })
     }
+  }
+
+  handlePayloadData = data => {
+    console.log('You are killed, show banner.')
+    const { haveBeenKilled, killerName, killId } = data
+    this.setState({
+      haveBeenKilled: haveBeenKilled,
+      killerName: killerName,
+      killId: killId,
+    })
+    localStorage.setItem('haveBeenKilled', haveBeenKilled)
+    localStorage.setItem('killerName', killerName)
+    localStorage.setItem('killId', killId)
   }
 
   openDialog = () => {
@@ -68,10 +73,11 @@ class YouAreKilledBanner extends Component {
 
   resetBanner = () => {
     console.log('Reset information after mutation completed')
+    localStorage.removeItem('haveBeenKilled')
     localStorage.removeItem('killerName')
     localStorage.removeItem('killId')
     this.setState({
-      isDead: false,
+      haveBeenKilled: false,
       killerName: '',
       isDialogOpen: false,
       killId: null,
@@ -80,11 +86,11 @@ class YouAreKilledBanner extends Component {
 
   render() {
     const { classes } = this.props
-    const { isDead, killerName, isDialogOpen, killId } = this.state
+    const { haveBeenKilled, killerName, isDialogOpen, killId } = this.state
 
     return (
       <>
-        {isDead && (
+        {haveBeenKilled && (
           <Paper className={classes.root}>
             <Typography variant="h4" gutterBottom>
               Estas mort/a!
