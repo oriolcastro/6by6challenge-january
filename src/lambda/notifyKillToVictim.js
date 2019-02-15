@@ -39,11 +39,9 @@ exports.handler = async function(req) {
 
   // -- Parse the body contents into an object.
   const request = JSON.parse(req.body)
-  console.log('This is the request body', request)
   const {
     event: { data },
   } = request
-  console.log('This is the data recieved', data)
 
   try {
     //Extract relevant data and obtain the deviceToken
@@ -112,8 +110,7 @@ exports.handler = async function(req) {
       return
     }
   } catch (err) {
-    console.log('There have been an error with the axios calls')
-    console.log(err)
+    console.log(err.toString())
     return {
       statusCode: 500,
       error: JSON.stringify(err),
