@@ -85,11 +85,13 @@ exports.handler = async function(req) {
 
   // -- Parse the body contents into an object.
   const request = JSON.parse(req.body)
-  console.log('This is the body from request', request)
+  console.log('This is the body from request')
+  console.log(request)
   const {
     event: { data },
   } = request
-  console.log('This is the data send to function', data)
+  console.log('This is the data send to function')
+  console.log(data)
 
   try {
     const {
@@ -192,11 +194,11 @@ exports.handler = async function(req) {
     })
     console.log('THe killed player have been marked as dead')
   } catch (err) {
-    console.log('Thera have been an error with the axios calls')
+    console.log('There have been an error with the axios calls')
     console.log(err)
     return {
       statusCode: 500,
-      error: JSON.stringify(err),
+      error: err,
     }
   }
 
