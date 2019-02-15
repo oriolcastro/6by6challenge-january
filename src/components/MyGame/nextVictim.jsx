@@ -38,12 +38,20 @@ class NextVictim extends Component {
         <Query
           query={GET_MY_CURRENT_VICTIM}
           variables={{ player_id }}
+          pollInterval={3600000}
           context={{ headers: { 'X-Hasura-Role': 'public' } }}
           partialRefetch
         >
           {({ loading, error, data }) => {
             if (loading) return null
             if (error) return `Error: ${error}`
+            if (data.killsDev.length === 0)
+              return (
+                <Typography variant="body2">
+                  Has estat eliminat del joc
+                </Typography>
+              )
+            console.log(data)
             return (
               <Card>
                 <CardContent>
