@@ -65,7 +65,7 @@ class NextVictim extends Component {
                       <>
                         {!data.killsDev[0].hasAssasinValidated ? (
                           <>
-                            <Button onClick={this.openDialog} color="primary">
+                            <Button disabled={} onClick={this.openDialog} color="primary">
                               Validar mort
                             </Button>
                             <ConfirmDialog

@@ -24,7 +24,7 @@ class MyGame extends Component {
   }
 
   hiddeInstallBanner = () => {
-    localStorage.setItem('AppaInstalled', true)
+    localStorage.setItem('AppInstalled', true)
     this.setState({ isInstalled: true })
   }
 
