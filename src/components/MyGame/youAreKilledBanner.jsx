@@ -4,6 +4,9 @@ import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import { withStyles } from '@material-ui/core/styles'
 import { Mutation } from 'react-apollo'
+import Modal from '@material-ui/core/Modal'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { navigate } from 'gatsby'
 
 import { withFirebase } from '../../utils/firebase'
 import ConfirmDialog from './confirmDialog'
@@ -16,6 +19,17 @@ const styles = theme => ({
     paddingBottom: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 4,
   },
+  modalPaper: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 4,
+    width: '50vw',
+    height: '50vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 })
 
 class YouAreKilledBanner extends Component {
@@ -26,6 +40,7 @@ class YouAreKilledBanner extends Component {
       killerName: '',
       isDialogOpen: false,
       killId: null,
+      loading: false,
     }
   }
 
@@ -81,12 +96,23 @@ class YouAreKilledBanner extends Component {
       killerName: '',
       isDialogOpen: false,
       killId: null,
+      loading: true,
     })
+    setTimeout(() => {
+      this.setState({ loading: false })
+      navigate('/elmeujoc', { replace: true })
+    }, 2000)
   }
 
   render() {
     const { classes } = this.props
-    const { haveBeenKilled, killerName, isDialogOpen, killId } = this.state
+    const {
+      haveBeenKilled,
+      killerName,
+      isDialogOpen,
+      killId,
+      loading,
+    } = this.state
 
     return (
       <>
@@ -124,6 +150,21 @@ class YouAreKilledBanner extends Component {
             </Mutation>
           </Paper>
         )}
+        <Modal
+          open={loading}
+          disableAutoFocus
+          disableBackdropClick
+          disableEscapeKeyDown
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Paper className={classes.modalPaper}>
+            <CircularProgress size={80} color="primary" />
+          </Paper>
+        </Modal>
       </>
     )
   }

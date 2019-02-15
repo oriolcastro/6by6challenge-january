@@ -38,11 +38,10 @@ class NextVictim extends Component {
         <Query
           query={GET_MY_CURRENT_VICTIM}
           variables={{ player_id }}
-          pollInterval={3600000}
           context={{ headers: { 'X-Hasura-Role': 'public' } }}
           partialRefetch
         >
-          {({ loading, error, data }) => {
+          {({ loading, error, data, refetch }) => {
             if (loading) return null
             if (error) return `Error: ${error}`
             if (data.killsDev.length === 0)
@@ -81,6 +80,7 @@ class NextVictim extends Component {
                               closeDialog={this.closeDialog}
                               acceptDialog={() => {
                                 update_killsDev()
+                                refetch()
                                 this.closeDialog()
                               }}
                               title="Validar mort?"
