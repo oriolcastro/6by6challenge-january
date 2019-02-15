@@ -82,7 +82,7 @@ exports.handler = async function(req) {
       body: 'Method Not Allowed',
     }
   }
-
+  console.log(req)
   // -- Parse the body contents into an object.
   const request = JSON.parse(req.body)
   console.log('This is the body from request')
@@ -93,114 +93,114 @@ exports.handler = async function(req) {
   console.log('This is the data send to function')
   console.log(data)
 
-  try {
-    const {
-      victim_id: victimPlayer,
-      assasin_id: assasinPlayer,
-      kill_id: killFromAssasin,
-    } = data.new
+  // try {
+  //   const {
+  //     victim_id: victimPlayer,
+  //     assasin_id: assasinPlayer,
+  //     kill_id: killFromAssasin,
+  //   } = data.new
 
-    //Get victim_id from victimPlayer
-    const resGetVictimFromKilledPlayer = await axios({
-      method: 'post',
-      url: hgeEndpoint,
-      data: {
-        query: GET_VICTIM_FROM_KILLEDPLAYER,
-        variables: {
-          player_id: victimPlayer,
-        },
-      },
-      headers: { 'x-hasura-access-key': accessKey },
-    })
-    //TODO: Update killsDev to players in production
-    const {
-      victim_id: newVictim,
-      kill_id: killFromVictim,
-    } = resGetVictimFromKilledPlayer.data.data.killsDev[0]
-    console.log('This is the data from the victim', newVictim, killFromVictim)
+  //   //Get victim_id from victimPlayer
+  //   const resGetVictimFromKilledPlayer = await axios({
+  //     method: 'post',
+  //     url: hgeEndpoint,
+  //     data: {
+  //       query: GET_VICTIM_FROM_KILLEDPLAYER,
+  //       variables: {
+  //         player_id: victimPlayer,
+  //       },
+  //     },
+  //     headers: { 'x-hasura-access-key': accessKey },
+  //   })
+  //   //TODO: Update killsDev to players in production
+  //   const {
+  //     victim_id: newVictim,
+  //     kill_id: killFromVictim,
+  //   } = resGetVictimFromKilledPlayer.data.data.killsDev[0]
+  //   console.log('This is the data from the victim', newVictim, killFromVictim)
 
-    //Generate newKill between assasinPlayer and victim_id
-    const resGenerateNewKill = await axios({
-      method: 'post',
-      url: hgeEndpoint,
-      data: {
-        query: GENERATE_NEW_KILL,
-        variables: {
-          assasin_id: assasinPlayer,
-          victim_id: newVictim,
-        },
-      },
-      headers: { 'x-hasura-access-key': accessKey },
-    })
-    //TODO: Update killsDev to players in production
-    const {
-      kill_id: newKill,
-    } = resGenerateNewKill.data.data.insert_killsDev.returning[0]
-    console.log('This is the data from the victim', newKill)
+  //   //Generate newKill between assasinPlayer and victim_id
+  //   const resGenerateNewKill = await axios({
+  //     method: 'post',
+  //     url: hgeEndpoint,
+  //     data: {
+  //       query: GENERATE_NEW_KILL,
+  //       variables: {
+  //         assasin_id: assasinPlayer,
+  //         victim_id: newVictim,
+  //       },
+  //     },
+  //     headers: { 'x-hasura-access-key': accessKey },
+  //   })
+  //   //TODO: Update killsDev to players in production
+  //   const {
+  //     kill_id: newKill,
+  //   } = resGenerateNewKill.data.data.insert_killsDev.returning[0]
+  //   console.log('This is the data from the victim', newKill)
 
-    //Assign newKill to assasinPlayer
-    await axios({
-      method: 'post',
-      url: hgeEndpoint,
-      data: {
-        query: ASSIGN_KILL,
-        variables: {
-          player_id: assasinPlayer,
-          kill_id: newKill,
-        },
-      },
-      headers: { 'x-hasura-access-key': accessKey },
-    })
-    console.log('The new killl has been assigmed to the assasin player')
+  //   //Assign newKill to assasinPlayer
+  //   await axios({
+  //     method: 'post',
+  //     url: hgeEndpoint,
+  //     data: {
+  //       query: ASSIGN_KILL,
+  //       variables: {
+  //         player_id: assasinPlayer,
+  //         kill_id: newKill,
+  //       },
+  //     },
+  //     headers: { 'x-hasura-access-key': accessKey },
+  //   })
+  //   console.log('The new killl has been assigmed to the assasin player')
 
-    //Update killFromAssasin and killFromVictim status
-    await axios({
-      method: 'post',
-      url: hgeEndpoint,
-      data: {
-        query: UPDATE_KILL_FROM_ASSASIN,
-        variables: {
-          kill_id: killFromAssasin,
-        },
-      },
-      headers: { 'x-hasura-access-key': accessKey },
-    })
+  //   //Update killFromAssasin and killFromVictim status
+  //   await axios({
+  //     method: 'post',
+  //     url: hgeEndpoint,
+  //     data: {
+  //       query: UPDATE_KILL_FROM_ASSASIN,
+  //       variables: {
+  //         kill_id: killFromAssasin,
+  //       },
+  //     },
+  //     headers: { 'x-hasura-access-key': accessKey },
+  //   })
 
-    await axios({
-      method: 'post',
-      url: hgeEndpoint,
-      data: {
-        query: UPDATE_KILL_FROM_VICTIM,
-        variables: {
-          kill_id: killFromVictim,
-        },
-      },
-      headers: { 'x-hasura-access-key': accessKey },
-    })
-    console.log(
-      'The kills status from assasin and victim have been updates to fulfilled and clear'
-    )
+  //   await axios({
+  //     method: 'post',
+  //     url: hgeEndpoint,
+  //     data: {
+  //       query: UPDATE_KILL_FROM_VICTIM,
+  //       variables: {
+  //         kill_id: killFromVictim,
+  //       },
+  //     },
+  //     headers: { 'x-hasura-access-key': accessKey },
+  //   })
+  //   console.log(
+  //     'The kills status from assasin and victim have been updates to fulfilled and clear'
+  //   )
 
-    //Update victimPlayer status
-    await axios({
-      method: 'post',
-      url: hgeEndpoint,
-      data: {
-        query: MARK_AS_DEAD,
-        variables: {
-          player_id: victimPlayer,
-        },
-      },
-    })
-    console.log('THe killed player have been marked as dead')
-  } catch (err) {
-    console.log('There have been an error with the axios calls')
-    console.log(err)
-    return {
-      statusCode: 500,
-      error: err,
-    }
-  }
+  //   //Update victimPlayer status
+  //   await axios({
+  //     method: 'post',
+  //     url: hgeEndpoint,
+  //     data: {
+  //       query: MARK_AS_DEAD,
+  //       variables: {
+  //         player_id: victimPlayer,
+  //       },
+  //     },
+  //   })
+  //   console.log('THe killed player have been marked as dead')
+  // } catch (err) {
+  //   console.log('There have been an error with the axios calls')
+  //   console.log(err)
+  //   return {
+  //     statusCode: 500,
+  //     error: err,
+  //   }
+  // }
 
   console.log('Player eliminated and kill data transfered')
   const responseBody = {
