@@ -82,11 +82,10 @@ exports.handler = async function(req) {
       body: 'Method Not Allowed',
     }
   }
-  console.log(req)
+
   // -- Parse the body contents into an object.
   const request = JSON.parse(req.body)
-  console.log('This is the body from request')
-  console.log(request)
+
   const {
     event: { data },
   } = request
@@ -107,11 +106,12 @@ exports.handler = async function(req) {
       data: {
         query: GET_VICTIM_FROM_KILLEDPLAYER,
         variables: {
-          player_id: victimPlayer,
+          victim_id: victimPlayer,
         },
       },
       headers: { 'x-hasura-access-key': accessKey },
     })
+    console.log(resGetVictimFromKilledPlayer)
     //TODO: Update killsDev to players in production
     const {
       victim_id: newVictim,
@@ -136,7 +136,7 @@ exports.handler = async function(req) {
     const {
       kill_id: newKill,
     } = resGenerateNewKill.data.data.insert_killsDev.returning[0]
-    console.log('This is the data from the victim', newKill)
+    console.log('This is the new Kill id', newKill)
 
     //Assign newKill to assasinPlayer
     await axios({
@@ -151,7 +151,7 @@ exports.handler = async function(req) {
       },
       headers: { 'x-hasura-access-key': accessKey },
     })
-    console.log('The new killl has been assigmed to the assasin player')
+    console.log('The new killl has been assigned to the assasin player')
 
     //Update killFromAssasin and killFromVictim status
     await axios({
@@ -191,14 +191,16 @@ exports.handler = async function(req) {
           player_id: victimPlayer,
         },
       },
+      headers: { 'x-hasura-access-key': accessKey },
     })
     console.log('The killed player have been marked as dead')
   } catch (err) {
     console.log('There have been an error with the axios calls')
-    console.log(err)
+    const errors = err.response.data
+    console.log(errors)
     return {
       statusCode: 500,
-      error: err,
+      body: JSON.stringify(errors),
     }
   }
 
