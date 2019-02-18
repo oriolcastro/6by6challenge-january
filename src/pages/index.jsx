@@ -21,10 +21,14 @@ const IndexPage = () => (
     />
     {/* <LandingHero />
     <SignUp /> */}
-    <Typography variant="h5" paragraph>
+    {/* <Typography variant="h5" paragraph>
       Temps de joc restant
     </Typography>
-    <Countdown date="2019-03-06T20:00:00" />
+    <Countdown date="2019-03-06T20:00:00" /> */}
+    <Typography variant="h5" paragraph>
+      El joc comença en
+    </Typography>
+    <Countdown date="2019-02-28T00:00:00" />
     <Typography variant="h5" paragraph>
       Últimes víctimes
     </Typography>
