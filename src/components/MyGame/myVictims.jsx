@@ -18,7 +18,7 @@ const MyVictims = () => {
       <Query
         query={GET_MY_KILLED_VICTIMS}
         variables={{ player_id }}
-        pollInterval={3600000}
+        pollInterval={10000}
         context={{ headers: { 'X-Hasura-Role': 'public' } }}
         partialRefetch
       >
