@@ -13,7 +13,7 @@ const IndexPage = () => (
       <Typography variant="h3" align="center" paragraph>
         Falten{' '}
       </Typography>
-      <Countdown date="2019-02-24T00:01:00" />
+      <Countdown date="2019-02-28T00:0:01" />
       <Typography variant="h4" align="center" paragraph>
         per començar el joc
       </Typography>
