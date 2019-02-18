@@ -26,6 +26,7 @@ const MyVictims = () => {
           if (loading) return null
           if (error) return `Error: ${error}`
           return (
+            // TODO: Remove DEV on production
             <>
               {!data.killsDev.length == 0 ? (
                 <VictimsList victims={data.killsDev} />

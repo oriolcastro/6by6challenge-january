@@ -88,11 +88,6 @@ exports.handler = async function(req) {
     //TODO: Update url in production
     const payload = {
       to: deviceToken,
-      data: {
-        haveBeenKilled: true,
-        killerName: assasinName,
-        killId: kill_id,
-      },
       notification: {
         body:
           "El teu assasí t'ha eliminat. Entra a l'aplicació per validar la mort i entregar el clauer.",
