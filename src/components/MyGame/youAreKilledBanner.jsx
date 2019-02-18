@@ -87,10 +87,6 @@ class YouAreKilledBanner extends Component {
   }
 
   resetBanner = () => {
-    console.log('Reset information after mutation completed')
-    localStorage.removeItem('haveBeenKilled')
-    localStorage.removeItem('killerName')
-    localStorage.removeItem('killId')
     this.setState({
       haveBeenKilled: false,
       killerName: '',
@@ -98,10 +94,15 @@ class YouAreKilledBanner extends Component {
       killId: null,
       loading: true,
     })
+    console.log('Reset information after mutation completed')
+    localStorage.removeItem('haveBeenKilled')
+    localStorage.removeItem('killerName')
+    localStorage.removeItem('killId')
     setTimeout(() => {
       this.setState({ loading: false })
-      navigate('/elmeujoc', { replace: true })
-    }, 2000)
+      //navigate('/elmeujoc', { replace: true })
+      location.reload()
+    }, 3000)
   }
 
   render() {

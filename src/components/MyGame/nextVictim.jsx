@@ -39,6 +39,7 @@ class NextVictim extends Component {
           query={GET_MY_CURRENT_VICTIM}
           variables={{ player_id }}
           context={{ headers: { 'X-Hasura-Role': 'public' } }}
+          pollInterval={10000}
           partialRefetch
         >
           {({ loading, error, data, refetch }) => {
@@ -67,6 +68,9 @@ class NextVictim extends Component {
                   <Mutation
                     mutation={VALIDATE_MY_KILL}
                     variables={{ kill_id: data.killsDev[0].kill_id }}
+                    onCompleted={() => {
+                      refetch()
+                    }}
                   >
                     {(update_killsDev, { called }) => (
                       <>
@@ -80,7 +84,6 @@ class NextVictim extends Component {
                               closeDialog={this.closeDialog}
                               acceptDialog={() => {
                                 update_killsDev()
-                                refetch()
                                 this.closeDialog()
                               }}
                               title="Validar mort?"

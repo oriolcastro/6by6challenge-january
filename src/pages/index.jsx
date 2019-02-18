@@ -30,7 +30,7 @@ const IndexPage = () => (
     </Typography>
     <Query
       query={GET_LAST_VICTIMS}
-      pollInterval={3600000}
+      pollInterval={30000}
       context={{
         headers: {
           'X-Hasura-Role': 'public',
