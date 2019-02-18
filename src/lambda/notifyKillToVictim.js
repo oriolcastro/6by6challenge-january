@@ -62,6 +62,13 @@ exports.handler = async function(req) {
     const deviceToken = resGetDeviceToken.data.data.playersDev[0].device_token
     console.log(deviceToken)
 
+    if (!deviceToken) {
+      return {
+        statusCode: 200,
+        body: 'The player does not have notifications activated',
+      }
+    }
+
     //Get assasin name
     const resGetAssasinName = await axios({
       method: 'post',

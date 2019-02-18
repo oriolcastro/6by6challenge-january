@@ -32,10 +32,7 @@ export const GET_MY_CURRENT_VICTIM = gql`
   query get_my_current_victim($player_id: uuid!) {
     killsDev(
       where: {
-        _and: [
-          { status: { _eq: "live" } }
-          { assasin: { player_id: { _eq: $player_id } } }
-        ]
+        _and: [{ status: { _eq: "live" } }, { assasin_id: { _eq: $player_id } }]
       }
     ) {
       kill_id
@@ -52,6 +49,27 @@ export const GET_MY_CURRENT_VICTIM = gql`
     }
   }
 `
+
+export const GET_MY_STATUS = gql`
+  query get_my_status($player_id: uuid!) {
+    killsDev(
+      where: {
+        _and: [
+          { victim_id: { _eq: $player_id } }
+          { status: { _eq: "live" } }
+          { hasAssasinValidated: { _eq: true } }
+        ]
+      }
+    ) {
+      kill_id
+      hasAssasinValidated
+      assasin {
+        name
+      }
+    }
+  }
+`
+
 // TODO: Before merging with Master branch change from 'killsDev' to 'kills'
 export const VALIDATE_MY_KILL = gql`
   mutation validate_my_kill($kill_id: Int!) {
