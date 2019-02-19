@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import Avatar from '@material-ui/core/Avatar'
-
+import { navigate } from 'gatsby'
 import { withStyles } from '@material-ui/core/styles'
 
 import { isAuthenticated, Login, Logout, getUserInfo } from '../utils/auth'
@@ -97,7 +97,14 @@ class MobileAppBar extends Component {
                 open={open}
                 onClose={this.handleClose}
               >
-                <MenuItem onClick={this.handleClose}>El meu perfil</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate('/elmeujoc')
+                    this.handleClose
+                  }}
+                >
+                  El meu perfil
+                </MenuItem>
                 <MenuItem id="logout" onClick={() => Logout()}>
                   Tanca la sessió
                 </MenuItem>
