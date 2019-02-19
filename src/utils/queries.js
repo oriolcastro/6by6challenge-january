@@ -139,6 +139,37 @@ export const GET_LAST_VICTIMS = gql`
     }
   }
 `
+
+export const GET_LAST_AGGREGATE_VICTIMS_TOTAL = gql`
+  query get_last_aggregate_victims {
+    killsDev_aggregate(where: { status: { _eq: "fulfilled" } }) {
+      aggregate {
+        count
+      }
+    }
+  }
+`
+
+export const GET_LAST_AGGREGATE_VICTIMS_TODAY = gql`
+  query get_last_aggregate_victims_today(
+    $endToday: timestamptz!
+    $startToday: timestamptz!
+  ) {
+    killsDev_aggregate(
+      where: {
+        _and: [
+          { status: { _eq: "fulfilled" } }
+          { edited: { _gt: $startToday } }
+          { edited: { _lte: $endToday } }
+        ]
+      }
+    ) {
+      aggregate {
+        count
+      }
+    }
+  }
+`
 export const ADD_DEVICE_TOKEN = `
   mutation add_device_token($device_token: String!, $player_id: uuid!) {
     update_playersDev(where: {player_id: {_eq: $player_id}}, _set: {device_token: $device_token}){
