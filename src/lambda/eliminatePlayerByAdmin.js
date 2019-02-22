@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { Query } from 'react-apollo'
 require('dotenv').config()
 const axios = require('axios')
 
@@ -7,10 +6,9 @@ const axios = require('axios')
 const accessKey = process.env.GATSBY_HASURA_GRAPHQL_ACCESS_KEY
 const hgeEndpoint = process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT
 
-//TODO: Eliminate the DEV
 const GET_MY_ASSASIN = `
 query searchWhoKillsMe($me: uuid!) {
-    killsDev(where: {_and: [{victim_id: {_eq: $me}}, {status: {_eq: "live"}}]}) {
+    kills(where: {_and: [{victim_id: {_eq: $me}}, {status: {_eq: "live"}}]}) {
       kill_id
       assasin{
         player_id
@@ -20,10 +18,9 @@ query searchWhoKillsMe($me: uuid!) {
   }
 `
 
-//TODO: Eliminate the DEV
 const GET_MY_VICTIM = `
 query getMyVictim($me: uuid!) {
-    killsDev(where: {_and: [{assasin_id: {_eq: $me}}, {status: {_eq: "live"}}]}) {
+    kills(where: {_and: [{assasin_id: {_eq: $me}}, {status: {_eq: "live"}}]}) {
         kill_id
         victim {
           player_id
@@ -33,10 +30,9 @@ query getMyVictim($me: uuid!) {
   }
 `
 
-//TODO: Eliminate the DEV
 const GENERATE_NEW_KILL = `
-mutation insert_killsDev($assasin_id: uuid!, $victim_id: uuid!) {
-    insert_killsDev(objects: [{assasin_id: $assasin_id, victim_id: $victim_id}]){
+mutation insert_kills($assasin_id: uuid!, $victim_id: uuid!) {
+    insert_kills(objects: [{assasin_id: $assasin_id, victim_id: $victim_id}]){
         returning{
             kill_id
         }
@@ -44,28 +40,25 @@ mutation insert_killsDev($assasin_id: uuid!, $victim_id: uuid!) {
 }
 `
 
-//TODO: Eliminate the DEV
 const CLEAR_KILLS_STATUS = `
 mutation clearKillsStatus($killToClearAsAssasin: Int!, $killToClearAsVictim: Int!) {
-    update_killsDev(where: {_or: [{kill_id: {_eq: $killToClearAsAssasin}}, {kill_id: {_eq: $killToClearAsVictim}}]}, _set: {status: "clear", edited: "now()"}) {
+    update_kills(where: {_or: [{kill_id: {_eq: $killToClearAsAssasin}}, {kill_id: {_eq: $killToClearAsVictim}}]}, _set: {status: "clear", edited: "now()"}) {
       affected_rows
     }
   }
 `
 
-//TODO: Eliminate the DEV
 const ASSIGN_KILL = `
-mutation update_playersDev($player_id: uuid!, $kill_id: Int!) {
-    update_playersDev(where: {player_id: {_eq: $player_id}}, _set: {kill_id: $kill_id}) {
+mutation update_players($player_id: uuid!, $kill_id: Int!) {
+    update_players(where: {player_id: {_eq: $player_id}}, _set: {kill_id: $kill_id}) {
       affected_rows
     }
   }
 `
 
-//TODO: Eliminate the DEV
 const MARK_AS_DEAD = `
-mutation update_playersDev($player_id: uuid!) {
-    update_playersDev(where: {player_id: {_eq: $player_id}}, _set: {isDead: true}) {
+mutation update_players($player_id: uuid!) {
+    update_players(where: {player_id: {_eq: $player_id}}, _set: {isDead: true}) {
       affected_rows
     }
   }
@@ -99,12 +92,10 @@ exports.handler = async function(event) {
       },
       headers: { 'x-hasura-access-key': accessKey },
     })
-    //TODO: Eliminate the DEV
-    const newVictimId =
-      resGetMyVictimQuery.data.data.killsDev[0].victim.player_id
+
+    const newVictimId = resGetMyVictimQuery.data.data.kills[0].victim.player_id
     console.log(`This is the ID of the victim for player X: ${newVictimId}`)
-    const killToClearAsAssasin =
-      resGetMyVictimQuery.data.data.killsDev[0].kill_id
+    const killToClearAsAssasin = resGetMyVictimQuery.data.data.kills[0].kill_id
     console.log(
       `This is the ID of the kill to clear where player X was the assasin: ${killToClearAsAssasin}`
     )
@@ -121,12 +112,11 @@ exports.handler = async function(event) {
       },
       headers: { 'x-hasura-access-key': accessKey },
     })
-    //TODO: Eliminate the DEV
+
     const newAssasinId =
-      resGetMyAssasinQuery.data.data.killsDev[0].assasin.player_id
+      resGetMyAssasinQuery.data.data.kills[0].assasin.player_id
     console.log(`This is the ID of the assasin of player X: ${newAssasinId}`)
-    const killToClearAsVictim =
-      resGetMyAssasinQuery.data.data.killsDev[0].kill_id
+    const killToClearAsVictim = resGetMyAssasinQuery.data.data.kills[0].kill_id
     console.log(
       `This is the ID of the kill to clear where player X was the victim: ${killToClearAsVictim}`
     )
@@ -144,9 +134,9 @@ exports.handler = async function(event) {
       },
       headers: { 'x-hasura-access-key': accessKey },
     })
-    //TODO: Eliminate the DEV
+
     const newlyCreatedKillId =
-      resGenerateNewKillMutation.data.data.insert_killsDev.returning[0].kill_id
+      resGenerateNewKillMutation.data.data.insert_kills.returning[0].kill_id
     console.log(
       `This is the ID of the newly created kill: ${newlyCreatedKillId}`
     )
@@ -166,7 +156,7 @@ exports.handler = async function(event) {
     })
     console.log(
       `The ${
-        resClearKillsStatus.data.data.update_killsDev.affected_rows
+        resClearKillsStatus.data.data.update_kills.affected_rows
       } kills status has been changed to "clear"`
     )
 
