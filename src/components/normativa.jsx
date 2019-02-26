@@ -118,7 +118,7 @@ const Normativa = props => {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography align="justify">
-            Només hi ha 4 normes estrictes que ajuden a que el joc funcioni i
+            Només hi ha 5 normes estrictes que ajuden a que el joc funcioni i
             sigui més divertit i just per tothom:
             <ol>
               <li>
@@ -137,6 +137,12 @@ const Normativa = props => {
               <li>
                 Per matar la víctima només se la pot tocar amb la pastanaga al
                 pit, no se la pot empènyer, colpejar o apunyalar per l’esquena.
+              </li>
+              <li>
+                Només es pot jugar dins el terme municipal de Vilanova. Aquest
+                és un joc de i pel Carnaval així que surt al carrer, busca la
+                teva víctima i gaudeix de tots els actes del millor Carnaval de
+                Vilanova del món.
               </li>
             </ol>
             A part d'això, res més. No cal matar a cara descoberta (les màscares
