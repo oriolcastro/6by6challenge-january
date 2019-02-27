@@ -11,10 +11,7 @@ class Callback extends Component {
       if (process.env.NODE_ENV === 'development') {
         window.location.replace('http://localhost:8000/elmeujoc')
       } else {
-        // TODO: Change url in production
-        window.location.replace(
-          'https://dev--pastanagapp-6by6january.netlify.com/elmeujoc'
-        )
+        window.location.replace('https://www.lapastanagadelrei.cat/elmeujoc')
       }
     }, 2000)
   }

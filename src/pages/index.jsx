@@ -22,14 +22,14 @@ const IndexPage = () => (
       description="Consulta els resultats en viu del joc."
       keywords={['pwa', 'carnaval', 'vilanova']}
     />
-    {/* <Typography variant="h5" paragraph>
-      Temps de joc restant
-    </Typography>
-    <Countdown date="2019-03-06T20:00:00" /> */}
     <Typography variant="h5" paragraph>
       El joc comença en
     </Typography>
-    <Countdown date="2019-02-28T00:00:00" />
+    <Countdown date="2019-02-27T22:00:00" />
+    <Typography variant="h5" paragraph>
+      Temps de joc restant
+    </Typography>
+    <Countdown date="2019-03-06T20:00:00" />
     <VictimsCardContainer />
     <Typography variant="h5" paragraph>
       Últimes víctimes
@@ -50,7 +50,7 @@ const IndexPage = () => (
         if (error) return `Error: ${error}`
         return (
           <>
-            {!data.killsDev.length == 0 ? (
+            {!data.kills.length == 0 ? (
               <VictimsList victims={data.killsDev} />
             ) : (
               <Typography variant="body2">

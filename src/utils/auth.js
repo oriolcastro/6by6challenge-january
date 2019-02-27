@@ -6,12 +6,11 @@ const isBrowser = typeof window !== 'undefined'
 let profile = false
 
 // Only instantiate Auth0 if we’re in the browser.
-// TODO: remove DEV from callback variable in production
 const auth0 = isBrowser
   ? new auth0js.WebAuth({
       domain: process.env.GATSBY_AUTH0_DOMAIN,
       clientID: process.env.GATSBY_AUTH0_CLIENT_ID,
-      redirectUri: process.env.GATSBY_AUTH0_CALLBACK_DEV,
+      redirectUri: process.env.GATSBY_AUTH0_CALLBACK,
       responseType: 'token id_token',
       scope: 'openid profile email',
     })
@@ -40,8 +39,7 @@ export const Logout = () => {
   if (process.env.NODE_ENV === 'development') {
     window.location.replace('http://localhost:8000/')
   } else {
-    // TODO: Change url in productions
-    window.location.replace('https://dev--pastanagapp-6by6january.netlify.com/')
+    window.location.replace('https://www.lapastanagadelrei.cat/')
   }
 }
 
@@ -62,7 +60,7 @@ const setSession = authResult => {
     url: process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT,
     data: {
       query: `query get_my_id {
-        playersDev {
+        players {
           player_id
         }
       }`,
@@ -74,10 +72,10 @@ const setSession = authResult => {
     .then(res => {
       console.log(
         `Player logged ID saved locally with the uuid: ${
-          res.data.data.playersDev[0].player_id
+          res.data.data.players[0].player_id
         }`
       )
-      localStorage.setItem('player_id', res.data.data.playersDev[0].player_id)
+      localStorage.setItem('player_id', res.data.data.players[0].player_id)
     })
     .catch(err => {
       console.log(err)

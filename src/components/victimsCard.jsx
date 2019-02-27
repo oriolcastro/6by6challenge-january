@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography'
 const VictimsCard = props => {
   const {
     Title,
-    killsDev_aggregate: {
+    kills_aggregate: {
       aggregate: { count },
     },
   } = props

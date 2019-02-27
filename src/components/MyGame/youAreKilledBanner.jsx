@@ -91,27 +91,26 @@ class YouAreKilledBanner extends Component {
           {({ loading, error, data }) => {
             if (loading) return null
             if (error) return `Error: ${error}`
-            if (data.killsDev.length === 0) return null
+            if (data.kills.length === 0) return null
             console.log(data)
             return (
               <>
-                {/* TODO: Remove DEV on production */}
-                {data.killsDev[0].hasAssasinValidated && (
+                {data.kills[0].hasAssasinValidated && (
                   <Paper className={classes.root}>
                     <Typography variant="h4" gutterBottom>
                       Estas mort/a!
                     </Typography>
                     <Typography variant="body2" paragraph>
-                      En/na {data.killsDev[0].assasin.name} ha aconseguit
+                      En/na {data.kills[0].assasin.name} ha aconseguit
                       eliminar-te del joc. Confirma la mort i entrega-li el
                       clauer.
                     </Typography>
                     <Mutation
                       mutation={VALIDATE_MY_DEATH}
-                      variables={{ kill_id: data.killsDev[0].kill_id }}
+                      variables={{ kill_id: data.kills[0].kill_id }}
                       onCompleted={this.resetBanner}
                     >
-                      {update_killsDev => (
+                      {update_kills => (
                         <>
                           <Button color="primary" onClick={this.openDialog}>
                             Confirmar
@@ -120,7 +119,7 @@ class YouAreKilledBanner extends Component {
                             open={isDialogOpen}
                             closeDialog={this.closeDialog}
                             acceptDialog={() => {
-                              update_killsDev()
+                              update_kills()
                               this.closeDialog()
                             }}
                             title="Estàs mort/a?"

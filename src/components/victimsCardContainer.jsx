@@ -37,7 +37,7 @@ class VictimsCardContainer extends Component {
           >
             <Query
               query={GET_LAST_AGGREGATE_VICTIMS_TODAY}
-              variables={{ startToday: startToday, endToday: endToday }}
+              variables={{ startToday, endToday }}
               context={{
                 headers: {
                   'X-Hasura-Role': 'public',

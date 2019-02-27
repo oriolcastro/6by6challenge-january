@@ -8,20 +8,18 @@ const hgeEndpoint = process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT
 const FCM_SERVER_KEY = process.env.FCM_SERVER_KEY
 
 //Query to retrieve the device_token from the victim
-//TODO: Update playersDev to players in production
 const GET_DEVICETOKEN_FROM_VICTIM = `
     query get_devicetoken_from_victim ($player_id: uuid!){
-        playersDev(where: {player_id: {_eq: $player_id}}){
+        players(where: {player_id: {_eq: $player_id}}){
         device_token
         }
     }
 `
 
 //Query to retrieve the name of the assasin
-//TODO: Update playersDev to players in production
 const GET_ASSASIN_NAME = `
     query get_assasin_name ($player_id: uuid!){
-        playersDev(where: {player_id: {_eq: $player_id}}){
+        players(where: {player_id: {_eq: $player_id}}){
         name
         }
     }
@@ -58,8 +56,7 @@ exports.handler = async function(req) {
       },
       headers: { 'x-hasura-access-key': accessKey },
     })
-    //TODO: Update playersDev to players in production
-    const deviceToken = resGetDeviceToken.data.data.playersDev[0].device_token
+    const deviceToken = resGetDeviceToken.data.data.players[0].device_token
     console.log(deviceToken)
 
     if (!deviceToken) {
@@ -81,11 +78,10 @@ exports.handler = async function(req) {
       },
       headers: { 'x-hasura-access-key': accessKey },
     })
-    //TODO: Update playersDev to players in production
-    const assasinName = resGetAssasinName.data.data.playersDev[0].name
+
+    const assasinName = resGetAssasinName.data.data.players[0].name
     console.log(assasinName)
 
-    //TODO: Update url in production
     const payload = {
       to: deviceToken,
       notification: {
@@ -94,7 +90,7 @@ exports.handler = async function(req) {
         title: 'Estàs mort/a!',
         icon:
           'https://res.cloudinary.com/okstudio/image/upload/v1547740222/icon.png',
-        click_action: 'https://dev--pastanagapp-6by6january.netlify.com',
+        click_action: 'https://www.lapastanagadelrei.cat/',
       },
     }
 

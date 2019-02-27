@@ -7,10 +7,9 @@ const accessKey = process.env.GATSBY_HASURA_GRAPHQL_ACCESS_KEY
 const hgeEndpoint = process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT
 
 //Query to get id from new victim
-//TODO: remove DEV in production
 const GET_VICTIM_FROM_KILLEDPLAYER = `
     query get_victim_from_killedplayer($victim_id: uuid!) {
-        killsDev(where: {_and: [{assasin_id: {_eq: $victim_id}}, {status: {_eq: "live"}}]}) {
+        kills(where: {_and: [{assasin_id: {_eq: $victim_id}}, {status: {_eq: "live"}}]}) {
             victim_id
             kill_id
           }
@@ -18,10 +17,9 @@ const GET_VICTIM_FROM_KILLEDPLAYER = `
 `
 
 // Mutation to generate the Kills
-//TODO: remove DEV in production
 const GENERATE_NEW_KILL = `
     mutation generate_new_kill($assasin_id: uuid! ,$victim_id: uuid!) {
-        insert_killsDev(objects: [{assasin_id: $assasin_id, victim_id: $victim_id}]){
+        insert_kills(objects: [{assasin_id: $assasin_id, victim_id: $victim_id}]){
             returning{
                 kill_id
                 assasin_id
@@ -31,10 +29,9 @@ const GENERATE_NEW_KILL = `
 `
 
 // Mutation to assign the new kill to the Assasin player
-//TODO: remove DEV in production
 const ASSIGN_KILL = `
 mutation assign_kill($player_id: uuid!, $kill_id: Int!) {
-    update_playersDev(where: {player_id: {_eq: $player_id}}, _set: {kill_id: $kill_id}) {
+    update_players(where: {player_id: {_eq: $player_id}}, _set: {kill_id: $kill_id}) {
       returning {
         player_id
         name
@@ -44,30 +41,27 @@ mutation assign_kill($player_id: uuid!, $kill_id: Int!) {
 `
 
 //Mutation to update the status of the old Kill from assasin
-//TODO: remove DEV on production
 const UPDATE_KILL_FROM_ASSASIN = `
     mutation update_Kill_from_assasin($kill_id: Int!){
-        update_killsDev(where: {kill_id: {_eq: $kill_id}}, _set: {status: "fulfilled", edited: "now()"}){
+        update_kills(where: {kill_id: {_eq: $kill_id}}, _set: {status: "fulfilled", edited: "now()"}){
             affected_rows
         }
     }
 `
 
 //Mutation to update the status of the old Kill from victim
-//TODO: remove DEV on production
 const UPDATE_KILL_FROM_VICTIM = `
     mutation update_kill_from_victim($kill_id: Int!){
-        update_killsDev(where: {kill_id: {_eq: $kill_id}}, _set: {status: "clear", edited: "now()"}){
+        update_kills(where: {kill_id: {_eq: $kill_id}}, _set: {status: "clear", edited: "now()"}){
             affected_rows
         }
     }
 `
 
 //Mutation to update the killed player and remove it from the game
-//TODO: remove DEV on production
 const MARK_AS_DEAD = `
     mutation mark_as_dead($player_id: uuid!) {
-        update_playersDev(where: {player_id: {_eq: $player_id}}, _set: {isDead: true}) {
+        update_players(where: {player_id: {_eq: $player_id}}, _set: {isDead: true}) {
             affected_rows
         }
     } 
@@ -112,11 +106,10 @@ exports.handler = async function(req) {
       headers: { 'x-hasura-access-key': accessKey },
     })
     console.log(resGetVictimFromKilledPlayer)
-    //TODO: Update killsDev to players in production
     const {
       victim_id: newVictim,
       kill_id: killFromVictim,
-    } = resGetVictimFromKilledPlayer.data.data.killsDev[0]
+    } = resGetVictimFromKilledPlayer.data.data.kills[0]
     console.log('This is the data from the victim', newVictim, killFromVictim)
 
     //Generate newKill between assasinPlayer and victim_id
@@ -132,10 +125,9 @@ exports.handler = async function(req) {
       },
       headers: { 'x-hasura-access-key': accessKey },
     })
-    //TODO: Update killsDev to players in production
     const {
       kill_id: newKill,
-    } = resGenerateNewKill.data.data.insert_killsDev.returning[0]
+    } = resGenerateNewKill.data.data.insert_kills.returning[0]
     console.log('This is the new Kill id', newKill)
 
     //Assign newKill to assasinPlayer

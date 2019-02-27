@@ -26,10 +26,9 @@ const MyVictims = () => {
           if (loading) return null
           if (error) return `Error: ${error}`
           return (
-            // TODO: Remove DEV on production
             <>
-              {!data.killsDev.length == 0 ? (
-                <VictimsList victims={data.killsDev} />
+              {!data.kills.length == 0 ? (
+                <VictimsList victims={data.kills} />
               ) : (
                 <Typography variant="body2">
                   Encara no has aconseguit cap víctima

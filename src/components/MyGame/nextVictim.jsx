@@ -45,7 +45,7 @@ class NextVictim extends Component {
           {({ loading, error, data, refetch }) => {
             if (loading) return null
             if (error) return `Error: ${error}`
-            if (data.killsDev.length === 0)
+            if (data.kills.length === 0)
               return (
                 <Typography variant="body2">
                   Has estat eliminat del joc
@@ -56,25 +56,25 @@ class NextVictim extends Component {
               <Card>
                 <CardContent>
                   <Typography variant="h6">
-                    {data.killsDev[0].victim.name}{' '}
-                    {data.killsDev[0].victim.firstSurname}{' '}
-                    {data.killsDev[0].victim.secondSurname}
+                    {data.kills[0].victim.name}{' '}
+                    {data.kills[0].victim.firstSurname}{' '}
+                    {data.kills[0].victim.secondSurname}
                   </Typography>
                   <Typography variant="subtitle1">
-                    {data.killsDev[0].victim.team.name}
+                    {data.kills[0].victim.team.name}
                   </Typography>
                 </CardContent>
                 <CardActions style={{ textAlign: 'right' }}>
                   <Mutation
                     mutation={VALIDATE_MY_KILL}
-                    variables={{ kill_id: data.killsDev[0].kill_id }}
+                    variables={{ kill_id: data.kills[0].kill_id }}
                     onCompleted={() => {
                       refetch()
                     }}
                   >
-                    {(update_killsDev, { called }) => (
+                    {(update_kills, { called }) => (
                       <>
-                        {!data.killsDev[0].hasAssasinValidated ? (
+                        {!data.kills[0].hasAssasinValidated ? (
                           <>
                             <Button onClick={this.openDialog} color="primary">
                               Validar mort
@@ -83,7 +83,7 @@ class NextVictim extends Component {
                               open={isDialogOpen}
                               closeDialog={this.closeDialog}
                               acceptDialog={() => {
-                                update_killsDev()
+                                update_kills()
                                 this.closeDialog()
                               }}
                               title="Validar mort?"
@@ -97,7 +97,7 @@ class NextVictim extends Component {
                         <Notification
                           open={called}
                           message={`Mort validada correctament. Quan en/na ${
-                            data.killsDev[0].victim.name
+                            data.kills[0].victim.name
                           } també la validi rebràs la informació de la teva pròxima víctima.`}
                         />
                       </>
