@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
 const LandingHero = () => (
-  <div>
+  <div style={{ marginBottom: '24px' }}>
     <Grid container justify="space-between" spacing={24}>
       <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
         <Typography variant="h4" gutterBottom>
@@ -28,10 +28,10 @@ const LandingHero = () => (
             <ListItemText
               primaryTypographyProps={{ variant: 'body2', align: 'justify' }}
             >
-              <strong>RECOLLIDA DEL MATERIAL:</strong> dies 20, 21 i 22 de
-              febrer de 19 a 21h al local de la Unió Vilanovina (Plaça del Pou,
-              4, de Vilanova i la Geltrú) S'ha de presentar el DNI o una
-              autorització en cas de recollir el material d'una altra persona.
+              <strong>RECOLLIDA DEL MATERIAL:</strong> dies 21 i 22 de febrer de
+              19 a 21h al local de la Unió Vilanovina (Plaça del Pou, 4, de
+              Vilanova i la Geltrú) S'ha de presentar el DNI o una autorització
+              en cas de recollir el material d'una altra persona.
             </ListItemText>
           </ListItem>
           <ListItem divider>
