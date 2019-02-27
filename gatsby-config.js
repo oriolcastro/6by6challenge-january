@@ -1,5 +1,5 @@
 const proxy = require('http-proxy-middleware')
-const config = require('./src/meta/siteConfig')
+const config = require('./src/utils/siteConfig')
 require('dotenv').config()
 
 module.exports = {
@@ -8,6 +8,7 @@ module.exports = {
     description: config.siteDescription,
     siteUrl: config.siteUrl,
     author: config.userTwitter,
+    lang: config.lang,
   },
   // for avoiding CORS while developing Netlify Functions locally
   // read more: https://www.gatsbyjs.org/docs/api-proxy/#advanced-proxying
@@ -33,6 +34,10 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/elmeujoc/*`] },
+    },
     {
       resolve: `gatsby-plugin-gtag-outbound`,
       options: {
@@ -63,6 +68,7 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
     'gatsby-plugin-offline',
+    // 'gatsby-plugin-remove-serviceworker',
     'gatsby-plugin-netlify',
   ],
 }

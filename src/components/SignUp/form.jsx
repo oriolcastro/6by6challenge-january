@@ -5,7 +5,7 @@ import { Query } from 'react-apollo'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
-import { GET_TEAMS } from '../../apollo/queries'
+import { GET_TEAMS } from '../../utils/queries'
 import CustomSelect from './customSelect'
 import CustomDatePicker from './customDatePicker'
 
@@ -83,7 +83,6 @@ const Form = props => {
         <TextField
           id="mobile"
           name="mobile"
-          type="tel"
           helperText={touched.mobile ? errors.mobile : ''}
           error={touched.mobile && Boolean(errors.mobile)}
           value={mobile}
@@ -97,7 +96,6 @@ const Form = props => {
         <TextField
           id="email"
           name="email"
-          type="email"
           helperText={touched.email ? errors.email : ''}
           error={touched.email && Boolean(errors.email)}
           value={email}

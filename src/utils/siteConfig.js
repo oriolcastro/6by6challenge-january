@@ -4,7 +4,7 @@ module.exports = {
   plublisher: 'Oriol Castro',
   siteDescription:
     "Aplicació web per a jugar al joc de l'assasí de la pastanaga",
-  siteUrl: 'https://www.lapastanagadelrei.cat',
+  siteUrl: 'https://www.lapastanagadelrei.cat/?utm_source=homescreen', // Update on PR into master branch
   shortTitle: 'Oriol Castro',
   userTwitter: '@oriolcastro_',
   backgroundColor: '#ffffff',

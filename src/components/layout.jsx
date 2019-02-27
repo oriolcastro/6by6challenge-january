@@ -2,10 +2,12 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
+import Hidden from '@material-ui/core/Hidden'
 
 import Header from './header'
 import Footer from './footer'
 import favicon from '../images/favicon.ico'
+import Navigation from './navigation'
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -45,7 +47,12 @@ const Layout = ({ children }) => (
         >
           {children}
         </div>
-        <Footer />
+        <Hidden smDown>
+          <Footer />
+        </Hidden>
+        <Hidden mdUp>
+          <Navigation />
+        </Hidden>
       </div>
     )}
   />

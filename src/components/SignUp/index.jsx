@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import axios from 'axios'
 
 import Form from './form'
-import SignupNotification from './notification'
+import Notification from '../notification'
 
 const styles = theme => ({
   root: {
@@ -134,7 +134,11 @@ class SignUp extends Component {
             <b>Drets:</b> Podeu exercir els vostres drets d'accés, rectificació,
             limitació o supressió de les dades a contacte@lapastanagadelrei.cat.
           </Typography>
-          <SignupNotification open={playerSignedUp} />
+          <Notification
+            open={playerSignedUp}
+            message="Inscripció efectuada correctament. Rebràs un coreu electrònic de
+            confirmació a la direcció que has introduït."
+          />
         </div>
       </>
     )
