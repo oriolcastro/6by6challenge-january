@@ -1,7 +1,6 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import { Query } from 'react-apollo'
-import Grid from '@material-ui/core/Grid'
 import withRoot from '../withRoot'
 
 import Layout from '../components/layout'
@@ -9,11 +8,7 @@ import SEO from '../components/seo'
 import Countdown from '../components/countdown'
 import VictimsList from '../components/victimsList'
 import VictimsCardContainer from '../components/victimsCardContainer'
-import {
-  GET_LAST_VICTIMS,
-  GET_LAST_AGGREGATE_VICTIMS_TODAY,
-  GET_LAST_AGGREGATE_VICTIMS_TOTAL,
-} from '../utils/queries'
+import { GET_LAST_VICTIMS } from '../utils/queries'
 
 const IndexPage = () => (
   <Layout>
