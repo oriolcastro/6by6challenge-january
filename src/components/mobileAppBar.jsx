@@ -23,7 +23,7 @@ const styles = {
 }
 
 let avatar_src = ''
-let auth = false
+let auth
 
 class MobileAppBar extends Component {
   constructor(props) {
@@ -48,6 +48,7 @@ class MobileAppBar extends Component {
     })
 
     isAuthenticated().then(value => {
+      console.log('Value from mobile isAuthenticated', value)
       auth = value
     })
     this.setState({

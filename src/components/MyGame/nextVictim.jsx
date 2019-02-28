@@ -29,8 +29,8 @@ class NextVictim extends Component {
     if (typeof window !== 'undefined') {
       localforage.getItem('player_id').then(value => {
         player_id = value
+        console.log(player_id)
       })
-      console.log(player_id)
       //player_id = localStorage.getItem('player_id')
     }
     const { isDialogOpen } = this.state

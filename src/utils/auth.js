@@ -146,9 +146,9 @@ export const getUserInfo = () =>
     if (profile) {
       resolve(profile.email)
     }
-    let accesToken
+    let accessToken
     getAccessToken().then(v => {
-      accesToken = v
+      accessToken = v
     })
     let auth
     isAuthenticated().then(value => {
