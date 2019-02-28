@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch'
 import localforage from 'localforage'
 
 const isBrowser = typeof window !== 'undefined'
-let token
+let token = ''
 if (isBrowser) {
   localforage.getItem('id_token').then(value => {
     console.log(value)
