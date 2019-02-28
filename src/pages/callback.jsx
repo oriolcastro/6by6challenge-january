@@ -11,7 +11,7 @@ class Callback extends Component {
       if (process.env.NODE_ENV === 'development') {
         window.location.replace('http://localhost:8000/elmeujoc')
       } else {
-        window.location.replace('https://www.lapastanagadelrei.cat/elmeujoc')
+        window.location.replace('https://www.lapastanagadelrei.cat')
       }
     }, 2000)
   }
