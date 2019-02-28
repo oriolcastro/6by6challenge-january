@@ -1,7 +1,6 @@
 import auth0js from 'auth0-js'
 import axios from 'axios'
 import localforage from 'localforage'
-import { removeItemfromDB, addItemtoDb, getItemfromDB } from './db'
 
 const isBrowser = typeof window !== 'undefined'
 

@@ -81,7 +81,7 @@ class MobileAppBar extends Component {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {siteTitle}
           </Typography>
-          {authenticated === false && (
+          {authenticated !== true && (
             <Button onClick={() => Login()}>Inicia la sessió</Button>
           )}
 
