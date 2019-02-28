@@ -131,7 +131,7 @@ export const isAuthenticated = async () => {
   // return isLoggedIn
 }
 
-export const getAccessToken = () => {
+export const getAccessToken = async () => {
   if (!isBrowser) {
     return ''
   }
@@ -147,10 +147,15 @@ export const getUserInfo = () =>
     if (profile) {
       resolve(profile.email)
     }
-
-    const accessToken = getAccessToken()
-
-    if (!isAuthenticated()) {
+    let accesToken
+    getAccessToken().then(v => {
+      accesToken = v
+    })
+    let auth
+    isAuthenticated().then(value => {
+      auth = value
+    })
+    if (auth === false) {
       resolve({})
       return
     }

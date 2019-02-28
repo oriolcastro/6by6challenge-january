@@ -18,7 +18,9 @@ class VictimsCardContainer extends Component {
   componentDidMount() {
     const today = dayjs()
     const startToday = today.startOf('day').format('YYYY-MM-DDTHH:mm:ss')
+    console.log(startToday)
     const endToday = today.endOf('day').format('YYYY-MM-DDTHH:mm:ss')
+    console.log(endToday)
     this.setState({ start: startToday, end: endToday })
   }
 

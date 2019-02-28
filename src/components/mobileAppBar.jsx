@@ -12,8 +12,6 @@ import localforage from 'localforage'
 import { isAuthenticated, Login, Logout } from '../utils/auth'
 import NetworkIndicator from './networkIndicator'
 import NotificationIndicator from './notificationsIndicator'
-import { getItemfromDB } from '../utils/db'
-import { auth0js } from 'auth0-js'
 
 const styles = {
   root: {
@@ -23,6 +21,9 @@ const styles = {
     marginRight: 'auto',
   },
 }
+
+let avatar_src = ''
+let auth = false
 
 class MobileAppBar extends Component {
   constructor(props) {
@@ -41,11 +42,11 @@ class MobileAppBar extends Component {
       console.log('This browser support notifications')
       this.setState({ hasNotificationAPI: true })
     }
-    let avatar_src = ''
+
     localforage.getItem('avatar_src').then(value => {
       avatar_src = value
     })
-    let auth
+
     isAuthenticated().then(value => {
       auth = value
     })
@@ -80,11 +81,11 @@ class MobileAppBar extends Component {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {siteTitle}
           </Typography>
-          {!authenticated && (
+          {authenticated === false && (
             <Button onClick={() => Login()}>Inicia la sessió</Button>
           )}
 
-          {authenticated && (
+          {authenticated === true && (
             <>
               <NetworkIndicator />
               {hasNotificationAPI && <NotificationIndicator />}

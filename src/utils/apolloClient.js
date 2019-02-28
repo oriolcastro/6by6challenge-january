@@ -6,6 +6,7 @@ const isBrowser = typeof window !== 'undefined'
 let token = ''
 if (isBrowser) {
   localforage.getItem('id_token').then(value => {
+    console.log(value)
     token = value
   })
 }
