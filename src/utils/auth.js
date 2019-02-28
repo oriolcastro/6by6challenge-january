@@ -116,7 +116,7 @@ export const isAuthenticated = () => {
   }
   const expiresAt = getItemfromDB('expires_at')
   // const expiresAt = JSON.parse(expiresDate)
-  isLoggedIn = new Date().getTime() < expiresAt
+  const isLoggedIn = new Date().getTime() < expiresAt
   console.log('Is logged in?', isLoggedIn)
   return isLoggedIn
 }
