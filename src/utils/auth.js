@@ -112,7 +112,7 @@ export const handleAuthentication = callback => {
   })
 }
 
-export const isAuthenticated = () => {
+export const isAuthenticated = async () => {
   if (!isBrowser) {
     // For SSR, we’re never authenticated.
     return false

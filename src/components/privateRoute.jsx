@@ -3,14 +3,18 @@ import { navigate } from 'gatsby'
 import { isAuthenticated } from '../utils/auth'
 
 const PrivateRoute = ({ component: Component, location, ...rest }) => {
-  console.log(!isAuthenticated())
+  let auth
+  isAuthenticated().then(value => {
+    auth = value
+  })
   if (
-    !isAuthenticated() &&
+    !auth &&
     location.pathname !== `/elmeujoc/login` &&
     typeof window !== 'undefined'
   ) {
     console.log(location.pathname !== `/elmeujoc/login`)
     console.log(typeof window !== 'undefined')
+    console.log(auth)
     // If the user is not logged in, redirect to the login page.
     navigate(`/elmeujoc/login`)
     console.log('Private route invoqued')
