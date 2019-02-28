@@ -13,6 +13,7 @@ import { isAuthenticated, Login, Logout } from '../utils/auth'
 import NetworkIndicator from './networkIndicator'
 import NotificationIndicator from './notificationsIndicator'
 import { getItemfromDB } from '../utils/db'
+import { auth0js } from 'auth0-js'
 
 const styles = {
   root: {
@@ -44,10 +45,14 @@ class MobileAppBar extends Component {
     localforage.getItem('avatar_src').then(value => {
       avatar_src = value
     })
+    let auth
+    isAuthenticated().then(value => {
+      auth = value
+    })
     this.setState({
       avatarSrc: avatar_src,
       //avatarSrc: localStorage.getItem('avatar_src'),
-      authenticated: isAuthenticated(),
+      authenticated: auth,
     })
   }
 

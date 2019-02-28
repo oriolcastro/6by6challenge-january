@@ -1,15 +1,16 @@
 import React from 'react'
 import { Query } from 'react-apollo'
 import Typography from '@material-ui/core/Typography'
-
+import localforage from 'localforage'
 import VictimsList from '../victimsList'
 import { GET_MY_KILLED_VICTIMS } from '../../utils/queries'
-import { getItemfromDB } from '../../utils/db'
 
 const MyVictims = () => {
   let player_id
   if (typeof window !== 'undefined') {
-    player_id = getItemfromDB('player_id')
+    localforage.getItem('player_id').then(value => {
+      player_id = value
+    })
     // player_id = localStorage.getItem('player_id')
   }
   return (

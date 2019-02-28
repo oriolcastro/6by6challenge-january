@@ -12,18 +12,18 @@ import {
 class VictimsCardContainer extends Component {
   constructor(props) {
     super(props)
-    this.state = { endToday: '', startToday: '' }
+    this.state = { end: '', start: '' }
   }
 
   componentDidMount() {
     const today = dayjs()
     const startToday = today.startOf('day').format('YYYY-MM-DDTHH:mm:ss')
     const endToday = today.endOf('day').format('YYYY-MM-DDTHH:mm:ss')
-    this.setState({ startToday, endToday })
+    this.setState({ start: startToday, end: endToday })
   }
 
   render() {
-    const { startToday, endToday } = this.state
+    const { start, end } = this.state
     return (
       <div style={{ maxWidth: '800px', margin: 'auto', marginBottom: '40px' }}>
         <Grid container justify="space-between" spacing={16} direction="row">
@@ -37,7 +37,7 @@ class VictimsCardContainer extends Component {
           >
             <Query
               query={GET_LAST_AGGREGATE_VICTIMS_TODAY}
-              variables={{ startToday, endToday }}
+              variables={{ startToday: start, endToday: end }}
               context={{
                 headers: {
                   'X-Hasura-Role': 'public',

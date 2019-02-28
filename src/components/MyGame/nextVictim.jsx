@@ -5,11 +5,11 @@ import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { Query, Mutation } from 'react-apollo'
+import localforage from 'localforage'
 
 import { GET_MY_CURRENT_VICTIM, VALIDATE_MY_KILL } from '../../utils/queries'
 import Notification from '../notification'
 import ConfirmDialog from './confirmDialog'
-import { getItemfromDB } from '../../utils/db'
 
 class NextVictim extends Component {
   state = {
@@ -27,7 +27,9 @@ class NextVictim extends Component {
   render() {
     let player_id
     if (typeof window !== 'undefined') {
-      player_id = getItemfromDB('player_id')
+      localforage.getItem('player_id').then(value => {
+        player_id = value
+      })
       console.log(player_id)
       //player_id = localStorage.getItem('player_id')
     }

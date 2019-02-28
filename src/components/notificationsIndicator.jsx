@@ -3,10 +3,9 @@ import IconButton from '@material-ui/core/IconButton'
 import NotificationsOff from '@material-ui/icons/NotificationsOff'
 import NotificationsOn from '@material-ui/icons/Notifications'
 import axios from 'axios'
-
+import localforage from 'localforage'
 import { withFirebase } from '../utils/firebase'
 import { ADD_DEVICE_TOKEN } from '../utils/queries'
-import { getItemfromDB, addItemtoDb } from '../utils/db'
 
 class NotificationIndicator extends Component {
   constructor(props) {
@@ -37,8 +36,12 @@ class NotificationIndicator extends Component {
     let token = ''
     let player_id = ''
     if (typeof window !== 'undefined') {
-      token = getItemfromDB('id_token')
-      player_id = getItemfromDB('player_id')
+      localforage.getItem('id_token').then(value => {
+        token = value
+      })
+      localforage.getItem('player_id').then(value => {
+        player_id = value
+      })
       //token = localStorage.getItem('id_token')
       //player_id = localStorage.getItem('player_id')
     }
@@ -56,7 +59,7 @@ class NotificationIndicator extends Component {
     })
       .then(res => {
         console.log(res)
-        addItemtoDb('deviceToken', deviceToken)
+        localforage.setItem('deviceToken', deviceToken)
         //localStorage.setItem('deviceToken', deviceToken)
       })
       .catch(err => console.log(err))

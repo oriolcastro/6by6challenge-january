@@ -6,11 +6,11 @@ import { withStyles } from '@material-ui/core/styles'
 import { Mutation, Query } from 'react-apollo'
 import Modal from '@material-ui/core/Modal'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import localforage from 'localforage'
 
 import { withFirebase } from '../../utils/firebase'
 import ConfirmDialog from './confirmDialog'
 import { VALIDATE_MY_DEATH, GET_MY_STATUS } from '../../utils/queries'
-import { getItemfromDB } from '../../utils/db'
 
 const styles = theme => ({
   root: {
@@ -78,7 +78,9 @@ class YouAreKilledBanner extends Component {
     const { isDialogOpen, loading } = this.state
     let player_id
     if (typeof window !== 'undefined') {
-      player_id = getItemfromDB('player_id')
+      localforage.getItem('player_id').then(value => {
+        player_id = value
+      })
       //player_id = localStorage.getItem('player_id')
     }
     return (
