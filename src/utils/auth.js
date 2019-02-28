@@ -131,11 +131,13 @@ export const isAuthenticated = async () => {
   // return isLoggedIn
 }
 
-export const getAccessToken = async () => {
+export const getAccessToken = () => {
   if (!isBrowser) {
     return ''
   }
-  return await localforage.getItem('access_token')
+  localforage.getItem('access_token').then(value => {
+    return value
+  })
   // return localStorage.getItem('access_token')
 }
 
