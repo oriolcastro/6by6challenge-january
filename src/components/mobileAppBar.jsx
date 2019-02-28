@@ -8,7 +8,7 @@ import Menu from '@material-ui/core/Menu'
 import Avatar from '@material-ui/core/Avatar'
 import { navigate } from 'gatsby'
 import { withStyles } from '@material-ui/core/styles'
-
+import localforage from 'localforage'
 import { isAuthenticated, Login, Logout } from '../utils/auth'
 import NetworkIndicator from './networkIndicator'
 import NotificationIndicator from './notificationsIndicator'
@@ -40,7 +40,10 @@ class MobileAppBar extends Component {
       console.log('This browser support notifications')
       this.setState({ hasNotificationAPI: true })
     }
-    const avatar_src = getItemfromDB('avatar_src')
+    let avatar_src = ''
+    localforage.getItem('avatar_src').then(value => {
+      avatar_src = value
+    })
     const authenticated = isAuthenticated
     this.setState({
       avatarSrc: avatar_src,

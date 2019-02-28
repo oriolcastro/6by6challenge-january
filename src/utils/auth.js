@@ -26,12 +26,13 @@ export const Login = () => {
 }
 export const Logout = () => {
   if (isBrowser) {
-    removeItemfromDB('access_token')
-    removeItemfromDB('id_token')
-    removeItemfromDB('expires_at')
-    removeItemfromDB('user')
-    removeItemfromDB('avatar_src')
-    removeItemfromDB('player_id')
+    localforage.removeItem('access_token')
+    localforage.removeItem('id_token')
+    localforage.removeItem('expires_at')
+    localforage.removeItem('user')
+    localforage.removeItem('avatar_src')
+    localforage.removeItem('player_id')
+
     // localStorage.removeItem('access_token')
     // localStorage.removeItem('id_token')
     // localStorage.removeItem('expires_at')
@@ -58,9 +59,9 @@ const setSession = authResult => {
   const expiresAt = authResult.expiresIn * 1000 + new Date().getTime()
 
   console.log(authResult)
-  addItemtoDb('access_token', authResult.accessToken)
-  addItemtoDb('id_token', authResult.idToken)
-  addItemtoDb('expires_at', expiresAt)
+  localforage.setItem('access_token', authResult.accessToken)
+  localforage.setItem('id_token', authResult.idToken)
+  localforage.setItem('expires_at', expiresAt)
   // localStorage.setItem('access_token', authResult.accessToken)
   // localStorage.setItem('id_token', authResult.idToken)
   // localStorage.setItem('expires_at', expiresAt)
@@ -84,7 +85,8 @@ const setSession = authResult => {
           res.data.data.players[0].player_id
         }`
       )
-      addItemtoDb('player_id', res.data.data.players[0].player_id)
+      localforage.setItem('player_id', res.data.data.players[0].player_id)
+
       // localStorage.setItem('player_id', res.data.data.players[0].player_id)
     })
     .catch(err => {
@@ -102,7 +104,7 @@ export const handleAuthentication = callback => {
   auth0.parseHash((err, authResult) => {
     if (authResult && authResult.accessToken && authResult.idToken) {
       setSession(authResult)
-      getUserInfo().then(res => addItemtoDb('avatar_src', res.picture))
+      getUserInfo().then(res => localforage.setItem('avatar_src', res.picture))
       // localStorage.setItem('avatar_src', res.picture))
     } else if (err) {
       console.error(err)
@@ -131,8 +133,10 @@ export const getAccessToken = () => {
   if (!isBrowser) {
     return ''
   }
+  localforage.getItem('access_token').then(value => {
+    return value
+  })
 
-  return getItemfromDB('access_token')
   // return localStorage.getItem('access_token')
 }
 
