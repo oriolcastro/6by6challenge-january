@@ -1,5 +1,6 @@
 import auth0js from 'auth0-js'
 import axios from 'axios'
+import { removeItemfromDB, addItemtoDb, getItemfromDB } from './db'
 
 const isBrowser = typeof window !== 'undefined'
 
@@ -22,15 +23,20 @@ export const Login = () => {
   }
   auth0.authorize()
 }
-
 export const Logout = () => {
   if (isBrowser) {
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('id_token')
-    localStorage.removeItem('expires_at')
-    localStorage.removeItem('user')
-    localStorage.removeItem('avatar_src')
-    localStorage.removeItem('player_id')
+    removeItemfromDB('access_token')
+    removeItemfromDB('id_token')
+    removeItemfromDB('expires_at')
+    removeItemfromDB('user')
+    removeItemfromDB('avatar_src')
+    removeItemfromDB('player_id')
+    // localStorage.removeItem('access_token')
+    // localStorage.removeItem('id_token')
+    // localStorage.removeItem('expires_at')
+    // localStorage.removeItem('user')
+    // localStorage.removeItem('avatar_src')
+    // localStorage.removeItem('player_id')
   }
 
   // Remove the locally cached profile to avoid confusing errors.
@@ -51,10 +57,13 @@ const setSession = authResult => {
   const expiresAt = JSON.stringify(
     authResult.expiresIn * 1000 + new Date().getTime()
   )
-
-  localStorage.setItem('access_token', authResult.accessToken)
-  localStorage.setItem('id_token', authResult.idToken)
-  localStorage.setItem('expires_at', expiresAt)
+  console.log(authResult)
+  addItemtoDb('access_token', authResult.accessToken)
+  addItemtoDb('id_token', authResult.idToken)
+  addItemtoDb('expires_at', expiresAt)
+  // localStorage.setItem('access_token', authResult.accessToken)
+  // localStorage.setItem('id_token', authResult.idToken)
+  // localStorage.setItem('expires_at', expiresAt)
   axios({
     method: 'post',
     url: process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT,
@@ -75,7 +84,8 @@ const setSession = authResult => {
           res.data.data.players[0].player_id
         }`
       )
-      localStorage.setItem('player_id', res.data.data.players[0].player_id)
+      addItemtoDb('player_id', res.data.data.players[0].player_id)
+      // localStorage.setItem('player_id', res.data.data.players[0].player_id)
     })
     .catch(err => {
       console.log(err)
@@ -92,7 +102,8 @@ export const handleAuthentication = callback => {
   auth0.parseHash((err, authResult) => {
     if (authResult && authResult.accessToken && authResult.idToken) {
       setSession(authResult)
-      getUserInfo().then(res => localStorage.setItem('avatar_src', res.picture))
+      getUserInfo().then(res => addItemtoDb('avatar_src', res.picture))
+      // localStorage.setItem('avatar_src', res.picture))
     } else if (err) {
       console.error(err)
     }
@@ -104,8 +115,7 @@ export const isAuthenticated = () => {
     // For SSR, we’re never authenticated.
     return false
   }
-
-  const expiresAt = JSON.parse(localStorage.getItem('expires_at'))
+  const expiresAt = JSON.parse(getItemfromDB('expires_at'))
   return new Date().getTime() < expiresAt
 }
 
@@ -114,7 +124,8 @@ export const getAccessToken = () => {
     return ''
   }
 
-  return localStorage.getItem('access_token')
+  return getItemfromDB('access_token')
+  // return localStorage.getItem('access_token')
 }
 
 export const getUserInfo = () =>

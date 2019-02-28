@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
-
+import localforage from 'localforage'
 import { getUserInfo } from '../../utils/auth'
 import AdminOptions from './adminOptions'
 import Countdown from '../countdown'
@@ -8,6 +8,7 @@ import NextVictim from './nextVictim'
 import MyVictims from './myVictims'
 import InstallBanner from '../installBanner'
 import YouAreKilledBanner from './youAreKilledBanner'
+import { addItemtoDb } from '../../utils/db'
 
 class MyGame extends Component {
   constructor(props) {
@@ -27,7 +28,8 @@ class MyGame extends Component {
   }
 
   hiddeInstallBanner = () => {
-    localStorage.setItem('AppInstalled', true)
+    addItemtoDb('AppInstalled', true)
+    //localStorage.setItem('AppInstalled', true)
     this.setState({ isInstalled: true })
   }
 

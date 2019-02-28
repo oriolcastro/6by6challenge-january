@@ -4,11 +4,13 @@ import Typography from '@material-ui/core/Typography'
 
 import VictimsList from '../victimsList'
 import { GET_MY_KILLED_VICTIMS } from '../../utils/queries'
+import { getItemfromDB } from '../../utils/db'
 
 const MyVictims = () => {
   let player_id
   if (typeof window !== 'undefined') {
-    player_id = localStorage.getItem('player_id')
+    player_id = getItemfromDB('player_id')
+    // player_id = localStorage.getItem('player_id')
   }
   return (
     <div>

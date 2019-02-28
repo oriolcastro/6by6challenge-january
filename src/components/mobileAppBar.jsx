@@ -12,6 +12,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { isAuthenticated, Login, Logout, getUserInfo } from '../utils/auth'
 import NetworkIndicator from './networkIndicator'
 import NotificationIndicator from './notificationsIndicator'
+import { getItemfromDB } from '../utils/db';
 
 const styles = {
   root: {
@@ -40,7 +41,8 @@ class MobileAppBar extends Component {
       this.setState({ hasNotificationAPI: true })
     }
     this.setState({
-      avatarSrc: localStorage.getItem('avatar_src'),
+      avatarSrc: getItemfromDB('avatar_src')
+      //avatarSrc: localStorage.getItem('avatar_src'),
       authenticated: isAuthenticated(),
     })
   }

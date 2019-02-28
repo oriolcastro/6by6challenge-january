@@ -9,6 +9,7 @@ import { Query, Mutation } from 'react-apollo'
 import { GET_MY_CURRENT_VICTIM, VALIDATE_MY_KILL } from '../../utils/queries'
 import Notification from '../notification'
 import ConfirmDialog from './confirmDialog'
+import { getItemfromDB } from '../../utils/db'
 
 class NextVictim extends Component {
   state = {
@@ -26,7 +27,8 @@ class NextVictim extends Component {
   render() {
     let player_id
     if (typeof window !== 'undefined') {
-      player_id = localStorage.getItem('player_id')
+      player_id = getItemfromDB('player_id')
+      //player_id = localStorage.getItem('player_id')
     }
     const { isDialogOpen } = this.state
     return (

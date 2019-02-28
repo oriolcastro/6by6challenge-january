@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import { withFirebase } from '../utils/firebase'
 import { ADD_DEVICE_TOKEN } from '../utils/queries'
+import { getItemfromDB, addItemtoDb } from '../utils/db'
 
 class NotificationIndicator extends Component {
   constructor(props) {
@@ -36,8 +37,10 @@ class NotificationIndicator extends Component {
     let token = ''
     let player_id = ''
     if (typeof window !== 'undefined') {
-      token = localStorage.getItem('id_token')
-      player_id = localStorage.getItem('player_id')
+      token = getItemfromDB('id_token')
+      player_id = getItemfromDB('player_id')
+      //token = localStorage.getItem('id_token')
+      //player_id = localStorage.getItem('player_id')
     }
     axios({
       method: 'post',
@@ -53,7 +56,8 @@ class NotificationIndicator extends Component {
     })
       .then(res => {
         console.log(res)
-        localStorage.setItem('deviceToken', deviceToken)
+        addItemtoDb('deviceToken', deviceToken)
+        //localStorage.setItem('deviceToken', deviceToken)
       })
       .catch(err => console.log(err))
   }
