@@ -117,20 +117,12 @@ export const isAuthenticated = async () => {
     // For SSR, we’re never authenticated.
     return false
   }
-  localforage
-    .getItem('expires_at')
-    .then(value => {
-      if (value) {
-        console.log(value)
-        return new Date().getTime() < value
-      }
-      console.log('will return false')
-      return false
-    })
-    .catch(function(err) {
-      // This code runs if there were any errors
-      console.log(err)
-    })
+  const value = await localforage.getItem('expires_at')
+  if (value) {
+    console.log(value)
+    return new Date().getTime() < value
+  }
+  return false
 
   // const expiresAt = await getItemfromDB('expires_at')
   // const expiresAt = JSON.parse(expiresDate)
