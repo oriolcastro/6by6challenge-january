@@ -54,9 +54,8 @@ const setSession = authResult => {
     return
   }
 
-  const expiresAt = JSON.stringify(
-    authResult.expiresIn * 1000 + new Date().getTime()
-  )
+  const expiresAt = authResult.expiresIn * 1000 + new Date().getTime()
+
   console.log(authResult)
   addItemtoDb('access_token', authResult.accessToken)
   addItemtoDb('id_token', authResult.idToken)
@@ -115,7 +114,8 @@ export const isAuthenticated = () => {
     // For SSR, we’re never authenticated.
     return false
   }
-  const expiresAt = JSON.parse(getItemfromDB('expires_at'))
+  const expiresAt = getItemfromDB('expires_at')
+  // const expiresAt = JSON.parse(expiresDate)
   return new Date().getTime() < expiresAt
 }
 
