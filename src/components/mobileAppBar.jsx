@@ -9,7 +9,7 @@ import Avatar from '@material-ui/core/Avatar'
 import { navigate } from 'gatsby'
 import { withStyles } from '@material-ui/core/styles'
 
-import { isAuthenticated, Login, Logout, getUserInfo } from '../utils/auth'
+import { isAuthenticated, Login, Logout } from '../utils/auth'
 import NetworkIndicator from './networkIndicator'
 import NotificationIndicator from './notificationsIndicator'
 import { getItemfromDB } from '../utils/db'
@@ -41,10 +41,11 @@ class MobileAppBar extends Component {
       this.setState({ hasNotificationAPI: true })
     }
     const avatar_src = getItemfromDB('avatar_src')
+    const authenticated = isAuthenticated
     this.setState({
       avatarSrc: avatar_src,
       //avatarSrc: localStorage.getItem('avatar_src'),
-      authenticated: isAuthenticated,
+      authenticated: authenticated,
     })
   }
 

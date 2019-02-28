@@ -116,7 +116,9 @@ export const isAuthenticated = () => {
     return false
   }
   localforage.getItem('expires_at').then(value => {
-    return new Date().getTime() < value
+    const isIn = new Date().getTime() < value
+    console.log(isIn)
+    return isIn
   })
   // const expiresAt = await getItemfromDB('expires_at')
   // const expiresAt = JSON.parse(expiresDate)
