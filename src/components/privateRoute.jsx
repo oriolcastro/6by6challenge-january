@@ -3,9 +3,8 @@ import { navigate } from 'gatsby'
 import { isAuthenticated } from '../utils/auth'
 
 const PrivateRoute = ({ component: Component, location, ...rest }) => {
-  const authenticated = isAuthenticated
   if (
-    !authenticated &&
+    !isAuthenticated() &&
     location.pathname !== `/elmeujoc/login` &&
     typeof window !== 'undefined'
   ) {

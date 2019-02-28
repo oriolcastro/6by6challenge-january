@@ -44,11 +44,10 @@ class MobileAppBar extends Component {
     localforage.getItem('avatar_src').then(value => {
       avatar_src = value
     })
-    const authenticated = isAuthenticated
     this.setState({
       avatarSrc: avatar_src,
       //avatarSrc: localStorage.getItem('avatar_src'),
-      authenticated: authenticated,
+      authenticated: isAuthenticated(),
     })
   }
 

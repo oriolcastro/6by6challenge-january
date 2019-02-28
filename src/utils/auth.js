@@ -118,10 +118,9 @@ export const isAuthenticated = () => {
     return false
   }
   localforage.getItem('expires_at').then(value => {
-    const isIn = new Date().getTime() < value
-    console.log(isIn)
-    return isIn
+    return new Date().getTime() < value
   })
+
   // const expiresAt = await getItemfromDB('expires_at')
   // const expiresAt = JSON.parse(expiresDate)
   // const isLoggedIn = new Date().getTime() < expiresAt
@@ -129,14 +128,11 @@ export const isAuthenticated = () => {
   // return isLoggedIn
 }
 
-export const getAccessToken = () => {
+export const getAccessToken = async () => {
   if (!isBrowser) {
     return ''
   }
-  localforage.getItem('access_token').then(value => {
-    return value
-  })
-
+  return await localforage.getItem('access_token')
   // return localStorage.getItem('access_token')
 }
 
