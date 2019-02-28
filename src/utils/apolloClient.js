@@ -15,6 +15,6 @@ export const client = new ApolloClient({
   uri: process.env.GATSBY_HASURA_GRAPHQL_ENDPOINT,
   fetch,
   headers: {
-    Authorization: token ? `Bearer ${token}` : '',
+    Authorization: `Bearer ${token}`,
   },
 })
