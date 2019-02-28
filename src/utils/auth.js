@@ -1,5 +1,6 @@
 import auth0js from 'auth0-js'
 import axios from 'axios'
+import localforage from 'localforage'
 import { removeItemfromDB, addItemtoDb, getItemfromDB } from './db'
 
 const isBrowser = typeof window !== 'undefined'
@@ -109,16 +110,19 @@ export const handleAuthentication = callback => {
   })
 }
 
-export const isAuthenticated = async () => {
+export const isAuthenticated = () => {
   if (!isBrowser) {
     // For SSR, we’re never authenticated.
     return false
   }
-  const expiresAt = await getItemfromDB('expires_at')
+  localforage.getItem('expires_at').then(value => {
+    return new Date().getTime() < value
+  })
+  // const expiresAt = await getItemfromDB('expires_at')
   // const expiresAt = JSON.parse(expiresDate)
-  const isLoggedIn = new Date().getTime() < expiresAt
-  console.log('Is logged in?', isLoggedIn)
-  return isLoggedIn
+  // const isLoggedIn = new Date().getTime() < expiresAt
+  // console.log('Is logged in?', isLoggedIn)
+  // return isLoggedIn
 }
 
 export const getAccessToken = () => {

@@ -41,7 +41,6 @@ class MobileAppBar extends Component {
       this.setState({ hasNotificationAPI: true })
     }
     const avatar_src = getItemfromDB('avatar_src')
-    const isAuthenticated = isAuthenticated()
     this.setState({
       avatarSrc: avatar_src,
       //avatarSrc: localStorage.getItem('avatar_src'),
