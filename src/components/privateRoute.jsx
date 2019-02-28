@@ -10,6 +10,7 @@ const PrivateRoute = ({ component: Component, location, ...rest }) => {
   ) {
     // If the user is not logged in, redirect to the login page.
     navigate(`/elmeujoc/login`)
+    console.log('Private route invoqued')
     return null
   }
   return <Component {...rest} />

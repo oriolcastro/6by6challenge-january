@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
-import localforage from 'localforage'
 import { getUserInfo } from '../../utils/auth'
 import AdminOptions from './adminOptions'
 import Countdown from '../countdown'
@@ -39,10 +38,6 @@ class MyGame extends Component {
       <>
         {!isInstalled && <InstallBanner />}
         <YouAreKilledBanner />
-        <Typography variant="h5" paragraph>
-          El joc comença en
-        </Typography>
-        <Countdown date="2019-02-27T22:00:00" />
         <Typography variant="h5" paragraph>
           Temps de joc restant
         </Typography>
