@@ -109,12 +109,12 @@ export const handleAuthentication = callback => {
   })
 }
 
-export const isAuthenticated = () => {
+export const isAuthenticated = async () => {
   if (!isBrowser) {
     // For SSR, we’re never authenticated.
     return false
   }
-  const expiresAt = getItemfromDB('expires_at')
+  const expiresAt = await getItemfromDB('expires_at')
   // const expiresAt = JSON.parse(expiresDate)
   const isLoggedIn = new Date().getTime() < expiresAt
   console.log('Is logged in?', isLoggedIn)
