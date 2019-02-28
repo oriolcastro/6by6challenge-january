@@ -27,10 +27,11 @@ export const removeItemfromDB = key => {
 }
 
 export const getItemfromDB = key => {
-  return localforage
+  localforage
     .getItem(key)
     .then(function(value) {
       console.log(`Data ${key} extracted:`, value)
+      return value
     })
     .catch(function(err) {
       console.log(err)

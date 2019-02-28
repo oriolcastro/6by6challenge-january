@@ -40,10 +40,12 @@ class MobileAppBar extends Component {
       console.log('This browser support notifications')
       this.setState({ hasNotificationAPI: true })
     }
+    const avatar_src = getItemfromDB('avatar_src')
+    const isAuthenticated = isAuthenticated()
     this.setState({
-      avatarSrc: getItemfromDB('avatar_src'),
+      avatarSrc: avatar_src,
       //avatarSrc: localStorage.getItem('avatar_src'),
-      authenticated: isAuthenticated(),
+      authenticated: isAuthenticated,
     })
   }
 

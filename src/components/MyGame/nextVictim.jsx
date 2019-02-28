@@ -28,6 +28,7 @@ class NextVictim extends Component {
     let player_id
     if (typeof window !== 'undefined') {
       player_id = getItemfromDB('player_id')
+      console.log(player_id)
       //player_id = localStorage.getItem('player_id')
     }
     const { isDialogOpen } = this.state
