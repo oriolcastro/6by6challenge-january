@@ -130,15 +130,15 @@ export const isAuthenticated = async () => {
   // return isLoggedIn
 }
 
-export const getAccessToken = async () => {
-  if (!isBrowser) {
-    return ''
-  }
-  localforage.getItem('access_token').then(value => {
-    return value
-  })
-  // return localStorage.getItem('access_token')
-}
+// export const getAccessToken = async () => {
+//   if (!isBrowser) {
+//     return ''
+//   }
+//   localforage.getItem('access_token').then(value => {
+//     return value
+//   })
+//   // return localStorage.getItem('access_token')
+// }
 
 export const getUserInfo = () =>
   new Promise((resolve, reject) => {
@@ -147,9 +147,14 @@ export const getUserInfo = () =>
       resolve(profile.email)
     }
     let accessToken
-    getAccessToken().then(v => {
-      accessToken = v
-    })
+    if (isBrowser) {
+      localforage.getItem('access_token').then(value => {
+        accessToken = value
+      })
+    }
+    // getAccessToken().then(v => {
+    //   accessToken = v
+    // })
     let auth
     isAuthenticated().then(value => {
       auth = value
