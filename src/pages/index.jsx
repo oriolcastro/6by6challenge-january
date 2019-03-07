@@ -17,7 +17,7 @@ const IndexPage = () => (
       description="Consulta els resultats en viu del joc."
       keywords={['pwa', 'carnaval', 'vilanova']}
     />
-    <Typography variant="h6">
+    <Typography variant="h5" align="center">
       EL JOC DE LA PASTANAGA JA HA ACABAT, FINS L'ANY VINENT!
     </Typography>
     <Typography variant="h5" paragraph>
