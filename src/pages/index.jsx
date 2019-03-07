@@ -17,6 +17,9 @@ const IndexPage = () => (
       description="Consulta els resultats en viu del joc."
       keywords={['pwa', 'carnaval', 'vilanova']}
     />
+    <Typography variant="h6">
+      EL JOC DE LA PASTANAGA JA HA ACABAT, FINS L'ANY VINENT!
+    </Typography>
     <Typography variant="h5" paragraph>
       Temps de joc restant
     </Typography>
@@ -42,7 +45,7 @@ const IndexPage = () => (
         return (
           <>
             {!data.kills.length == 0 ? (
-              <VictimsList victims={data.killsDev} />
+              <VictimsList victims={data.kills} />
             ) : (
               <Typography variant="body2">
                 Encara no hi ha cap víctima
