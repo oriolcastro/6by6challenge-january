@@ -40,10 +40,6 @@ class MyGame extends Component {
         {!isInstalled && <InstallBanner />}
         <YouAreKilledBanner />
         <Typography variant="h5" paragraph>
-          El joc comença en
-        </Typography>
-        <Countdown date="2019-02-27T22:00:00" />
-        <Typography variant="h5" paragraph>
           Temps de joc restant
         </Typography>
         <Countdown date="2019-03-06T20:00:00" />
