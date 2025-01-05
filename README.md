@@ -4,8 +4,6 @@
     <img alt="Gatsby" src="./src/images/pastanagapp.png" />
 </p>
 
-## ENGLISH
-
 This is the january's (and also february) project from 6by6 challenge (no english article yet).
 
 ### 🧬 Tech stack
